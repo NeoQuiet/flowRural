@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "779996399595",
+    "firebase_url": "https://flowrural-92a00.firebaseio.com",
+    "project_id": "flowrural-92a00",
+    "storage_bucket": "flowrural-92a00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779996399595:android:8b1ca5fbc9ef6387c7fbae",
+        "android_client_info": {
+          "package_name": "br.com.ruralflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779996399595-675d9mg8sjfnfdsb1mptf6gen9t1ec0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.ruralflow",
+            "certificate_hash": "76b99e84e1123446d61a0243ee200fde6f9a807d"
+          }
+        },
+        {
+          "client_id": "779996399595-vj96ph9hp89lh2ark3kpcrbj2v0lup8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTRFZEq5tbskVy1NaSryEUfpaGyPYGmyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779996399595-vj96ph9hp89lh2ark3kpcrbj2v0lup8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
