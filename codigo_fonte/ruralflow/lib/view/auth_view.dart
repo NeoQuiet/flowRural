@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ruralflow/widgets/login_card.dart';
+import 'package:ruralflow/widgets/auth_card.dart';
 
 class Autenticacao extends StatelessWidget {
   @override

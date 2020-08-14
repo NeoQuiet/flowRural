@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
-import 'package:ruralflow/view/login_view.dart';
+import 'package:ruralflow/view/auth_view.dart';
+import 'package:ruralflow/view/flowrural_overview.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: Autenticacao(),
+        home: HomeFlowRural(),
       ),
     );
   }

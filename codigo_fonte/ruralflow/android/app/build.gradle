@@ -64,4 +64,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-auth:18.0.0'
 }
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'   
