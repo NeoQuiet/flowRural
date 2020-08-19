@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
+import 'package:ruralflow/utils/app_routes.dart';
+import 'package:ruralflow/view/anuncio_view.dart';
 import 'package:ruralflow/view/auth_view.dart';
 import 'package:ruralflow/view/flowrural_overview.dart';
 
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         home: HomeFlowRural(),
+        routes: {
+          AppRotas.ANUNCIO_DESCRICAO: (ctx) => AnuncioView(),
+        },
       ),
     );
   }

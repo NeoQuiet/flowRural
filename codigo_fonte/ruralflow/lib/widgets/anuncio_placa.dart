@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/anuncio.dart';
+import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/anuncio_view.dart';
 
 class AnuncioPlaca extends StatelessWidget {
@@ -14,8 +15,9 @@ class AnuncioPlaca extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) => AnuncioView()),
+            Navigator.of(context).pushNamed(
+              AppRotas.ANUNCIO_DESCRICAO,
+              arguments: anuncio,
             );
           },
           child: Image.network(
