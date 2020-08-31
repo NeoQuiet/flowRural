@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/anuncio_view.dart';
-import 'package:ruralflow/view/auth_view.dart';
+import 'package:ruralflow/view/autenticacao_view.dart';
+import 'package:ruralflow/view/cad_pessoa_view.dart';
 import 'package:ruralflow/view/flowrural_overview.dart';
 
 void main() {
@@ -14,7 +15,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MaterialApp(
+      home: CadPessoaView(),
+    );
+  }
+}
+
+/* 
+MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => new Auth(),
@@ -27,5 +35,8 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
-  }
-}
+
+
+
+
+ */
