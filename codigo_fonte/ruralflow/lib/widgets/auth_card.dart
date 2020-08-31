@@ -4,6 +4,13 @@ import 'package:ruralflow/provider/auth.dart';
 
 enum LoginMode { Signup, Login }
 
+/* 
+  ESTE É O SERVIÇO DE AUTENTICAÇÃO, IRA PROVER A FUNCIONALIDADE 
+  DE REALIZAR O LOGIN E REALIZAR O LOGOUT, BEM COMO O REGISTRO
+
+
+ */
+
 class LoginCard extends StatefulWidget {
   @override
   _LoginCardState createState() => _LoginCardState();
