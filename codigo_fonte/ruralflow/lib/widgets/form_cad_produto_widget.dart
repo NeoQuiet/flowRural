@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
 DATA: 30/08/2020
-FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE SERVIÇO
-
-*/
-class CadAnuncioForm extends StatefulWidget {
+FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE PRODUTO
+ */
+class CadProdForm extends StatefulWidget {
   @override
-  _CadAnuncioFormState createState() => _CadAnuncioFormState();
+  _CadProdFormState createState() => _CadProdFormState();
 }
 
-class _CadAnuncioFormState extends State<CadAnuncioForm> {
-  GlobalKey<FormState> _formularioCadastroAnuncio = GlobalKey();
+class _CadProdFormState extends State<CadProdForm> {
+  GlobalKey<FormState> _formularioCadastroProd = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,7 +31,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Anuncio',
+                hintText: 'Imagem',
               ),
             ),
             TextFormField(
@@ -70,7 +69,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
                   onPressed: () {
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
-                    if (_formularioCadastroAnuncio.currentState.validate()) {
+                    if (_formularioCadastroProd.currentState.validate()) {
                       // Process data.
                     }
                   },

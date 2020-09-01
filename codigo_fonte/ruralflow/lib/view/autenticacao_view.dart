@@ -3,7 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ruralflow/widgets/autenticacao_widget_old.dart';
 
-class Autenticacao extends StatelessWidget {
+/*
+AUTOR: CAIO RODRIGO C PEIXOTO
+DATA: 30/08/2020
+FUNÇÃO: ESTA INTERFACE, TEM COMO FUNÇÃO A EXIBIÇÃO DO FORMULARIO DE LOGIN E CADASTRO DE EMAIL E SENHA
+*/
+class AutenticacaoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image =

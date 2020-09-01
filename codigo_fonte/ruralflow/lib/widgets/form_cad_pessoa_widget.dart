@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/*
+AUTOR: CAIO RODRIGO C PEIXOTO
+DATA: 30/08/2020
+FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE USUÁRIO
+ */
 class CadPessoaForm extends StatefulWidget {
   @override
   _CadPessoaFormState createState() => _CadPessoaFormState();

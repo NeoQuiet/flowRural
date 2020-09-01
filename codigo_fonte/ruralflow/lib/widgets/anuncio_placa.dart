@@ -3,6 +3,11 @@ import 'package:ruralflow/models/anuncio.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/anuncio_view.dart';
 
+/*
+AUTOR: CAIO RODRIGO C PEIXOTO
+DATA: 30/08/2020
+FUNÇÃO: ESTE WIDGET POSSUI A FUNCIONALIDADE DE LISTAR OS ANUNCIOS NA HOMEPAGE
+*/
 class AnuncioPlaca extends StatelessWidget {
   final Anuncio anuncio;
 
@@ -15,8 +20,9 @@ class AnuncioPlaca extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
+// AO SELECIONAR O ANUNCIO O USUÁRIO É REDIRECIONADO PARA A PAGINA DE FUNCIONALIDADES DO ANUNCIO
             Navigator.of(context).pushNamed(
-              AppRotas.ANUNCIO_CADASTRO,
+              AppRotas.ANUNCIO_FUNC,
               arguments: anuncio,
             );
           },

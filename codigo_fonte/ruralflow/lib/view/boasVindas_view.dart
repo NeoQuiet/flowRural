@@ -5,9 +5,9 @@ import '../widgets/form_cad_pessoa_widget.dart';
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
 DATA: 30/08/2020
-FUNÇÃO: ESTE ESTÁ INTERFACE TEM COMO FINALIDADE PERSISTIR UM NOVO PERFIL DE USUÁRIO 
+FUNÇÃO: ESTÁ INTERFACE TEM COMO FINALIDADE A EXIBIÇÃO DO FORMULARIO DE CADASTRO DE UM NOVO USUÁRIO 
  */
-class CadPessoaView extends StatelessWidget {
+class BoasVindasView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
