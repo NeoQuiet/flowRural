@@ -1,3 +1,3 @@
 class AppRotas {
-  static const ANUNCIO_DESCRICAO = '/anuncio-descricao';
+  static const ANUNCIO_CADASTRO = '/anuncio-cadastro';
 }

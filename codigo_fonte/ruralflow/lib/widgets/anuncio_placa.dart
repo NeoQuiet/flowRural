@@ -16,7 +16,7 @@ class AnuncioPlaca extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(
-              AppRotas.ANUNCIO_DESCRICAO,
+              AppRotas.ANUNCIO_CADASTRO,
               arguments: anuncio,
             );
           },

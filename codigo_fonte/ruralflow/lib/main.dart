@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/auth.dart';
-import 'package:ruralflow/utils/app_routes.dart';
+
 import 'package:ruralflow/view/anuncio_view.dart';
-import 'package:ruralflow/view/autenticacao_view.dart';
-import 'package:ruralflow/view/cad_pessoa_view.dart';
-import 'package:ruralflow/view/flowrural_overview.dart';
+import 'package:ruralflow/widgets/form_cad_anuncio_widget.dart';
+import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CadPessoaView(),
+      home: AnuncioView(),
     );
   }
 }

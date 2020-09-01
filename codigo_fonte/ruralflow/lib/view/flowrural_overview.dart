@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ruralflow/widgets/anuncio_placa.dart';
 
+/*
+AUTOR: CAIO RODRIGO C PEIXOTO
+DATA: 30/08/2020
+FUNÇÃO: ESTA INTERFACE TEM COMO FINALIDADE SER A HOME PAGE DO USUARIO
+A PARTIR DELA SERÁ POSSÍVEL REALIZAR A BUSCA DE ANUNCIOS DE OUTROS USUÁRIOS
+E PERMITIR A NAVEGAÇÃO PARA OUTRAS FUNCIONALIDADES DA APLICAÇÃO COMO O CADASTRO DE ANUNCIOS.
+BUSCA DE ANUNCIOS E OUTROS.
+ */
 class HomeFlowRural extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import '../widgets/cad_pessoa_widget.dart';
+import '../widgets/form_cad_pessoa_widget.dart';
 
+/*
+AUTOR: CAIO RODRIGO C PEIXOTO
+DATA: 30/08/2020
+FUNÇÃO: ESTE ESTÁ INTERFACE TEM COMO FINALIDADE PERSISTIR UM NOVO PERFIL DE USUÁRIO 
+ */
 class CadPessoaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,10 +35,19 @@ class CadPessoaView extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text(
-                    'Seja bem vindo!' +
-                        'Complete seu cadastro para desfrutar das ofertas no Flow Rural',
-                    style: TextStyle(fontSize: 15, fontFamily: 'Courier New'),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Seja bem vindo!',
+                        style:
+                            TextStyle(fontSize: 15, fontFamily: 'Courier New'),
+                      ),
+                      Text(
+                        'Complete seu cadastro para desfrutar das melhores ofertas do país!',
+                        style:
+                            TextStyle(fontSize: 15, fontFamily: 'Courier New'),
+                      ),
+                    ],
                   ),
                 ),
                 CadPessoaForm(),
