@@ -1,3 +1,4 @@
 class AppRotas {
-  static const ANUNCIO_FUNC = '/anuncio-func';
+  static const HOME = '/';
+  static const ANUNCIO_DETALHE = '/anuncio-detalhe';
 }

@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
-import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/view/anuncio_view.dart';
+import 'package:ruralflow/models/transacao.dart';
 
-/*
-AUTOR: CAIO RODRIGO C PEIXOTO
-DATA: 30/08/2020
-FUNÇÃO: ESTE WIDGET POSSUI A FUNCIONALIDADE DE LISTAR OS ANUNCIOS NA HOMEPAGE
-*/
-class AnuncioPlaca extends StatelessWidget {
-  final Anuncio anuncio;
+import '../utils/app_routes.dart';
 
-  const AnuncioPlaca({Key key, this.anuncio}) : super(key: key);
-
+class AnuncioGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Anuncio anuncio = Provider.of<Anuncio>(context, listen: false);
+    final Transacao trans = Provider.of<Transacao>(context, listen: false);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-// AO SELECIONAR O ANUNCIO O USUÁRIO É REDIRECIONADO PARA A PAGINA DE FUNCIONALIDADES DO ANUNCIO
             Navigator.of(context).pushNamed(
-              AppRotas.ANUNCIO_FUNC,
+              AppRotas.ANUNCIO_DETALHE,
               arguments: anuncio,
             );
           },
@@ -32,22 +27,27 @@ class AnuncioPlaca extends StatelessWidget {
           ),
         ),
         footer: GridTileBar(
-          backgroundColor: Colors.black45,
-          leading: IconButton(
-            icon: Icon(
-              Icons.favorite,
+          backgroundColor: Colors.black87,
+          leading: Consumer<Anuncio>(
+            builder: (ctx, anuncio, _) => IconButton(
+              icon: Icon(
+                  anuncio.isFavorite ? Icons.favorite : Icons.favorite_border),
               color: Theme.of(context).accentColor,
+              onPressed: () {
+                anuncio.selecionaFavorito();
+              },
             ),
-            onPressed: () {},
           ),
           title: Text(
-            "anuncio.descricao",
+            anuncio.descricao,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.add_call),
+            icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
-            onPressed: () {},
+            onPressed: () {
+              trans.addAnuncioTrans(anuncio);
+            },
           ),
         ),
       ),

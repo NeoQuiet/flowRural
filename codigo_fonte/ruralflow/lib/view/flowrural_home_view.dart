@@ -26,7 +26,7 @@ class HomeFlowRural extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 5,
         ),
-        itemBuilder: (ctx, i) => AnuncioPlaca(),
+        itemBuilder: (ctx, i) => AnuncioGrid(),
         itemCount: 6,
       ),
     );

@@ -1,8 +1,11 @@
 import 'package:ruralflow/models/endereco.dart';
+import 'package:ruralflow/models/fisica_pessoa.dart';
 
 class Pessoa {
-  final String email;
-  final String senha;
+  int id;
+  String email;
+  String senha;
+  PessoaFisica pessoa;
 
-  Pessoa(this.email, this.senha);
+  Pessoa(String email, String senha);
 }
