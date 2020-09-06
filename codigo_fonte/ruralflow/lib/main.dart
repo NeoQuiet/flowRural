@@ -34,23 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-/* 
-MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => new Auth(),
-        ),
-      ],
-      child: MaterialApp(
-        home: HomeFlowRural(),
-        routes: {
-          AppRotas.ANUNCIO_DESCRICAO: (ctx) => AnuncioView(),
-        },
-      ),
-    );
-
-
-
-
- */
