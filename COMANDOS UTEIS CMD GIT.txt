@@ -1,0 +1,12 @@
+COMANDOS UTEIS CMD GIT 
+
+
+VOLTAR PARA UM COMMIT ESPECIFICO
+git reset --hard {hash-do-commit-desejado}
+
+
+
+
+paginas flutte rinaction 
+
+287 // explicaao realtime firebase e firestore como funciona o banco no sql

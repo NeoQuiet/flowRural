@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ruralflow/models/anuncio.dart';
-import 'package:ruralflow/utils/app_routes.dart';
+import 'package:provider/provider.dart';
+
+import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/widgets/form_cad_anuncio_widget.dart';
+import '../widgets/drawer.dart';
+import '../widgets/list_cad_anuncio.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -12,8 +15,9 @@ PERMITIR QUE O USUÁRIO POSSA CRIAR, EDITAR OU INATIVAR ANUNCIOS.
 class AnuncioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Anuncio anuncio =
-        ModalRoute.of(context).settings.arguments as Anuncio;
+    final anunciosDados = Provider.of<Anuncios>(context);
+    final anuncios = anunciosDados.todosAnuncios;
+
     return Stack(
       children: [
         Scaffold(
@@ -23,9 +27,6 @@ class AnuncioView extends StatelessWidget {
                 icon: Icon(
                   Icons.add,
                 ),
-                /* Ao selecionar o botão Adicionar
-                a pagina de cadastro de anuncio será exibida
-                 */
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -39,6 +40,25 @@ class AnuncioView extends StatelessWidget {
             ],
             title: Text(
               'Gerenciar anuncios',
+            ),
+          ),
+          drawer: AppDrawer(),
+          body: Padding(
+            padding: EdgeInsets.all(10),
+            child: ListView.builder(
+              //captura o total de anuncios
+              itemCount: anunciosDados.totalAnuncios,
+              //inicia a construção da lista de items
+              itemBuilder: (ctx, i) =>
+                  /* Este widget separa a listagem dos objetos inserindo uma linha entre eles */
+                  Column(
+                children: [
+                  //Objeto que captura os anuncios cadastados e os lista
+                  ListCadAnuncio(anuncios[i]),
+                  //divisorresponsavel por desenha uma linha de divisao
+                  Divider(),
+                ],
+              ),
             ),
           ),
         ),

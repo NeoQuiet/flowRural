@@ -11,9 +11,6 @@ FUNÇÃO: ESTA INTERFACE, TEM COMO FUNÇÃO A EXIBIÇÃO DO FORMULARIO DE LOGIN 
 class AutenticacaoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final image =
-        Image.network('https://i2.ytimg.com/vi/YwzV8MMWc5g/mqdefault.jpg');
-
     return Scaffold(
       body: Stack(
         children: <Widget>[

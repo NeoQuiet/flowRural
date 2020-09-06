@@ -43,6 +43,9 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        //PERMITE VÁRIOS METODOS NO APLICATIVO, SE NÃO CAUSA O ERROR
+        //D8: Cannot fit requested classes in a single dex file (# methods: 71610 > 65536)
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -63,5 +66,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-auth:18.0.0'
+    //PERMITE VÁRIOS METODOS NO APLICATIVO, SE NÃO CAUSA O ERROR
+    //D8: Cannot fit requested classes in a single dex file (# methods: 71610 > 65536)
+    implementation 'com.android.support:multidex:1.0.3'
 }
 apply plugin: 'com.google.gms.google-services'   

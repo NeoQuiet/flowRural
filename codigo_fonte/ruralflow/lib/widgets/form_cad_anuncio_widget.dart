@@ -52,12 +52,12 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Valor total',
+                hintText: 'Peso',
               ),
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Expiracao',
+                hintText: 'Expiracao Data',
               ),
             ),
             Center(
