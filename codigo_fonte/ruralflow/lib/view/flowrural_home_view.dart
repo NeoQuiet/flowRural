@@ -25,8 +25,24 @@ class HomeFlowRural extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flow-Rural'),
       ),
+<<<<<<< HEAD
       drawer: AppDrawer(),
       body: AnunciosGrid(),
+=======
+      body: GridView.builder(
+        padding: const EdgeInsets.all(
+          10,
+        ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 5,
+        ),
+        itemBuilder: (ctx, i) => AnuncioGrid(),
+        itemCount: 6,
+      ),
+>>>>>>> f0c9d0af1838e6751c54f86d70b22c5303bc43d5
     );
   }
 }
