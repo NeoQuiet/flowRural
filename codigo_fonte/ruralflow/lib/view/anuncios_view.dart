@@ -55,7 +55,7 @@ class AnuncioView extends StatelessWidget {
                 children: [
                   //Objeto que captura os anuncios cadastados e os lista
                   ListCadAnuncio(anuncios[i]),
-                  //divisorresponsavel por desenha uma linha de divisao
+                  //divisorresponsavel por desenha uma linha de divisaos
                   Divider(),
                 ],
               ),

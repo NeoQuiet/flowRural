@@ -45,7 +45,7 @@ class GridAnuncio extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.add_call),
+            icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {/* Adicionar o metodo de ligação com o whats app */},
           ),
