@@ -4,12 +4,16 @@ class Anuncio {
   final String anuncio;
   final String qtde;
   final String valor;
+  final String peso;
+  final String dataExpiracao;
 
-  Anuncio(
+  Anuncio({
+    this.dataExpiracao,
+    this.peso,
     this.descricao,
     this.qtde,
     this.valor,
     this.id,
     this.anuncio,
-  );
+  });
 }

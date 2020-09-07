@@ -31,16 +31,6 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.create),
-            title: Text('Cadastrar Anuncio'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.FORM_CAD_ANUNCIO,
-              );
-            },
-          ),
         ],
       ),
     );

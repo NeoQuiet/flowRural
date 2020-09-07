@@ -46,7 +46,7 @@ dependencies:
   #autenticacao firebase
   firebase_auth: ^0.18.0+1
   #depdencia para desenvolver utilziando padrão mvc
-  mvc_pattern: ^6.3.0
+ # mvc_pattern: ^6.3.0
 
   
   
