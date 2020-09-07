@@ -10,3 +10,17 @@ git reset --hard {hash-do-commit-desejado}
 paginas flutte rinaction 
 
 287 // explicaao realtime firebase e firestore como funciona o banco no sql
+
+".read" : true,
+      ".write":true
+
+
+
+_todosAnuncios.add(Anuncio(
+      id: json.decode(response.body)['name'],
+      descricao: pNovoAnuncio.descricao,
+      anuncio: pNovoAnuncio.anuncio,
+      peso: pNovoAnuncio.peso,
+      valor: pNovoAnuncio.valor,
+      dataExpiracao: pNovoAnuncio.dataExpiracao,
+    ));

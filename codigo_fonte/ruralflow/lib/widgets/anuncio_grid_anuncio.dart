@@ -41,7 +41,7 @@ class GridAnuncio extends StatelessWidget {
             ),
           ),
           title: Text(
-            anuncio.anuncio,
+            anuncio.descricao,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(

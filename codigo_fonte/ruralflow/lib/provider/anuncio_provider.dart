@@ -58,4 +58,25 @@ class Anuncios with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<void> loadProducts() async {
+    final response = await http.get("$_baseUrl.json");
+    Map<String, dynamic> data = json.decode(response.body);
+
+    _todosAnuncios.clear();
+    if (data != null) {
+      data.forEach((anuncioId, anuncioDados) {
+        _todosAnuncios.add(Anuncio(
+          id: anuncioId,
+          anuncio: anuncioDados['anuncio'],
+          descricao: anuncioDados['descricao'],
+          dataExpiracao: anuncioDados['dataExpiracao'],
+          valor: anuncioDados['valor'],
+          peso: anuncioDados['peso'],
+        ));
+      });
+      notifyListeners();
+    }
+    return Future.value();
+  }
 }
