@@ -7,13 +7,17 @@ import 'package:ruralflow/widgets/anuncio_grid_anuncio.dart';
 class AnunciosGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final anunciosProvider = Provider.of<Anuncios>(context, listen: false);
+    final anunciosProvider = Provider.of<Anuncios>(context);
+    final anuncio = anunciosProvider.todosAnuncios;
     return GridView.builder(
       padding: const EdgeInsets.all(
         10,
       ),
       itemCount: anunciosProvider.totalAnuncios,
-      itemBuilder: (ctx, i) => GridAnuncio(),
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        value: anuncio[i],
+        child: GridAnuncio(),
+      ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         childAspectRatio: 3 / 2,

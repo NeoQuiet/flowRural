@@ -17,8 +17,6 @@ class CadAnuncioForm extends StatefulWidget {
 }
 
 class _CadAnuncioFormState extends State<CadAnuncioForm> {
-  GlobalKey<FormState> _formularioCadastroAnuncio = GlobalKey();
-
   //Definir o foco de um formulario
   final _descricaoFocusNode = FocusNode();
   final _quantidadeFocusNode = FocusNode();
@@ -27,8 +25,6 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
   final _dateFocusNode = FocusNode();
   final _imagemFocusNode = FocusNode();
 
-  //controler da imagem
-  final _imagemController = TextEditingController();
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();
   //fomrulardariotdata
@@ -36,9 +32,10 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
 
   //metodo que permite salvar os dados de um formulario
   void _salvarFormulario() {
+    _formulario.currentState.save();
+
     //instância de um novo anuncio com os dados do formulario
     final novoAnuncio = Anuncio(
-      id: Random().nextDouble().toString(),
       descricao: _formularioDados['descricao'],
       anuncio: _formularioDados['anuncio'],
       qtde: _formularioDados['quantidade'],
@@ -48,29 +45,11 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     );
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
-    var isValid = _formulario.currentState.validate();
 
-    //se não for valido
-    if (!isValid) {
-      return;
-    }
-
-    _formulario.currentState.save();
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
-    Provider.of<Anuncios>(context, listen: false).adicionarAnuncio(novoAnuncio);
+    Provider.of<Anuncios>(context, listen: false)
+        .adicionarAnuncioBanco(novoAnuncio);
     Navigator.of(context).pop();
-  }
-
-//inciar estado
-  @override
-  void initState() {
-    super.initState();
-    _imagemFocusNode.addListener(_atualizarImagem);
-  }
-
-//metodo atualizar imagem
-  void _atualizarImagem() {
-    setState(() {});
   }
 
   //evitar limite de uso de memoria
@@ -82,8 +61,6 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     _quantidadeFocusNode.dispose();
     _valorFocusNode.dispose();
     _pesoFocusNode.dispose();
-    _imagemFocusNode.removeListener(_atualizarImagem);
-    _imagemFocusNode.dispose();
   }
 
   @override
@@ -108,7 +85,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
                 hintText: 'Anuncio',
               ),
               //maximo de linhas
-              maxLines: 2,
+              maxLines: 1,
               onFieldSubmitted: (_) {
                 //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
                 FocusScope.of(context).requestFocus(_descricaoFocusNode);
@@ -117,16 +94,13 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
               onSaved: (valor) => _formularioDados['anuncio'] = valor,
               //adiciona o botão para pular de linha
               textInputAction: TextInputAction.next,
-              validator: (valor) {
-                return null;
-              },
             ),
             TextFormField(
               decoration: const InputDecoration(
                 hintText: 'Descricao',
               ),
               //maximo de linhas
-              maxLines: 4,
+              maxLines: 1,
               //define o foco da linha
               focusNode: _descricaoFocusNode,
               keyboardType: TextInputType.multiline,
@@ -209,52 +183,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
                 //Esta associado ao foco da proxima linha 'data', permite mudar para a proxima linha
                 FocusScope.of(context).requestFocus(_imagemFocusNode);
               }, //comando que permite salvar os formularios
-              onSaved: (valor) => _formularioDados['expiracao'] = valor,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Imagem',
-                    ),
-                    //define o foco da linha
-                    focusNode: _imagemFocusNode,
-                    //adiciona o botão para finalizar
-                    textInputAction: TextInputAction.done,
-                    //adiciona o teclado ddo tipo url
-                    keyboardType: TextInputType.url,
-                    //controller sobre o estado da imagem
-                    controller: _imagemController,
-                    //botão do teclado para submeter os valores
-                    onFieldSubmitted: (_) {},
-                    //comando que permite salvar os formularios
-                    onSaved: (valor) => _formularioDados['imagem'] = valor,
-                  ),
-                ),
-                //adiciona o container da previa da imagem
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.only(top: 8, left: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                  //realiza um teste para saber se há imagem no anuncio cadastrado
-                  child: _imagemController.text.isEmpty
-                      ? Text('Imagem Indisponivel')
-                      : FittedBox(
-                          child: Image.network(
-                            _imagemController.text,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                ),
-              ],
+              onSaved: (valor) => _formularioDados['expiracaoData'] = valor,
             ),
             Center(
               child: Padding(
@@ -264,14 +193,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
                 ),
                 child: RaisedButton(
                   onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-
-                    // the form is invalid.
-
-                    if (_formularioCadastroAnuncio.currentState.validate()) {
-                      // Process data.
-
-                    }
+                    _salvarFormulario();
                   },
                   child: Text(
                     'Cadastrar',

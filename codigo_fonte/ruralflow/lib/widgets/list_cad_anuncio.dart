@@ -3,13 +3,22 @@ import 'package:ruralflow/models/anuncio.dart';
 
 class ListCadAnuncio extends StatelessWidget {
   final Anuncio anuncio;
+
   ListCadAnuncio(this.anuncio);
+
   @override
   Widget build(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+
     return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Text(anuncio.valor),
+      ),
       title: Text(anuncio.anuncio),
       trailing: Container(
         width: 100,
+        height: 300,
         child: Row(
           children: [
             IconButton(
