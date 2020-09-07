@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/widgets/anuncio_grid.dart';
-import 'package:ruralflow/widgets/anuncio_grid_anuncio.dart';
 import 'package:ruralflow/widgets/drawer.dart';
 
 /*

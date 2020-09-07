@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
@@ -48,7 +46,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Anuncios>(context, listen: false)
-        .adicionarAnuncioBanco(novoAnuncio);
+        .adicionarAnuncioBancoLista(novoAnuncio);
     Navigator.of(context).pop();
   }
 

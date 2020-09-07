@@ -8,8 +8,6 @@ class ListCadAnuncio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaffold = Scaffold.of(context);
-
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.white,

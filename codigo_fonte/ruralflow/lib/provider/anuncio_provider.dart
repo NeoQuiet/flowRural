@@ -9,7 +9,7 @@ import 'package:ruralflow/utils/contante.dart';
 /* esta classe contem todos os metodos de Anuncio */
 class Anuncios with ChangeNotifier {
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.ANUNCIOS_API_URL}/anuncios';
+  final String _baseUrl = '${Constants.ANUNCIO_API_URL}/anuncios';
   //cria lista contendo todos os anuncios sem provedor
   List<Anuncio> _todosAnuncios = [];
 //função que retorna os dados da lista de anuncios
@@ -20,7 +20,7 @@ class Anuncios with ChangeNotifier {
   }
 
   //metodo responsavel por adicionar um novo anuncio na lista de anuncios
-  void adicionarAnuncio(Anuncio pNovoAnuncio) {
+  void adicionarAnuncioLista(Anuncio pNovoAnuncio) {
     _todosAnuncios.add(Anuncio(
       id: Random().nextDouble().toString(),
       descricao: pNovoAnuncio.descricao,
@@ -34,7 +34,7 @@ class Anuncios with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> adicionarAnuncioBanco(Anuncio pNovoAnuncio) async {
+  Future<void> adicionarAnuncioBancoLista(Anuncio pNovoAnuncio) async {
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
@@ -46,38 +46,16 @@ class Anuncios with ChangeNotifier {
         'data_expiracao': pNovoAnuncio.dataExpiracao,
       }),
     );
-
     _todosAnuncios.add(Anuncio(
       id: json.decode(response.body)['name'],
       descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
+      qtde: pNovoAnuncio.qtde,
       peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
       dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
+
     notifyListeners();
-  }
-
-  Future<void> updateProduct(Anuncio pAnuncio) async {
-    if (pAnuncio == null || pAnuncio.id == null) {
-      return;
-    }
-
-    final index =
-        _todosAnuncios.indexWhere((anuncio) => anuncio.id == pAnuncio.id);
-    if (index >= 0) {
-      await http.patch(
-        "$_baseUrl/${pAnuncio.id}.json",
-        body: json.encode({
-          'anuncio': pAnuncio.anuncio,
-          'descricao': pAnuncio.descricao,
-          'valor': pAnuncio.valor,
-          'peso': pAnuncio.peso,
-          'data': pAnuncio.dataExpiracao,
-        }),
-      );
-      _todosAnuncios[index] = pAnuncio;
-      notifyListeners();
-    }
   }
 }

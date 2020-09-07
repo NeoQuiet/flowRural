@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
 /*
@@ -26,7 +25,7 @@ class GridAnuncio extends StatelessWidget {
             );
           },
           child: Image.network(
-            "https://onovelao.com.br/wp-content/uploads/2020/06/o-rei-do-gado-1200x675.jpg",
+            "",
             fit: BoxFit.cover,
           ),
         ),
