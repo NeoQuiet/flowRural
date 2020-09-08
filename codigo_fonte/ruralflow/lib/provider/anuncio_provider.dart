@@ -23,12 +23,9 @@ class Anuncios with ChangeNotifier {
   void adicionarAnuncioLista(Anuncio pNovoAnuncio) {
     _todosAnuncios.add(Anuncio(
       id: Random().nextDouble().toString(),
-      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
@@ -38,22 +35,17 @@ class Anuncios with ChangeNotifier {
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
+        
         'anuncio': pNovoAnuncio.anuncio,
-        'descricao': pNovoAnuncio.descricao,
         'valor': pNovoAnuncio.valor,
-        'peso': pNovoAnuncio.peso,
         'quantidade': pNovoAnuncio.qtde,
-        'dataExpiracao': pNovoAnuncio.dataExpiracao,
       }),
     );
     _todosAnuncios.add(Anuncio(
-      id: json.decode(response.body)['name'],
-      descricao: pNovoAnuncio.descricao,
+      id: json.decode(response.body)[''],
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
@@ -69,10 +61,7 @@ class Anuncios with ChangeNotifier {
         _todosAnuncios.add(Anuncio(
           id: anuncioId,
           anuncio: anuncioDados['anuncio'],
-          descricao: anuncioDados['descricao'],
-          dataExpiracao: anuncioDados['dataExpiracao'],
           valor: anuncioDados['valor'],
-          peso: anuncioDados['peso'],
         ));
       });
       notifyListeners();
