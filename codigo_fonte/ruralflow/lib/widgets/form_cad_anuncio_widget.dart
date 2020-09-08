@@ -176,7 +176,6 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
               //adiciona o botão para pular de linha
               textInputAction: TextInputAction.next,
               //adiciona o teclado de data
-              keyboardType: TextInputType.datetime,
               onFieldSubmitted: (_) {
                 //Esta associado ao foco da proxima linha 'data', permite mudar para a proxima linha
                 FocusScope.of(context).requestFocus(_imagemFocusNode);

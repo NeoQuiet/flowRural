@@ -43,7 +43,7 @@ class Anuncios with ChangeNotifier {
         'valor': pNovoAnuncio.valor,
         'peso': pNovoAnuncio.peso,
         'quantidade': pNovoAnuncio.qtde,
-        'data_expiracao': pNovoAnuncio.dataExpiracao,
+        'dataExpiracao': pNovoAnuncio.dataExpiracao,
       }),
     );
     _todosAnuncios.add(Anuncio(

@@ -11,12 +11,12 @@ DATA: 30/08/2020
 FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE SERVIÇO
 
 */
-class CadPessoaForm extends StatefulWidget {
+class CadOfertaForm extends StatefulWidget {
   @override
-  _CadPessoaFormState createState() => _CadPessoaFormState();
+  _CadOfertaFormState createState() => _CadOfertaFormState();
 }
 
-class _CadPessoaFormState extends State<CadPessoaForm> {
+class _CadOfertaFormState extends State<CadOfertaForm> {
   //Definir o foco de um formulario
   final _nomeFocusNode = FocusNode();
   final _enderecoFocusNode = FocusNode();
@@ -59,14 +59,8 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                _salvarFormulario();
-              })
-        ],
-        title: Text('Cadastro Próprio'),
+        actions: [],
+        title: Text('Oferta'),
       ),
       body: Form(
         key: _formulario,
@@ -74,7 +68,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Nome do estabelecimento',
+                hintText: 'Valor da proposta',
               ),
               //maximo de linhas
               maxLines: 1,
@@ -89,7 +83,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Endereco',
+                hintText: 'Quantidade',
               ),
               //maximo de linhas
               maxLines: 1,
@@ -106,7 +100,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Telefone',
+                hintText: 'Raça',
               ),
               //define o foco da linha
               focusNode: _telefoneFocusNode,
@@ -131,7 +125,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
                     _salvarFormulario();
                   },
                   child: Text(
-                    'Cadastrar',
+                    'Realizar Proposta',
                   ),
                 ),
               ),

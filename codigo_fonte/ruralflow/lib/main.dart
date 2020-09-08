@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
+import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 import 'package:ruralflow/view/flowrural_home_view.dart';
 import 'package:ruralflow/widgets/form_cad_anuncio_widget.dart';
+import 'package:ruralflow/widgets/form_cad_oferta.dart';
+import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
 import './view/detalhe_anuncio_view.dart';
 
 void main() {
@@ -20,15 +23,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => Anuncios(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => Pessoas(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeFlowRural(),
+        home: CadPessoaForm(),
         routes: {
           RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
           RotasFlowRural.ANUNCIO_DETALHE: (ctx) => DetalheAnuncioView(),
           RotasFlowRural.ANUNCIO_GERENCIA: (ctx) => AnuncioView(),
           RotasFlowRural.FORM_CAD_ANUNCIO: (ctx) => CadAnuncioForm(),
+          RotasFlowRural.FORM_CAD_PESSOA: (ctx) => CadPessoaForm(),
+          RotasFlowRural.FORM_CAD_OFERTA: (ctx) => CadOfertaForm(),
         },
       ),
     );
