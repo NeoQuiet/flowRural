@@ -61,4 +61,7 @@ class AnuncioView extends StatelessWidget {
       ],
     );
   }
+
+
+  
 }
