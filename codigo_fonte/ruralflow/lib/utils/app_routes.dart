@@ -7,5 +7,6 @@ class RotasFlowRural {
   static const ABATES_VIEW = '/abates-view';
   static const EXPEDICAO_VIEW = '/expedicao-view';
   static const FLUXO_VIEW = '/fluxo-view';
+  static const LOGIN = '/login';
   static const HOME = '/home';
 }

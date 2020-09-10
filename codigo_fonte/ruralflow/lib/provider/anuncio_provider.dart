@@ -8,6 +8,10 @@ import 'package:ruralflow/utils/contante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class Anuncios with ChangeNotifier {
+
+
+  String _token;
+  String _userId;
   //instancia que aponta para a coleção no banco
   final String _baseUrl = '${Constants.ANUNCIO_API_URL}/anuncios';
   //cria lista contendo todos os anuncios sem provedor

@@ -49,6 +49,7 @@ dependencies:
  # mvc_pattern: ^6.3.0
  #flutter typahead, buscar enquanto digita
   flutter_typeahead: ^1.8.8
+  shared_preferences: ^0.5.7+3
 
   
   

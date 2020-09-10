@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/view/flowrural_home_view.dart';
+
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO

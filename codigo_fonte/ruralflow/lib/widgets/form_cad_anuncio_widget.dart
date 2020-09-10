@@ -19,8 +19,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
   final _descricaoFocusNode = FocusNode();
   final _quantidadeFocusNode = FocusNode();
   final _valorFocusNode = FocusNode();
-  final _pesoFocusNode = FocusNode();
-  final _dateFocusNode = FocusNode();
+
 
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();

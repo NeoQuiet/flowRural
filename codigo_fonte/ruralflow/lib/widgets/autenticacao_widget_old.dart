@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/auth.dart';
+import 'package:ruralflow/provider/autenticacao_provider.dart';
+
 
 enum LoginMode { Signup, Login }
 
@@ -29,24 +30,11 @@ class _LoginCardState extends State<LoginCard> {
   };
 
   Future<void> _validar() async {
-    if (!_form.currentState.validate()) {
-      return null;
-    }
-    setState(() {
-      _isLoading = true;
-    });
     _form.currentState.save();
-
     Auth auth = Provider.of(context, listen: false);
-
-    if (_authMode == LoginMode.Login) {
-      //Login
-    } else {
-      await auth.signup(_authData["email"], _authData["password"]);
-    }
-    setState(() {
-      _isLoading = false;
-    });
+    await auth.signup(_authData["email"], _authData["password"]);
+    
+  
   }
 
   void _trocarModoLogin() {
@@ -81,38 +69,21 @@ class _LoginCardState extends State<LoginCard> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
-                      return "Informe um e-mail válido!";
-                    }
-                    return null;
-                  },
+                  
                   onSaved: (value) => _authData['email'] = value,
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Senha'),
                   controller: _passwordController,
                   obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
-                      return "Informe uma senha válida!";
-                    }
-                    return null;
-                  },
+                 
                   onSaved: (value) => _authData['password'] = value,
                 ),
                 if (_authMode == LoginMode.Signup)
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Confirmar Senha'),
                     obscureText: true,
-                    validator: _authMode == LoginMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return "Senha são diferentes!";
-                            }
-                            return null;
-                          }
-                        : null,
+                    
                   ),
                 Spacer(),
                 if (_isLoading)
@@ -134,9 +105,9 @@ class _LoginCardState extends State<LoginCard> {
                     onPressed: _validar,
                   ),
                 FlatButton(
-                    onPressed: _trocarModoLogin,
+                    onPressed: () {},
                     child: Text(
-                      " ${_authMode == LoginMode.Login ? 'REGISTRAR' : 'ENTRAR'}",
+                      " ",
                     ))
               ],
             )),

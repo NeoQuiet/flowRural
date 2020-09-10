@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 import 'package:ruralflow/models/pessoa.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+
 import 'package:ruralflow/utils/app_routes.dart';
 
 
 class DetalheAnuncioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final anunciosDados = Provider.of<Anuncios>(context);
-    final anuncios = anunciosDados.todosAnuncios;
-
+    
     final Pessoa pessoa = ModalRoute.of(context).settings.arguments as Pessoa;
 
     return Scaffold(
