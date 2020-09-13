@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/models/anuncio.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/widgets/anuncio_grid.dart';
 import 'package:ruralflow/widgets/drawer.dart';
@@ -34,11 +33,15 @@ class _HomeFlowRuralState extends State<HomeFlowRural> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flow-Rural'),
-      ),
+      appBar: _appBar(),
       drawer: AppDrawer(),
       body: AnunciosGrid(),
+    );
+  }
+
+  _appBar() {
+    return AppBar(
+      title: Text('Flow-Rural'),
     );
   }
 }

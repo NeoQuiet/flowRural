@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ruralflow/models/anuncio.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:ruralflow/utils/contante.dart';
+import 'package:ruralflow/utils/constante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class Anuncios with ChangeNotifier {
