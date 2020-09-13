@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ruralflow/exceptions/autenticacao_exceptions.dart';
 import 'package:ruralflow/provider/auth.dart';
 
-enum LoginMode { Signup, Login }
+enum AutenticacaoModo { Signup, Login }
 
 /* 
   ESTE É O SERVIÇO DE AUTENTICAÇÃO, IRA PROVER A FUNCIONALIDADE 
@@ -11,38 +12,70 @@ enum LoginMode { Signup, Login }
 
  */
 
-class LoginCard extends StatefulWidget {
+class AutenticacaoCartao extends StatefulWidget {
   @override
-  _LoginCardState createState() => _LoginCardState();
+  _AutenticacaoCartaoState createState() => _AutenticacaoCartaoState();
 }
 
-class _LoginCardState extends State<LoginCard> {
-  GlobalKey<FormState> _form = GlobalKey();
+class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
+  GlobalKey<FormState> _formulario = GlobalKey();
+
   bool _isLoading = false;
-  LoginMode _authMode = LoginMode.Login;
+
+  AutenticacaoModo _autenticacaoModo = AutenticacaoModo.Login;
 
   final _passwordController = TextEditingController();
 
-  Map<String, String> _authData = {
+  final Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
 
-  Future<void> _validar() async {
-    if (!_form.currentState.validate()) {
-      return null;
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Ocorreu um erro!'),
+        content: Text(msg),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Fechar'),
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> _submeter() async {
+    if (!_formulario.currentState.validate()) {
+      return;
     }
     setState(() {
       _isLoading = true;
     });
-    _form.currentState.save();
+    _formulario.currentState.save();
 
     Auth auth = Provider.of(context, listen: false);
 
-    if (_authMode == LoginMode.Login) {
-      //Login
-    } else {
-      await auth.signup(_authData["email"], _authData["password"]);
+    try {
+      if (_autenticacaoModo == AutenticacaoModo.Login) {
+        await auth.login(
+          _authData["email"],
+          _authData["password"],
+        );
+      } else {
+        await auth.signup(
+          _authData["email"],
+          _authData["password"],
+        );
+      }
+    } on AutenticacaoException catch (error) {
+      _showErrorDialog(error.toString());
+    } catch (error) {
+      _showErrorDialog("Ocorreu um erro inesperado!");
     }
     setState(() {
       _isLoading = false;
@@ -50,13 +83,13 @@ class _LoginCardState extends State<LoginCard> {
   }
 
   void _trocarModoLogin() {
-    if (_authMode == LoginMode.Login) {
+    if (_autenticacaoModo == AutenticacaoModo.Login) {
       setState(() {
-        _authMode = LoginMode.Signup;
+        _autenticacaoModo = AutenticacaoModo.Signup;
       });
     } else {
       setState(() {
-        _authMode = LoginMode.Login;
+        _autenticacaoModo = AutenticacaoModo.Login;
       });
     }
   }
@@ -71,11 +104,11 @@ class _LoginCardState extends State<LoginCard> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: _authMode == LoginMode.Login ? 290 : 371,
+        height: _autenticacaoModo == AutenticacaoModo.Login ? 290 : 371,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
-            key: _form,
+            key: _formulario,
             child: Column(
               children: <Widget>[
                 TextFormField(
@@ -101,11 +134,11 @@ class _LoginCardState extends State<LoginCard> {
                   },
                   onSaved: (value) => _authData['password'] = value,
                 ),
-                if (_authMode == LoginMode.Signup)
+                if (_autenticacaoModo == AutenticacaoModo.Signup)
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Confirmar Senha'),
                     obscureText: true,
-                    validator: _authMode == LoginMode.Signup
+                    validator: _autenticacaoModo == AutenticacaoModo.Signup
                         ? (value) {
                             if (value != _passwordController.text) {
                               return "Senha são diferentes!";
@@ -129,15 +162,19 @@ class _LoginCardState extends State<LoginCard> {
                       vertical: 8.0,
                     ),
                     child: Text(
-                      _authMode == LoginMode.Login ? 'ENTRAR' : 'REGISTRAR',
+                      _autenticacaoModo == AutenticacaoModo.Login
+                          ? 'ENTRAR'
+                          : 'REGISTRAR',
                     ),
-                    onPressed: _validar,
+                    onPressed: _submeter,
                   ),
                 FlatButton(
-                    onPressed: _trocarModoLogin,
-                    child: Text(
-                      " ${_authMode == LoginMode.Login ? 'REGISTRAR' : 'ENTRAR'}",
-                    ))
+                  onPressed: _trocarModoLogin,
+                  child: Text(
+                    " ${_autenticacaoModo == AutenticacaoModo.Login ? 'REGISTRAR' : 'ENTRAR'}",
+                  ),
+                  textColor: Colors.green,
+                )
               ],
             )),
       ),

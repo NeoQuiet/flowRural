@@ -8,13 +8,17 @@ import 'package:ruralflow/utils/contante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class Anuncios with ChangeNotifier {
+  String _token;
+  String _userId;
   //instancia que aponta para a coleção no banco
   final String _baseUrl = '${Constants.ANUNCIO_API_URL}/anuncios';
   //cria lista contendo todos os anuncios sem provedor
   List<Anuncio> _todosAnuncios = [];
-//função que retorna os dados da lista de anuncios
+
+  Anuncios([this._token, this._userId, this._todosAnuncios = const []]);
+  //função que retorna os dados da lista de anuncios
   List<Anuncio> get todosAnuncios => [..._todosAnuncios];
-//metodo reponsavel por pegar tamanho dos anuncios
+  //metodo reponsavel por pegar tamanho dos anuncios
   int get totalAnuncios {
     return _todosAnuncios.length;
   }
@@ -36,7 +40,7 @@ class Anuncios with ChangeNotifier {
 
   Future<void> adicionarAnuncioBancoLista(Anuncio pNovoAnuncio) async {
     final response = await http.post(
-      "$_baseUrl.json",
+      "$_baseUrl.json?auth=$_token",
       body: json.encode({
         'anuncio': pNovoAnuncio.anuncio,
         'descricao': pNovoAnuncio.descricao,
@@ -60,7 +64,7 @@ class Anuncios with ChangeNotifier {
   }
 
   Future<void> loadProducts() async {
-    final response = await http.get("$_baseUrl.json");
+    final response = await http.get("$_baseUrl.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todosAnuncios.clear();

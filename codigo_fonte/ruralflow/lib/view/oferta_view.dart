@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ruralflow/widgets/form_cad_anuncio_widget.dart';
+import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 
 class Ofertar extends StatelessWidget {
   @override

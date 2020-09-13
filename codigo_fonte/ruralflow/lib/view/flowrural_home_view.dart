@@ -20,10 +20,15 @@ class HomeFlowRural extends StatefulWidget {
 }
 
 class _HomeFlowRuralState extends State<HomeFlowRural> {
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
-    Provider.of<Pessoas>(context, listen: false).loadPessoas().then((_) {});
+    Provider.of<Pessoas>(context, listen: false).loadPessoas().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override

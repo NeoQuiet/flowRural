@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/view/flowrural_home_view.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -43,7 +42,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Pessoas>(context, listen: false)
         .adicionarPessoaBancoLista(novaPessoa);
-    Navigator.popAndPushNamed(context, RotasFlowRural.HOME);
+    Navigator.popAndPushNamed(context, RotasFlowRural.AUTENTICACAO_HOME);
   }
 
   //evitar limite de uso de memoria

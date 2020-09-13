@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ruralflow/widgets/autenticacao_widget_old.dart';
+import 'package:ruralflow/widgets/form_autenticacao.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -42,7 +42,7 @@ class AutenticacaoView extends StatelessWidget {
                         TextStyle(fontSize: 45, fontFamily: 'Times New Roman'),
                   ),
                 ),
-                LoginCard(),
+                AutenticacaoCartao(),
               ],
             ),
           ),
