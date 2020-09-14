@@ -8,8 +8,11 @@ import 'package:ruralflow/utils/constante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class Pessoas with ChangeNotifier {
+  String _token;
+  String _userId;
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.ANUNCIO_API_URL}/pessoa';
+  final String _baseUrl = '${Constants.API_URL}/pessoa';
+  Pessoas([this._token, this._userId, this._todasPessoas = const []]);
   //cria lista contendo todos os anuncios sem provedor
   List<Pessoa> _todasPessoas = [];
 //função que retorna os dados da lista de anuncios
@@ -33,7 +36,7 @@ class Pessoas with ChangeNotifier {
 
   Future<void> adicionarPessoaBancoLista(Pessoa pNovoPessoa) async {
     final response = await http.post(
-      "$_baseUrl.json",
+      "$_baseUrl.json?",
       body: json.encode({
         'nome': pNovoPessoa.nome,
         'endereco': pNovoPessoa.endereco,
@@ -52,7 +55,7 @@ class Pessoas with ChangeNotifier {
   }
 
   Future<void> loadPessoas() async {
-    final response = await http.get("$_baseUrl.json");
+    final response = await http.get("$_baseUrl.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todasPessoas.clear();

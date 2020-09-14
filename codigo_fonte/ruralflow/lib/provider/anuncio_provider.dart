@@ -11,7 +11,7 @@ class Anuncios with ChangeNotifier {
   String _token;
   String _userId;
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.ANUNCIO_API_URL}/anuncios';
+  final String _baseUrl = '${Constants.API_URL}/anuncios';
   //cria lista contendo todos os anuncios sem provedor
   List<Anuncio> _todosAnuncios = [];
 
@@ -27,12 +27,9 @@ class Anuncios with ChangeNotifier {
   void adicionarAnuncioLista(Anuncio pNovoAnuncio) {
     _todosAnuncios.add(Anuncio(
       id: Random().nextDouble().toString(),
-      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
@@ -43,21 +40,15 @@ class Anuncios with ChangeNotifier {
       "$_baseUrl.json?auth=$_token",
       body: json.encode({
         'anuncio': pNovoAnuncio.anuncio,
-        'descricao': pNovoAnuncio.descricao,
         'valor': pNovoAnuncio.valor,
-        'peso': pNovoAnuncio.peso,
         'quantidade': pNovoAnuncio.qtde,
-        'dataExpiracao': pNovoAnuncio.dataExpiracao,
       }),
     );
     _todosAnuncios.add(Anuncio(
       id: json.decode(response.body)['name'],
-      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
@@ -73,10 +64,7 @@ class Anuncios with ChangeNotifier {
         _todosAnuncios.add(Anuncio(
           id: anuncioId,
           anuncio: anuncioDados['anuncio'],
-          descricao: anuncioDados['descricao'],
-          dataExpiracao: anuncioDados['dataExpiracao'],
           valor: anuncioDados['valor'],
-          peso: anuncioDados['peso'],
         ));
       });
       notifyListeners();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 import 'package:ruralflow/view/autenticacao_view.dart';
-import 'package:ruralflow/view/flowrural_home_view.dart';
+import 'package:ruralflow/view/cad_pessoa_View.dart';
 
 class AuthOrHomeScreen extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class AuthOrHomeScreen extends StatelessWidget {
         } else if (snapshot.error != null) {
           return Center(child: Text('Ocorreu um erro!'));
         } else {
-          return auth.isAuth ? HomeFlowRural() : AutenticacaoView();
+          return auth.isAuth ? CadPessoaView() : AutenticacaoView();
         }
       },
     );

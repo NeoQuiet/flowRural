@@ -108,75 +108,76 @@ class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
-            key: _formulario,
-            child: Column(
-              children: <Widget>[
+          key: _formulario,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: InputDecoration(labelText: 'E-mail'),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value.isEmpty || !value.contains('@')) {
+                    return "Informe um e-mail válido!";
+                  }
+                  return null;
+                },
+                onSaved: (value) => _authData['email'] = value,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Senha'),
+                controller: _passwordController,
+                obscureText: true,
+                validator: (value) {
+                  if (value.isEmpty || value.length < 5) {
+                    return "Informe uma senha válida!";
+                  }
+                  return null;
+                },
+                onSaved: (value) => _authData['password'] = value,
+              ),
+              if (_autenticacaoModo == AutenticacaoModo.Signup)
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-mail'),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
-                      return "Informe um e-mail válido!";
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _authData['email'] = value,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Confirmar Senha'),
                   obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
-                      return "Informe uma senha válida!";
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _authData['password'] = value,
-                ),
-                if (_autenticacaoModo == AutenticacaoModo.Signup)
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
-                    obscureText: true,
-                    validator: _autenticacaoModo == AutenticacaoModo.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return "Senha são diferentes!";
-                            }
-                            return null;
+                  validator: _autenticacaoModo == AutenticacaoModo.Signup
+                      ? (value) {
+                          if (value != _passwordController.text) {
+                            return "Senha são diferentes!";
                           }
-                        : null,
+                          return null;
+                        }
+                      : null,
+                ),
+              Spacer(),
+              if (_isLoading)
+                CircularProgressIndicator()
+              else
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                Spacer(),
-                if (_isLoading)
-                  CircularProgressIndicator()
-                else
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    color: Theme.of(context).primaryColor,
-                    textColor: Theme.of(context).primaryTextTheme.button.color,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30.0,
-                      vertical: 8.0,
-                    ),
-                    child: Text(
-                      _autenticacaoModo == AutenticacaoModo.Login
-                          ? 'ENTRAR'
-                          : 'REGISTRAR',
-                    ),
-                    onPressed: _submeter,
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).primaryTextTheme.button.color,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical: 8.0,
                   ),
-                FlatButton(
-                  onPressed: _trocarModoLogin,
                   child: Text(
-                    " ${_autenticacaoModo == AutenticacaoModo.Login ? 'REGISTRAR' : 'ENTRAR'}",
+                    _autenticacaoModo == AutenticacaoModo.Login
+                        ? 'ENTRAR'
+                        : 'REGISTRAR',
                   ),
-                  textColor: Colors.green,
-                )
-              ],
-            )),
+                  onPressed: _submeter,
+                ),
+              FlatButton(
+                onPressed: _trocarModoLogin,
+                child: Text(
+                  " ${_autenticacaoModo == AutenticacaoModo.Login ? 'REGISTRAR' : 'ENTRAR'}",
+                ),
+                textColor: Colors.green,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
