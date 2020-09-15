@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/anuncio.dart';
@@ -54,7 +55,7 @@ class Anuncios with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadProducts() async {
+  Future<void> loadanuncios() async {
     final response = await http.get("$_baseUrl.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 
@@ -70,5 +71,44 @@ class Anuncios with ChangeNotifier {
       notifyListeners();
     }
     return Future.value();
+  }
+
+  Future<void> delete(String id) async {
+    final index = _todosAnuncios.indexWhere((anuncio) => anuncio.id == id);
+    if (index >= 0) {
+      final anuncio = _todosAnuncios[index];
+      _todosAnuncios.remove(anuncio);
+      notifyListeners();
+
+      final response =
+          await http.delete("$_baseUrl/${anuncio.id}.json?auth=$_token");
+
+      if (response.statusCode >= 400) {
+        _todosAnuncios.insert(index, anuncio);
+        notifyListeners();
+        throw HttpException('Ocorreu um erro na exclusão do produto.');
+      }
+    }
+  }
+
+  Future<void> updateProduct(Anuncio anuncio) async {
+    if (anuncio == null || anuncio.id == null) {
+      return;
+    }
+
+    final index =
+        _todosAnuncios.indexWhere((anuncio) => anuncio.id == anuncio.id);
+    if (index >= 0) {
+      await http.patch(
+        "$_baseUrl/${anuncio.id}.json?auth=$_token",
+        body: json.encode({
+          'anuncio': anuncio.anuncio,
+          'qtde': anuncio.qtde,
+          'valor': anuncio.valor,
+        }),
+      );
+      _todosAnuncios[index] = anuncio;
+      notifyListeners();
+    }
   }
 }

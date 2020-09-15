@@ -45,13 +45,11 @@ class AnuncioView extends StatelessWidget {
               //captura o total de anuncios
               itemCount: anunciosDados.totalAnuncios,
               //inicia a construção da lista de items
-              itemBuilder: (ctx, i) =>
-                  /* Este widget separa a listagem dos objetos inserindo uma linha entre eles */
-                  Column(
+              itemBuilder: (ctx, i) => Column(
                 children: [
                   //Objeto que captura os anuncios cadastados e os lista
                   ListCadAnuncio(anuncios[i]),
-                  //divisorresponsavel por desenha uma linha de divisaos
+                  //divisor responsavel por desenha uma linha de divisaos
                   Divider(),
                 ],
               ),
