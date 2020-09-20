@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 import '../utils/app_routes.dart';
 
@@ -19,17 +20,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Home'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.HOME,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Propostas'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.HOME,
+                RotasFlowRural.AUTENTICACAO_HOME,
               );
             },
           ),
@@ -55,33 +46,10 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Entradas e Saidas'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.FLUXO_VIEW,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.traffic),
-            title: Text('Expedição de animais'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.EXPEDICAO_VIEW,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.outlined_flag),
+            leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
             onTap: () {
-              auth.logout();
-              Navigator.of(context).pushNamed(
-                RotasFlowRural.AUTENTICACAO_HOME,
-              );
+              Provider.of<Auth>(context, listen: false).logout();
             },
           ),
         ],

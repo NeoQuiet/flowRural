@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ruralflow/exceptions/autenticacao_exceptions.dart';
+import 'package:ruralflow/models/pessoa.dart';
+import 'package:ruralflow/provider/pessoa_provider.dart';
+import 'package:ruralflow/utils/constante.dart';
 import 'package:ruralflow/utils/store.dart';
 
 class Auth with ChangeNotifier {

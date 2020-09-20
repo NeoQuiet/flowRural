@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           RotasFlowRural.AUTENTICACAO_HOME: (ctx) => AuthOrHomeScreen(),
-          RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
           RotasFlowRural.ANUNCIO_DETALHE: (ctx) => DetalheAnuncioView(),
           RotasFlowRural.ANUNCIO_GERENCIA: (ctx) => AnuncioView(),
           RotasFlowRural.ABATES_VIEW: (ctx) => AbatesView(),

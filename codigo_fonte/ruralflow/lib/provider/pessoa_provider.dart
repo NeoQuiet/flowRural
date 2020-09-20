@@ -41,15 +41,21 @@ class Pessoas with ChangeNotifier {
         'nome': pNovoPessoa.nome,
         'endereco': pNovoPessoa.endereco,
         'telefone': pNovoPessoa.telefone,
+        'email': pNovoPessoa.email,
+        'senha': pNovoPessoa.senha,
       }),
     );
 
-    _todasPessoas.add(Pessoa(
-      id: json.decode(response.body)['name'],
-      nome: pNovoPessoa.nome,
-      endereco: pNovoPessoa.endereco,
-      telefone: pNovoPessoa.telefone,
-    ));
+    _todasPessoas.add(
+      Pessoa(
+        id: json.decode(response.body)['name'],
+        nome: pNovoPessoa.nome,
+        endereco: pNovoPessoa.endereco,
+        telefone: pNovoPessoa.telefone,
+        email: pNovoPessoa.email,
+        senha: pNovoPessoa.senha,
+      ),
+    );
 
     notifyListeners();
   }

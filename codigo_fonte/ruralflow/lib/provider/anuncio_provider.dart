@@ -38,7 +38,7 @@ class Anuncios with ChangeNotifier {
 
   Future<void> adicionarAnuncioBancoLista(Anuncio pNovoAnuncio) async {
     final response = await http.post(
-      "$_baseUrl.json?auth=$_token",
+      "$_baseUrl/$_userId.json?auth=$_token",
       body: json.encode({
         'anuncio': pNovoAnuncio.anuncio,
         'valor': pNovoAnuncio.valor,
@@ -56,7 +56,7 @@ class Anuncios with ChangeNotifier {
   }
 
   Future<void> loadanuncios() async {
-    final response = await http.get("$_baseUrl.json?auth=$_token");
+    final response = await http.get("$_baseUrl/$_userId.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todosAnuncios.clear();

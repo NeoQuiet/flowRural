@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/models/pessoa.dart';
-
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/widgets/anuncio_grid.dart';
 import 'package:ruralflow/widgets/drawer.dart';
