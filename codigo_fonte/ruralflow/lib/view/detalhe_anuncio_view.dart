@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 import 'package:ruralflow/models/pessoa.dart';
 
 import 'package:ruralflow/utils/app_routes.dart';
 
-
 class DetalheAnuncioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
-
     final Pessoa pessoa = ModalRoute.of(context).settings.arguments as Pessoa;
 
     return Scaffold(

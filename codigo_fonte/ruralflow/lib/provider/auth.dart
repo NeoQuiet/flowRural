@@ -1,22 +1,126 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:ruralflow/exceptions/autenticacao_exceptions.dart';
+import 'package:ruralflow/models/pessoa.dart';
+import 'package:ruralflow/provider/pessoa_provider.dart';
+import 'package:ruralflow/utils/constante.dart';
+import 'package:ruralflow/utils/store.dart';
 
 class Auth with ChangeNotifier {
-  static const _url =
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBSVJJBwVxTjaem9t6ZiktiHdAQuoEXE_k';
+  String _userId;
+  String _token;
+  DateTime _expiryDate;
+  Timer _logoutTimer;
 
-  Future<void> signup(String email, String password) async {
+  bool get isAuth {
+    return token != null;
+  }
+
+  String get userId {
+    return isAuth ? _userId : null;
+  }
+
+  String get token {
+    if (_token != null &&
+        _expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now())) {
+      return _token;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _authenticate(
+      String email, String password, String urlSegment) async {
+    final url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyC0MK6F5wZs4c5HJyL3_bRQ4L5SVtVqPGE';
+
     final response = await http.post(
-      _url,
+      url,
       body: json.encode({
         "email": email,
         "password": password,
         "returnSecureToken": true,
       }),
     );
-    print(json.decode(response.body));
+
+    final responseBody = json.decode(response.body);
+    if (responseBody["error"] != null) {
+      throw AutenticacaoException(responseBody['error']['message']);
+    } else {
+      _token = responseBody["idToken"];
+      _userId = responseBody["localId"];
+      _expiryDate = DateTime.now().add(
+        Duration(
+          seconds: int.parse(responseBody["expiresIn"]),
+        ),
+      );
+
+      Store.saveMap('userData', {
+        "token": _token,
+        "userId": _userId,
+        "expiryDate": _expiryDate.toIso8601String(),
+      });
+
+      _autoLogout();
+      notifyListeners();
+    }
+
     return Future.value();
+  }
+
+  Future<void> signup(String email, String password) async {
+    return _authenticate(email, password, "signUp");
+  }
+
+  Future<void> login(String email, String password) async {
+    return _authenticate(email, password, "signInWithPassword");
+  }
+
+  Future<void> tryAutoLogin() async {
+    if (isAuth) {
+      return Future.value();
+    }
+
+    final userData = await Store.getMap('userData');
+    if (userData == null) {
+      return Future.value();
+    }
+
+    final expiryDate = DateTime.parse(userData["expiryDate"]);
+
+    if (expiryDate.isBefore(DateTime.now())) {
+      return Future.value();
+    }
+
+    _userId = userData["userId"];
+    _token = userData["token"];
+    _expiryDate = expiryDate;
+
+    _autoLogout();
+    notifyListeners();
+    return Future.value();
+  }
+
+  void logout() {
+    _token = null;
+    _userId = null;
+    _expiryDate = null;
+    if (_logoutTimer != null) {
+      _logoutTimer.cancel();
+      _logoutTimer = null;
+    }
+    Store.remove('userData');
+    notifyListeners();
+  }
+
+  void _autoLogout() {
+    if (_logoutTimer != null) {
+      _logoutTimer.cancel();
+    }
+    final timeToLogout = _expiryDate.difference(DateTime.now()).inSeconds;
+    _logoutTimer = Timer(Duration(seconds: timeToLogout), logout);
   }
 }

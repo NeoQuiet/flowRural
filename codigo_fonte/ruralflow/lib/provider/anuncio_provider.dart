@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/anuncio.dart';
@@ -8,13 +9,17 @@ import 'package:ruralflow/utils/constante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class Anuncios with ChangeNotifier {
+  String _token;
+  String _userId;
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.ANUNCIO_API_URL}/anuncios';
+  final String _baseUrl = '${Constants.API_URL}/anuncios';
   //cria lista contendo todos os anuncios sem provedor
   List<Anuncio> _todosAnuncios = [];
-//função que retorna os dados da lista de anuncios
+
+  Anuncios([this._token, this._userId, this._todosAnuncios = const []]);
+  //função que retorna os dados da lista de anuncios
   List<Anuncio> get todosAnuncios => [..._todosAnuncios];
-//metodo reponsavel por pegar tamanho dos anuncios
+  //metodo reponsavel por pegar tamanho dos anuncios
   int get totalAnuncios {
     return _todosAnuncios.length;
   }
@@ -23,12 +28,9 @@ class Anuncios with ChangeNotifier {
   void adicionarAnuncioLista(Anuncio pNovoAnuncio) {
     _todosAnuncios.add(Anuncio(
       id: Random().nextDouble().toString(),
-      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
@@ -36,31 +38,25 @@ class Anuncios with ChangeNotifier {
 
   Future<void> adicionarAnuncioBancoLista(Anuncio pNovoAnuncio) async {
     final response = await http.post(
-      "$_baseUrl.json",
+      "$_baseUrl/$_userId.json?auth=$_token",
       body: json.encode({
         'anuncio': pNovoAnuncio.anuncio,
-        'descricao': pNovoAnuncio.descricao,
         'valor': pNovoAnuncio.valor,
-        'peso': pNovoAnuncio.peso,
         'quantidade': pNovoAnuncio.qtde,
-        'dataExpiracao': pNovoAnuncio.dataExpiracao,
       }),
     );
     _todosAnuncios.add(Anuncio(
       id: json.decode(response.body)['name'],
-      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
-      peso: pNovoAnuncio.peso,
       valor: pNovoAnuncio.valor,
-      dataExpiracao: pNovoAnuncio.dataExpiracao,
     ));
 
     notifyListeners();
   }
 
-  Future<void> loadProducts() async {
-    final response = await http.get("$_baseUrl.json");
+  Future<void> loadanuncios() async {
+    final response = await http.get("$_baseUrl/$_userId.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todosAnuncios.clear();
@@ -69,14 +65,50 @@ class Anuncios with ChangeNotifier {
         _todosAnuncios.add(Anuncio(
           id: anuncioId,
           anuncio: anuncioDados['anuncio'],
-          descricao: anuncioDados['descricao'],
-          dataExpiracao: anuncioDados['dataExpiracao'],
           valor: anuncioDados['valor'],
-          peso: anuncioDados['peso'],
         ));
       });
       notifyListeners();
     }
     return Future.value();
+  }
+
+  Future<void> delete(String id) async {
+    final index = _todosAnuncios.indexWhere((anuncio) => anuncio.id == id);
+    if (index >= 0) {
+      final anuncio = _todosAnuncios[index];
+      _todosAnuncios.remove(anuncio);
+      notifyListeners();
+
+      final response =
+          await http.delete("$_baseUrl/${anuncio.id}.json?auth=$_token");
+
+      if (response.statusCode >= 400) {
+        _todosAnuncios.insert(index, anuncio);
+        notifyListeners();
+        throw HttpException('Ocorreu um erro na exclusão do produto.');
+      }
+    }
+  }
+
+  Future<void> updateProduct(Anuncio anuncio) async {
+    if (anuncio == null || anuncio.id == null) {
+      return;
+    }
+
+    final index =
+        _todosAnuncios.indexWhere((anuncio) => anuncio.id == anuncio.id);
+    if (index >= 0) {
+      await http.patch(
+        "$_baseUrl/${anuncio.id}.json?auth=$_token",
+        body: json.encode({
+          'anuncio': anuncio.anuncio,
+          'qtde': anuncio.qtde,
+          'valor': anuncio.valor,
+        }),
+      );
+      _todosAnuncios[index] = anuncio;
+      notifyListeners();
+    }
   }
 }

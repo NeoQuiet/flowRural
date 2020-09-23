@@ -26,7 +26,7 @@ class GridAnuncio extends StatelessWidget {
             );
           },
           child: Image.network(
-            "",
+            'https://www.jornaldocomercio.com/_midias/jpg/2017/03/17/708760_01_02-1495878.jpg',
             fit: BoxFit.cover,
           ),
         ),
