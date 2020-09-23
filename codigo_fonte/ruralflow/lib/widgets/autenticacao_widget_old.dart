@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 
-enum LoginMode { Signup, Login }
-
 /* 
   ESTE É O SERVIÇO DE AUTENTICAÇÃO, IRA PROVER A FUNCIONALIDADE 
-  DE REALIZAR O LOGIN E REALIZAR O LOGOUT, BEM COMO O REGISTRO
+  DE REALIZAR O LOGIN e O REGISTRO
 
 
  */
+
+enum LoginMode { Signup, Login }
+
 
 class LoginCard extends StatefulWidget {
   @override
