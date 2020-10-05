@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Home'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.AUTENTICACAO_HOME,
+                RotasFlowRural.HOME,
               );
             },
           ),

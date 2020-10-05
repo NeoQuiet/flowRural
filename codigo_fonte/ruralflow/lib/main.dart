@@ -7,6 +7,7 @@ import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/abates_view.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 import 'package:ruralflow/view/autenticacao_home_view.dart';
+import 'package:ruralflow/view/busca_view.dart';
 
 import 'package:ruralflow/view/detalhe_anuncio_view.dart';
 import 'package:ruralflow/view/expedicao_view.dart';
@@ -21,6 +22,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -47,8 +49,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        home: HomeFlowRural(),
         routes: {
           RotasFlowRural.AUTENTICACAO_HOME: (ctx) => AuthOrHomeScreen(),
+          RotasFlowRural.BUSCAR: (ctx) => BuscaView(),
+          RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
           RotasFlowRural.ANUNCIO_DETALHE: (ctx) => DetalheAnuncioView(),
           RotasFlowRural.ANUNCIO_GERENCIA: (ctx) => AnuncioView(),
           RotasFlowRural.ABATES_VIEW: (ctx) => AbatesView(),

@@ -16,11 +16,7 @@ class AutenticacaoView extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.green],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: Colors.green,
             ),
           ),
           Container(
