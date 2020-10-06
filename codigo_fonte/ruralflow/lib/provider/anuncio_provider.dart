@@ -28,6 +28,8 @@ class Anuncios with ChangeNotifier {
   void adicionarAnuncioLista(Anuncio pNovoAnuncio) {
     _todosAnuncios.add(Anuncio(
       id: Random().nextDouble().toString(),
+      idPessoa: Random().nextDouble().toString(),
+      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
       valor: pNovoAnuncio.valor,
@@ -40,13 +42,17 @@ class Anuncios with ChangeNotifier {
     final response = await http.post(
       "$_baseUrl.json?auth=$_token",
       body: json.encode({
+        'id': _userId,
+        'idPessoa': pNovoAnuncio.idPessoa,
         'anuncio': pNovoAnuncio.anuncio,
         'valor': pNovoAnuncio.valor,
         'quantidade': pNovoAnuncio.qtde,
       }),
     );
     _todosAnuncios.add(Anuncio(
-      id: json.decode(response.body)['name'],
+      id: json.decode(response.body)['id'],
+      idPessoa: _userId,
+      descricao: pNovoAnuncio.descricao,
       anuncio: pNovoAnuncio.anuncio,
       qtde: pNovoAnuncio.qtde,
       valor: pNovoAnuncio.valor,

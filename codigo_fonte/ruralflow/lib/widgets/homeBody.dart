@@ -232,7 +232,7 @@ _btnPerfil(context) {
         Icons.person,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, RotasFlowRural.HOME);
+        Navigator.pushNamed(context, RotasFlowRural.PESSO_CAD_VIEW);
       });
 }
 

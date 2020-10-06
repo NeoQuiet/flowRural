@@ -30,8 +30,6 @@ class Pessoas with ChangeNotifier {
       endereco: pNovoPessoa.endereco,
       telefone: pNovoPessoa.telefone,
     ));
-
-    notifyListeners();
   }
 
   Future<void> adicionarPessoaBancoLista(Pessoa pNovoPessoa) async {
@@ -42,7 +40,6 @@ class Pessoas with ChangeNotifier {
         'endereco': pNovoPessoa.endereco,
         'telefone': pNovoPessoa.telefone,
         'email': pNovoPessoa.email,
-        'senha': pNovoPessoa.senha,
       }),
     );
 
@@ -53,7 +50,6 @@ class Pessoas with ChangeNotifier {
         endereco: pNovoPessoa.endereco,
         telefone: pNovoPessoa.telefone,
         email: pNovoPessoa.email,
-        senha: pNovoPessoa.senha,
       ),
     );
 

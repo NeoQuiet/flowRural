@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -9,6 +10,7 @@ DATA: 30/08/2020
 FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE SERVIÇO
 
 */
+
 class CadAnuncioForm extends StatefulWidget {
   @override
   _CadAnuncioFormState createState() => _CadAnuncioFormState();
@@ -19,6 +21,15 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
   final _descricaoFocusNode = FocusNode();
   final _quantidadeFocusNode = FocusNode();
   final _valorFocusNode = FocusNode();
+
+  List<String> _listaTipoAnuncio = [
+    "Compra",
+    'Venda',
+    'Serviço',
+  ];
+
+  ///Controladores textField tipoAnuncio
+  final _tipoAnuncioControlador = TextEditingController();
 
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();
@@ -31,16 +42,18 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
 
     //instância de um novo anuncio com os dados do formulario
     final novoAnuncio = Anuncio(
-      anuncio: _formularioDados['anuncio'],
+      descricao: _formularioDados['descricao'],
+      anuncio: _formularioDados['tipoAnuncio'],
       qtde: _formularioDados['quantidade'],
       valor: _formularioDados['valor'],
     );
+
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Anuncios>(context, listen: false)
-        .adicionarAnuncioBancoLista(novoAnuncio);
+        .adicionarAnuncioLista(novoAnuncio);
     Navigator.of(context).pop();
   }
 
@@ -70,7 +83,10 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
         key: _formulario,
         child: ListView(
           children: [
-            _textFormFieldAnuncio(),
+            _campoTipoAnuncio(),
+            Divider(),
+            _campoTextoDescricao(),
+            Divider(),
             _textFormFieldValor(),
             _textFormFieldQuantidade(),
             Center(
@@ -95,21 +111,18 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     );
   }
 
-  _textFormFieldAnuncio() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        hintText: 'Anuncio',
-      ),
-      //maximo de linhas
-      maxLines: 1,
-      onFieldSubmitted: (_) {
-        //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
-        FocusScope.of(context).requestFocus(_descricaoFocusNode);
-      },
-      //comando que permite salvar os formularios
-      onSaved: (valor) => _formularioDados['anuncio'] = valor,
-      //adiciona o botão para pular de linha
-      textInputAction: TextInputAction.next,
+  _campoTipoAnuncio() {
+    return DropdownSearch<String>(
+      mode: Mode.MENU,
+      showSelectedItem: true,
+      items: [
+        'Compra',
+        'Venda',
+        'Serviço',
+      ],
+      hint: 'Tipo do Anuncio',
+      onSaved: (valor) => _formularioDados['tipoAnuncio'] = valor,
+      autoFocusSearchBox: true,
     );
   }
 
@@ -149,4 +162,18 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
       onSaved: (valor) => _formularioDados['quantidade'] = valor,
     );
   }
+}
+
+_campoTextoDescricao() {
+  return TextFormField(
+    decoration: const InputDecoration(
+      hintText: 'Descrição do anuncio ',
+    ),
+    //maximo de linhas
+    maxLines: 5,
+    //comand que permite salvar os formularios
+
+    //adiciona o botão para pular de linha
+    textInputAction: TextInputAction.next,
+  );
 }

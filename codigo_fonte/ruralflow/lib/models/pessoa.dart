@@ -11,9 +11,9 @@ class Pessoa with ChangeNotifier {
   Pessoa({
     this.id,
     this.email,
-    this.senha,
     this.nome,
     this.telefone,
     this.endereco,
+    this.senha,
   });
 }

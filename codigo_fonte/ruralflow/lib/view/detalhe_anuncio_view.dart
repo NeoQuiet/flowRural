@@ -1,106 +1,86 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ruralflow/models/anuncio.dart';
 
 import 'package:ruralflow/models/pessoa.dart';
+import 'package:ruralflow/provider/anuncio_provider.dart';
 
 import 'package:ruralflow/utils/app_routes.dart';
 
 class DetalheAnuncioView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    final Pessoa pessoa = ModalRoute.of(context).settings.arguments as Pessoa;
+  Anuncio anuncio = new Anuncio();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(pessoa.nome),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.local_offer,
-            ),
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                RotasFlowRural.FORM_CAD_OFERTA,
-              );
-            },
-          )
-        ], //descricao do anuncio
+  @override
+  Widget build(BuildContext context) {
+    // scaffold
+    var scaffold = Scaffold.of(context);
+    // lista em forma tijolo
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Text(anuncio.valor),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 100,
-            width: 500,
-            margin: EdgeInsets.only(
-              top: 8,
-              left: 10,
-              right: 10,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
+      title: Text(anuncio.anuncio),
+      trailing: Container(
+        width: 100,
+        height: 300,
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.edit,
+                color: Theme.of(context).primaryColor,
               ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(RotasFlowRural.FORM_CAD_ANUNCIO,
+                    arguments: anuncio);
+              },
             ),
-            alignment: Alignment.center,
-            child: Text('Imagem'),
-          ),
-          Text(
-            pessoa.nome,
-            style: TextStyle(
-              fontSize: 40,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                pessoa.endereco,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+            IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Theme.of(context).errorColor,
               ),
-            ],
-          ),
-          Text(
-            pessoa.telefone,
-            style: TextStyle(
-              fontSize: 20,
-            ),
-          ),
-          Text(
-            'Compra-se',
-            style: TextStyle(
-              fontSize: 20,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text('Boi gordo @'),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black,
-                        maxRadius: 20,
-                        child: Text(
-                          '250',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text('Excluir anuncio'),
+                    content: Text('Tem certeza?'),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('Não'),
+                        onPressed: () => Navigator.of(context).pop(false),
                       ),
-                      Text('A vista'),
+                      FlatButton(
+                        child: Text('Sim'),
+                        onPressed: () => Navigator.of(context).pop(true),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                ).then(
+                  (value) async {
+                    if (value) {
+                      try {
+                        await Provider.of<Anuncios>(context, listen: false)
+                            .delete(anuncio.id);
+                      } on HttpException catch (error) {
+                        scaffold.showSnackBar(
+                          SnackBar(
+                            content: Text(error.toString()),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                );
+              },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

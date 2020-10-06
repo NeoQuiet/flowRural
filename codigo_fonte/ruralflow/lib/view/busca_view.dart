@@ -30,6 +30,7 @@ class _BuscaViewState extends State<BuscaView> {
           ),
         ],
       ),
+      body: AnunciosGrid(),
     );
   }
 }

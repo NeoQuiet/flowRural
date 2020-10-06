@@ -13,6 +13,7 @@ import 'package:ruralflow/view/detalhe_anuncio_view.dart';
 import 'package:ruralflow/view/expedicao_view.dart';
 import 'package:ruralflow/view/flowrural_home_view.dart';
 import 'package:ruralflow/view/fluxo_view.dart';
+
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_oferta.dart';
 import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';

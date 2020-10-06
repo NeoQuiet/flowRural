@@ -41,8 +41,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Pessoas>(context, listen: false)
-        .adicionarPessoaBancoLista(novaPessoa);
-    Navigator.popAndPushNamed(context, RotasFlowRural.AUTENTICACAO_HOME);
+        .adicionarPessoaLista(novaPessoa);
   }
 
   //evitar limite de uso de memoria
