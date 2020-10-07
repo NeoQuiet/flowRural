@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/pessoa.dart';
@@ -127,6 +128,14 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
                 child: RaisedButton(
                   onPressed: () {
                     _salvarFormulario();
+                    FirebaseFirestore.instance
+                        .collection('pessoa')
+                        .snapshots()
+                        .listen((querySnapshot) {
+                      querySnapshot.docs.forEach((element) {
+                        print(element);
+                      });
+                    });
                   },
                   child: Text(
                     'Cadastrar',

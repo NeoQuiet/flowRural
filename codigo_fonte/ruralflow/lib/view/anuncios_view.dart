@@ -14,9 +14,6 @@ PERMITIR QUE O USUÁRIO POSSA CRIAR, EDITAR OU INATIVAR ANUNCIOS.
 class AnuncioView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final anunciosDados = Provider.of<Anuncios>(context);
-    final anuncios = anunciosDados.todosAnuncios;
-
     return Stack(
       children: [
         Scaffold(
@@ -24,7 +21,7 @@ class AnuncioView extends StatelessWidget {
             actions: [
               IconButton(
                 icon: Icon(
-                  Icons.add,
+                  Icons.insert_comment,
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
@@ -32,31 +29,63 @@ class AnuncioView extends StatelessWidget {
                   );
                   // CadAnuncioForm();
                 },
-              )
+              ),
             ],
             title: Text(
               'Gerenciar anuncios',
             ),
           ),
           drawer: AppDrawer(),
-          body: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView.builder(
-              //captura o total de anuncios
-              itemCount: anunciosDados.totalAnuncios,
-              //inicia a construção da lista de items
-              itemBuilder: (ctx, i) => Column(
-                children: [
-                  //Objeto que captura os anuncios cadastados e os lista
-                  ListCadAnuncio(anuncios[i]),
-                  //divisor responsavel por desenha uma linha de divisaos
-                  Divider(),
-                ],
-              ),
+          body: _body(context),
+        ),
+        Container(
+          height: 100,
+          margin: EdgeInsetsDirectional.only(
+            start: 250,
+            top: 475,
+          ),
+          width: 75,
+          child: FloatingActionButton(
+            backgroundColor: Colors.green[300],
+            elevation: 10,
+            child: Icon(
+              Icons.add,
+              color: Colors.yellow[300],
+              size: 40,
             ),
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.FORM_CAD_PRODUTO,
+              );
+              // CadAnuncioForm();
+            },
           ),
         ),
       ],
     );
   }
+}
+
+_body(context) {
+  final anunciosDados = Provider.of<Anuncios>(context);
+  final anuncios = anunciosDados.todosAnuncios;
+  return Container(
+    child: Padding(
+      padding: EdgeInsets.all(10),
+      child: ListView.builder(
+        //captura o total de anuncios
+        itemCount: anunciosDados.totalAnuncios,
+        //inicia a construção da lista de items
+        itemBuilder: (ctx, i) => Column(
+          children: [
+            //Objeto que captura os anuncios cadastados e os lista
+            ListCadAnuncio(anuncios[i]),
+
+            //divisor responsavel por desenha uma linha de divisaos
+            Divider(),
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -14,9 +14,9 @@ class _BuscaViewState extends State<BuscaView> {
   //icone buscar app-bar
   final iconAppBar = Icon(Icons.search);
   //titulo da app-bar
-  final tituloAppBar = Text('Buscarr');
+  final tituloAppBar = Text('Buscar...');
   //boolean está pesquisando
-
+  List<String> _filtro = ['Filtro1'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,26 @@ class _BuscaViewState extends State<BuscaView> {
           ),
         ],
       ),
-      body: AnunciosGrid(),
+      body: Column(
+        children: [
+          Container(
+            width: 400,
+            height: 50,
+            child: Card(
+              color: Colors.green[100],
+              elevation: 20,
+              child: Column(
+                children: [],
+              ),
+            ),
+          ),
+          Container(
+            width: 390,
+            height: 300,
+            child: AnunciosGrid(),
+          ),
+        ],
+      ),
     );
   }
 }

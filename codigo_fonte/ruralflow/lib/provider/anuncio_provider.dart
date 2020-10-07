@@ -38,6 +38,8 @@ class Anuncios with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> testeInsert(Anuncio pNovoAnuncio) async {}
+
   Future<void> adicionarAnuncioBancoLista(Anuncio pNovoAnuncio) async {
     final response = await http.post(
       "$_baseUrl.json?auth=$_token",

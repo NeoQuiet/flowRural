@@ -11,4 +11,5 @@ class RotasFlowRural {
   static const FLUXO_VIEW = '/fluxo-view';
   static const PESSO_CAD_VIEW = '/pessoa-cad-view';
   static const BUSCAR = '/buscar';
+  static const FORM_CAD_PRODUTO = '/form-cad-prod';
 }

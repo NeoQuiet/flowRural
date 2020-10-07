@@ -84,11 +84,22 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
         child: ListView(
           children: [
             _campoTipoAnuncio(),
+            _campoProduto(),
             Divider(),
             _campoTextoDescricao(),
+            Divider(
+              thickness: 10,
+            ),
+            _campoUnMed(),
+            _textFormFieldQuantidade(),
             Divider(),
             _textFormFieldValor(),
-            _textFormFieldQuantidade(),
+            Divider(
+              thickness: 10,
+              color: Colors.green,
+            ),
+            _campoAnuncioAtivo(),
+            _campoExpiracao(),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -126,6 +137,39 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     );
   }
 
+  _campoProduto() {
+    return DropdownSearch<String>(
+      mode: Mode.MENU,
+      showSelectedItem: true,
+      items: [
+        'Produto 1',
+        'Serviço 1',
+        'Produto 2',
+      ],
+      hint: 'Selecione o produto',
+      onSaved: (valor) => _formularioDados['produto'] = valor,
+      autoFocusSearchBox: true,
+    );
+  }
+
+  _campoUnMed() {
+    return DropdownSearch<String>(
+      mode: Mode.MENU,
+      showSelectedItem: true,
+      items: [
+        'Hora',
+        'Arroba',
+        'Kg',
+        'Tonelada',
+        'Unidade',
+        'Pacote',
+      ],
+      hint: 'Unidade medida',
+      onSaved: (valor) => _formularioDados['unidadeMed'] = valor,
+      autoFocusSearchBox: true,
+    );
+  }
+
   _textFormFieldValor() {
     return TextFormField(
       decoration: const InputDecoration(
@@ -138,6 +182,21 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
       onSaved: (valor) => _formularioDados['valor'] = valor,
       //adiciona o botão para pular de linha
       textInputAction: TextInputAction.next,
+    );
+  }
+
+  _campoAnuncioAtivo() {
+    return DropdownSearch<String>(
+      mode: Mode.MENU,
+      showSelectedItem: true,
+      items: [
+        'Ativo',
+        'Anativo',
+        'Concluido',
+      ],
+      hint: 'Anuncio Ativo',
+      onSaved: (valor) => _formularioDados['anuncioAtivo'] = valor,
+      autoFocusSearchBox: true,
     );
   }
 
@@ -171,6 +230,20 @@ _campoTextoDescricao() {
     ),
     //maximo de linhas
     maxLines: 5,
+    //comand que permite salvar os formularios
+
+    //adiciona o botão para pular de linha
+    textInputAction: TextInputAction.next,
+  );
+}
+
+_campoExpiracao() {
+  return TextFormField(
+    decoration: const InputDecoration(
+      hintText: 'Data expiracao ',
+    ),
+    //maximo de linhas
+    maxLines: 1,
     //comand que permite salvar os formularios
 
     //adiciona o botão para pular de linha

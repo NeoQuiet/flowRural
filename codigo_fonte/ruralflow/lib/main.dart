@@ -41,10 +41,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Pessoas>(
           create: (_) => new Pessoas(),
-          update: (ctx, auth, previousProducts) => new Pessoas(
+          update: (ctx, auth, previousPessoas) => new Pessoas(
             auth.token,
             auth.userId,
-            previousProducts.todasPessoas,
+            previousPessoas.todasPessoas,
           ),
         ),
       ],
