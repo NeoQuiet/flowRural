@@ -14,7 +14,7 @@ class AnunciosGrid extends StatelessWidget {
       padding: const EdgeInsets.all(
         10,
       ),
-      itemCount: pessoasProvider.totalPessoa,
+      itemCount: 3,
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: pessoas[i],
         child: GridAnuncio(),

@@ -12,4 +12,7 @@ class RotasFlowRural {
   static const PESSO_CAD_VIEW = '/pessoa-cad-view';
   static const BUSCAR = '/buscar';
   static const FORM_CAD_PRODUTO = '/form-cad-prod';
+  static const ANUNCIADOS_VIEW = '/anunciados-view';
+  static const PRODUTOS_VIEW = '/produtos-view';
+  static const LOJAS_VIEW = '/lojas-view';
 }

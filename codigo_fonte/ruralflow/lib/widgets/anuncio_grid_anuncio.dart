@@ -42,7 +42,7 @@ class GridAnuncio extends StatelessWidget {
             ),
           ),
           title: Text(
-            pessoa.nome,
+            'pessoa.nome',
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(

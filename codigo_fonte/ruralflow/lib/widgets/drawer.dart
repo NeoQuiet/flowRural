@@ -11,13 +11,13 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('Bem vindo Usuário!'),
+            title: Text('Bem vindo, Visitante'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.shop),
-            title: Text('Home'),
+            leading: Icon(Icons.person),
+            title: Text('Perfil'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 RotasFlowRural.HOME,
@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.view_module),
-            title: Text('Anuncios'),
+            title: Text('Anuncios/Produtos'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 RotasFlowRural.ANUNCIO_GERENCIA,
@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.kitchen),
-            title: Text('Abates'),
+            title: Text('Compras e Vendas'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 RotasFlowRural.ABATES_VIEW,
