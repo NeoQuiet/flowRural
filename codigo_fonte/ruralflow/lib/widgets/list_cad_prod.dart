@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
+import 'package:ruralflow/models/produto.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
 import '../models/pessoa.dart';
 
-class ListCadLoja extends StatelessWidget {
-  final Pessoa pessoa;
+class ListCadProd extends StatelessWidget {
+  final Produto produto;
 
-  ListCadLoja(this.pessoa);
+  ListCadProd(this.produto);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class ListCadLoja extends StatelessWidget {
         backgroundColor: Colors.white,
         child: Text('imagem'),
       ),
-      title: Text(pessoa.nome),
+      title: Text('Queijo'),
       trailing: Container(
         width: 100,
         height: 300,
@@ -36,7 +37,7 @@ class ListCadLoja extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pushNamed(RotasFlowRural.FORM_CAD_ANUNCIO,
-                    arguments: pessoa);
+                    arguments: produto);
               },
             ),
             IconButton(
@@ -66,7 +67,7 @@ class ListCadLoja extends StatelessWidget {
                     if (value) {
                       try {
                         await Provider.of<Anuncios>(context, listen: false)
-                            .delete(pessoa.id);
+                            .delete(produto.id);
                       } on HttpException catch (error) {
                         scaffold.showSnackBar(
                           SnackBar(

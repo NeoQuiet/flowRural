@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
+import 'package:ruralflow/widgets/list_cad_prod.dart';
 import '../widgets/drawer.dart';
 import '../widgets/list_cad_anuncio.dart';
 
@@ -43,8 +44,8 @@ class ProdutosView extends StatelessWidget {
 }
 
 _body(context) {
-  final anunciosDados = Provider.of<Anuncios>(context);
-  final anuncios = anunciosDados.todosAnuncios;
+  final produtosDados = Provider.of<Produtos>(context);
+  final produtos = produtosDados.todosProdutos;
   return Container(
     child: Padding(
       padding: EdgeInsets.all(10),
@@ -55,7 +56,7 @@ _body(context) {
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadAnuncio(anuncios[i]),
+            ListCadProd(produtos[i]),
 
             //divisor responsavel por desenha uma linha de divisaos
             Divider(),
