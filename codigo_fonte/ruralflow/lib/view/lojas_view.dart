@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
+import 'package:ruralflow/widgets/list_cad_lojas.dart';
+import '../provider/pessoa_provider.dart';
 import '../widgets/drawer.dart';
 import '../widgets/list_cad_anuncio.dart';
 
@@ -43,19 +45,19 @@ class LojasView extends StatelessWidget {
 }
 
 _body(context) {
-  final anunciosDados = Provider.of<Anuncios>(context);
-  final anuncios = anunciosDados.todosAnuncios;
+  final pessoasDados = Provider.of<Pessoas>(context);
+  final pessoas = pessoasDados.todasPessoas;
   return Container(
     child: Padding(
       padding: EdgeInsets.all(10),
       child: ListView.builder(
         //captura o total de anuncios
-        itemCount: anunciosDados.totalAnuncios,
+        itemCount: pessoasDados.totalPessoa,
         //inicia a construção da lista de items
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadAnuncio(anuncios[i]),
+            ListCadLoja(pessoas[i]),
 
             //divisor responsavel por desenha uma linha de divisaos
             Divider(),

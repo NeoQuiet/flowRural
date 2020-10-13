@@ -110,7 +110,7 @@ _body(context) {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/images/anunciados.jpg',
+                    'assets/images/icone-produtos.png',
                     height: 150,
                     width: 100,
                   ),

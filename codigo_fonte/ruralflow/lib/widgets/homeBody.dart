@@ -153,7 +153,7 @@ _btnAbates(context) {
       tooltip: 'Abates',
       iconSize: 50,
       icon: Icon(
-        Icons.kitchen_outlined,
+        Icons.access_time,
       ),
       onPressed: () {
         Navigator.pushNamed(context, RotasFlowRural.ABATES_VIEW);
@@ -172,7 +172,7 @@ _btnAnuncios(context) {
       iconSize: 50,
       tooltip: 'Meus anuncios',
       icon: Icon(
-        Icons.assignment_outlined,
+        Icons.access_time,
       ),
       onPressed: () {
         Navigator.pushNamed(context, RotasFlowRural.ANUNCIO_GERENCIA);
@@ -191,7 +191,7 @@ _btnExpedicao(context) {
       iconSize: 50,
       tooltip: 'Expedição',
       icon: Icon(
-        Icons.car_repair,
+       Icons.access_time,
       ),
       onPressed: () {
         Navigator.pushNamed(context, RotasFlowRural.EXPEDICAO_VIEW);
@@ -210,7 +210,7 @@ _btnSair(context) {
       iconSize: 50,
       tooltip: 'Sair',
       icon: Icon(
-        Icons.logout,
+     Icons.access_time,
       ),
       onPressed: () {
         Navigator.pushNamed(context, RotasFlowRural.AUTENTICACAO_HOME);
