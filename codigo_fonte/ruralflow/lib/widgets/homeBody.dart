@@ -156,7 +156,7 @@ _btnAbates(context) {
         Icons.access_time,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, RotasFlowRural.ABATES_VIEW);
+        Navigator.pushNamed(context, RotasFlowRural.BUSCAR);
       });
 }
 
@@ -191,10 +191,10 @@ _btnExpedicao(context) {
       iconSize: 50,
       tooltip: 'Expedição',
       icon: Icon(
-       Icons.access_time,
+        Icons.access_time,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, RotasFlowRural.EXPEDICAO_VIEW);
+        Navigator.pushNamed(context, RotasFlowRural.BUSCAR);
       });
 }
 
@@ -210,7 +210,7 @@ _btnSair(context) {
       iconSize: 50,
       tooltip: 'Sair',
       icon: Icon(
-     Icons.access_time,
+        Icons.access_time,
       ),
       onPressed: () {
         Navigator.pushNamed(context, RotasFlowRural.AUTENTICACAO_HOME);

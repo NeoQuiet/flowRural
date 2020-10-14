@@ -6,7 +6,6 @@ import '../utils/app_routes.dart';
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Auth auth = new Auth();
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -16,8 +15,18 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            leading: Icon(Icons.home_filled),
+            title: Text('Principal'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                RotasFlowRural.BUSCAR,
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Icon(Icons.person),
-            title: Text('Perfil'),
+            title: Text('Meu Perfil'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 RotasFlowRural.HOME,
@@ -27,7 +36,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.view_module),
-            title: Text('Anuncios/Produtos'),
+            title: Text('Meus Produtos e Serviços'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 RotasFlowRural.ANUNCIO_GERENCIA,
@@ -36,11 +45,21 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.kitchen),
-            title: Text('Compras e Vendas'),
+            leading: Icon(Icons.stairs),
+            title: Text('Minhas Compras e Vendas'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.ABATES_VIEW,
+                RotasFlowRural.BUSCAR,
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text('Chegadas e Saidas '),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                RotasFlowRural.BUSCAR,
               );
             },
           ),

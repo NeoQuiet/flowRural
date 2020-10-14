@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/provider/auth.dart';
+import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/view/abates_view.dart';
+
 import 'package:ruralflow/view/anunciados_view.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 import 'package:ruralflow/view/autenticacao_home_view.dart';
 import 'package:ruralflow/view/busca_view.dart';
 
-import 'package:ruralflow/view/detalhe_anuncio_view.dart';
-import 'package:ruralflow/view/expedicao_view.dart';
 import 'package:ruralflow/view/flowrural_home_view.dart';
-import 'package:ruralflow/view/fluxo_view.dart';
+
 import 'package:ruralflow/view/lojas_view.dart';
+import 'package:ruralflow/view/notificacao_vieww.dart';
 import 'package:ruralflow/view/produtos_view.dart';
 
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
+import 'package:ruralflow/widgets/form_cad_itens.dart';
 import 'package:ruralflow/widgets/form_cad_oferta.dart';
 import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
 import './view/cad_pessoa_View.dart';
@@ -33,6 +34,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => new Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new ItemProvider(),
+        ),
+        ChangeNotifierProxyProvider<Auth, ItemProvider>(
+          create: (_) => new ItemProvider(),
+          update: (ctx, auth, previousItens) => new ItemProvider(
+            auth.token,
+            auth.userId,
+            previousItens.todositens,
+          ),
         ),
         ChangeNotifierProxyProvider<Auth, Anuncios>(
           create: (_) => new Anuncios(),
@@ -58,14 +70,12 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.AUTENTICACAO_HOME: (ctx) => AuthOrHomeScreen(),
           RotasFlowRural.BUSCAR: (ctx) => BuscaView(),
           RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
-          RotasFlowRural.ANUNCIO_DETALHE: (ctx) => DetalheAnuncioView(),
+          RotasFlowRural.NOTIFICACOES: (ctx) => NotificacaoView(),
           RotasFlowRural.ANUNCIO_GERENCIA: (ctx) => AnuncioView(),
-          RotasFlowRural.ABATES_VIEW: (ctx) => AbatesView(),
-          RotasFlowRural.FLUXO_VIEW: (ctx) => FluxoView(),
-          RotasFlowRural.EXPEDICAO_VIEW: (ctx) => ExpedicaoView(),
           RotasFlowRural.FORM_CAD_ANUNCIO: (ctx) => CadAnuncioForm(),
           RotasFlowRural.FORM_CAD_PESSOA: (ctx) => CadPessoaForm(),
           RotasFlowRural.FORM_CAD_OFERTA: (ctx) => CadOfertaForm(),
+          RotasFlowRural.FORM_CAD_ITEM: (ctx) => CadItemForm(),
           RotasFlowRural.PESSO_CAD_VIEW: (ctx) => CadPessoaView(),
           RotasFlowRural.LOJAS_VIEW: (ctx) => LojasView(),
           RotasFlowRural.PRODUTOS_VIEW: (ctx) => ProdutosView(),

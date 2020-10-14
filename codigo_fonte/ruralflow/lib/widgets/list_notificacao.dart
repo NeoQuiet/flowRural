@@ -2,17 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/models/anuncio.dart';
-import 'package:ruralflow/models/produto.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+import 'package:ruralflow/models/item.dart';
+import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
-import '../models/pessoa.dart';
+class ListNotificacao extends StatelessWidget {
+  final Item itens;
 
-class ListCadProd extends StatelessWidget {
-  final Produto produto;
-
-  ListCadProd(this.produto);
+  ListNotificacao(this.itens);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +19,9 @@ class ListCadProd extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.white,
-        child: Text('imagem'),
+        child: Text(itens.valor),
       ),
-      title: Text('Queijo'),
+      title: Text(itens.descricao),
       trailing: Container(
         width: 100,
         height: 300,
@@ -37,7 +34,7 @@ class ListCadProd extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pushNamed(RotasFlowRural.FORM_CAD_ANUNCIO,
-                    arguments: produto);
+                    arguments: itens);
               },
             ),
             IconButton(
@@ -66,8 +63,8 @@ class ListCadProd extends StatelessWidget {
                   (value) async {
                     if (value) {
                       try {
-                        await Provider.of<Anuncios>(context, listen: false)
-                            .delete(produto.id);
+                        await Provider.of<ItemProvider>(context, listen: false)
+                            .delete(itens.id);
                       } on HttpException catch (error) {
                         scaffold.showSnackBar(
                           SnackBar(

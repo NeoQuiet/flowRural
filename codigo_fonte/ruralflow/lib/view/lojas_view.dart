@@ -27,14 +27,14 @@ class LojasView extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    RotasFlowRural.FORM_CAD_ANUNCIO,
+                    RotasFlowRural.NOTIFICACOES,
                   );
                   // CadAnuncioForm();
                 },
               ),
             ],
             title: Text(
-              'Buscar Lojas',
+              'Buscar',
             ),
           ),
           body: _body(context),

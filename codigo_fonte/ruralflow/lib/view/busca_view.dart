@@ -23,7 +23,7 @@ class _BuscaViewState extends State<BuscaView> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    RotasFlowRural.FORM_CAD_ANUNCIO,
+                    RotasFlowRural.NOTIFICACOES,
                   );
                   // CadAnuncioForm();
                 },
@@ -35,29 +35,6 @@ class _BuscaViewState extends State<BuscaView> {
           ),
           drawer: AppDrawer(),
           body: _body(context),
-        ),
-        Container(
-          height: 100,
-          margin: EdgeInsetsDirectional.only(
-            start: 250,
-            top: 475,
-          ),
-          width: 75,
-          child: FloatingActionButton(
-            backgroundColor: Colors.green[300],
-            elevation: 10,
-            child: Icon(
-              Icons.add,
-              color: Colors.yellow[300],
-              size: 40,
-            ),
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                RotasFlowRural.FORM_CAD_PRODUTO,
-              );
-              // CadAnuncioForm();
-            },
-          ),
         ),
       ],
     );
@@ -93,7 +70,7 @@ _body(context) {
                     color: Colors.red,
                   ),
                   Text(
-                    'Estabelecimentos',
+                    'Estabelecimentos e Pessoas',
                   ),
                 ],
               ),
@@ -118,35 +95,12 @@ _body(context) {
                     color: Colors.red,
                   ),
                   Text(
-                    'Produtos',
+                    'Produtos e Serviços',
                   ),
                 ],
               ),
             ),
             Divider(),
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  RotasFlowRural.ANUNCIADOS_VIEW,
-                );
-              },
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/images/anunciados.jpg',
-                    height: 150,
-                    width: 100,
-                  ),
-                  Divider(
-                    color: Colors.red,
-                  ),
-                  Text(
-                    'Anunciados',
-                  ),
-                  Divider(),
-                ],
-              ),
-            ),
           ],
         ),
       ),

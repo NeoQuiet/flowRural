@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
+import 'package:ruralflow/models/item.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:ruralflow/provider/item_provider.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -11,16 +15,13 @@ FUNÇÃO: ESTE WIDGET É O FORMULÁRIO DE CADASTRO DE SERVIÇO
 
 */
 
-class CadAnuncioForm extends StatefulWidget {
+class CadItemForm extends StatefulWidget {
   @override
-  _CadAnuncioFormState createState() => _CadAnuncioFormState();
+  _CadItemFormState createState() => _CadItemFormState();
 }
 
-class _CadAnuncioFormState extends State<CadAnuncioForm> {
+class _CadItemFormState extends State<CadItemForm> {
   //Definir o foco de um formulario
-  final _descricaoFocusNode = FocusNode();
-  final _quantidadeFocusNode = FocusNode();
-  final _valorFocusNode = FocusNode();
 
   List<String> _listaTipoAnuncio = [
     "Compra",
@@ -41,20 +42,21 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     _formulario.currentState.save();
 
     //instância de um novo anuncio com os dados do formulario
-    final novoAnuncio = Anuncio(
-      idPessoa: '2',
-      descricao: _formularioDados['descricao'],
-      anuncio: _formularioDados['tipoAnuncio'],
-      qtde: _formularioDados['quantidade'],
-      valor: _formularioDados['valor'],
-    );
+    final novoItem = Item(
+        id: _formularioDados['id'],
+        descricao: _formularioDados['descricao'],
+        valor: _formularioDados['valor'],
+        quantidade: _formularioDados['quantidade'],
+        imagem: _formularioDados['imagem'],
+        ativo: _formularioDados['ativo'],
+        dtCadastro: _formularioDados['dtCadastro']);
 
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
-    Provider.of<Anuncios>(context, listen: false)
-        .adicionarAnuncioLista(novoAnuncio);
+    Provider.of<ItemProvider>(context, listen: false)
+        .adicionarItemBanco(novoItem);
     Navigator.of(context).pop();
   }
 
@@ -62,9 +64,6 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
   @override
   void dispose() {
     super.dispose();
-
-    _quantidadeFocusNode.dispose();
-    _valorFocusNode.dispose();
   }
 
   @override
@@ -78,29 +77,19 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
                 _salvarFormulario();
               })
         ],
-        title: Text('Cadastrar Anuncio'),
+        title: Text('Cadastrar Item'),
       ),
       body: Form(
         key: _formulario,
         child: ListView(
           children: [
-            _campoTipoAnuncio(),
-            _campoProduto(),
-            Divider(),
-            _campoTextoDescricao(),
-            Divider(
-              thickness: 10,
-            ),
-            _campoUnMed(),
+            _campoDescricao(),
             _textFormFieldQuantidade(),
-            Divider(),
             _textFormFieldValor(),
-            Divider(
-              thickness: 10,
-              color: Colors.green,
-            ),
+            Divider(),
+            _campoImagem(),
             _campoAnuncioAtivo(),
-            _campoExpiracao(),
+            _campoDtCadastro(),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -123,51 +112,18 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     );
   }
 
-  _campoTipoAnuncio() {
-    return DropdownSearch<String>(
-      mode: Mode.MENU,
-      showSelectedItem: true,
-      items: [
-        'Compra',
-        'Venda',
-        'Serviço',
-      ],
-      hint: 'Tipo do Anuncio',
-      onSaved: (valor) => _formularioDados['tipoAnuncio'] = valor,
-      autoFocusSearchBox: true,
-    );
-  }
+  _campoImagem() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        hintText: 'Imagens ',
+      ),
+      //maximo de linhas
+      maxLines: 1,
 
-  _campoProduto() {
-    return DropdownSearch<String>(
-      mode: Mode.MENU,
-      showSelectedItem: true,
-      items: [
-        'Produto 1',
-        'Serviço 1',
-        'Produto 2',
-      ],
-      hint: 'Selecione o produto',
-      onSaved: (valor) => _formularioDados['produto'] = valor,
-      autoFocusSearchBox: true,
-    );
-  }
-
-  _campoUnMed() {
-    return DropdownSearch<String>(
-      mode: Mode.MENU,
-      showSelectedItem: true,
-      items: [
-        'Hora',
-        'Arroba',
-        'Kg',
-        'Tonelada',
-        'Unidade',
-        'Pacote',
-      ],
-      hint: 'Unidade medida',
-      onSaved: (valor) => _formularioDados['unidadeMed'] = valor,
-      autoFocusSearchBox: true,
+      //comand que permite salvar os formularios
+      onSaved: (valor) => _formularioDados['imagem'] = valor,
+      //adiciona o botão para pular de linha
+      textInputAction: TextInputAction.next,
     );
   }
 
@@ -195,8 +151,8 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
         'Anativo',
         'Concluido',
       ],
-      hint: 'Anuncio Ativo',
-      onSaved: (valor) => _formularioDados['anuncioAtivo'] = valor,
+      hint: 'Ativo',
+      onSaved: (valor) => _formularioDados['ativo'] = valor,
       autoFocusSearchBox: true,
     );
   }
@@ -207,7 +163,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
         hintText: 'Quantidade',
       ),
       //define o foco da linha
-      focusNode: _quantidadeFocusNode,
+
       //adiciona o botão para pular de linha
       textInputAction: TextInputAction.next,
       //adiciona o teclado numerico
@@ -216,20 +172,19 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
       ),
       onFieldSubmitted: (_) {
         //Esta associado ao foco da proxima linha 'valor', permite mudar para a proxima linha
-        FocusScope.of(context).requestFocus(_valorFocusNode);
       },
       //comando que permite salvar os formularios
       onSaved: (valor) => _formularioDados['quantidade'] = valor,
     );
   }
 
-  _campoTextoDescricao() {
+  _campoDescricao() {
     return TextFormField(
       decoration: const InputDecoration(
-        hintText: 'Descrição do anuncio ',
+        hintText: 'Descrição ',
       ),
       //maximo de linhas
-      maxLines: 5,
+      maxLines: 1,
       //comand que permite salvar os formularios
 
       //adiciona o botão para pular de linha
@@ -238,10 +193,10 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
     );
   }
 
-  _campoExpiracao() {
+  _campoDtCadastro() {
     return TextFormField(
       decoration: const InputDecoration(
-        hintText: 'Data expiracao ',
+        hintText: 'Data Cadastro ',
       ),
       //maximo de linhas
       maxLines: 1,
@@ -249,7 +204,7 @@ class _CadAnuncioFormState extends State<CadAnuncioForm> {
 
       //adiciona o botão para pular de linha
       textInputAction: TextInputAction.next,
-      onSaved: (valor) => _formularioDados['dtExpiracao'] = valor,
+      onSaved: (valor) => _formularioDados['dtCadastro'] = valor,
     );
   }
 }

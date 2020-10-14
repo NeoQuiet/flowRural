@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
-import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/widgets/list_cad_prod.dart';
-import '../widgets/drawer.dart';
-import '../widgets/list_cad_anuncio.dart';
+import 'package:ruralflow/provider/item_provider.dart';
+
+import 'package:ruralflow/widgets/list_cad_item.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -25,15 +23,12 @@ class ProdutosView extends StatelessWidget {
                   Icons.search,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RotasFlowRural.FORM_CAD_ANUNCIO,
-                  );
                   // CadAnuncioForm();
                 },
               ),
             ],
             title: Text(
-              'Buscar Produtos',
+              'Buscar',
             ),
           ),
           body: _body(context),
@@ -44,22 +39,21 @@ class ProdutosView extends StatelessWidget {
 }
 
 _body(context) {
-  final produtosDados = Provider.of<Produtos>(context);
-  final produtos = produtosDados.todosProdutos;
+  final itensDados = Provider.of<ItemProvider>(context);
+  final itens = itensDados.todositens;
   return Container(
     child: Padding(
       padding: EdgeInsets.all(10),
       child: ListView.builder(
         //captura o total de anuncios
-        itemCount: anunciosDados.totalAnuncios,
+        itemCount: itensDados.totalItens,
         //inicia a construção da lista de items
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadProd(produtos[i]),
-
+            ListCadItem(itens[i]),
             //divisor responsavel por desenha uma linha de divisaos
-            Divider(),
+            Divider(color: Colors.red),
           ],
         ),
       ),

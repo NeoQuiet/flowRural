@@ -25,14 +25,14 @@ class AnuncioView extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    RotasFlowRural.FORM_CAD_ANUNCIO,
+                    RotasFlowRural.FORM_CAD_ITEM,
                   );
                   // CadAnuncioForm();
                 },
               ),
             ],
             title: Text(
-              'Gerenciar anuncios',
+              'Produtos e Serviços',
             ),
           ),
           drawer: AppDrawer(),
@@ -55,7 +55,7 @@ class AnuncioView extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(
-                RotasFlowRural.FORM_CAD_PRODUTO,
+                RotasFlowRural.FORM_CAD_ITEM,
               );
               // CadAnuncioForm();
             },
