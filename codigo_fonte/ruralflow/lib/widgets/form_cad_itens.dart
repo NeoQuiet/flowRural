@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/models/anuncio.dart';
+
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:ruralflow/provider/item_provider.dart';
 
@@ -23,14 +21,7 @@ class CadItemForm extends StatefulWidget {
 class _CadItemFormState extends State<CadItemForm> {
   //Definir o foco de um formulario
 
-  List<String> _listaTipoAnuncio = [
-    "Compra",
-    'Venda',
-    'Serviço',
-  ];
-
   ///Controladores textField tipoAnuncio
-  final _tipoAnuncioControlador = TextEditingController();
 
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();

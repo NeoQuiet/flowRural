@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/models/pessoa.dart';
+
 import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
@@ -24,6 +24,12 @@ class ListCadItem extends StatelessWidget {
         Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.DETALHE_ITEM,
+                arguments: itens,
+              );
+            },
             leading: CircleAvatar(
               backgroundColor: Colors.white,
               child: Text(itens.valor),
@@ -79,7 +85,7 @@ class ListCadItem extends StatelessWidget {
                               scaffold.showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Vendedor notificado, aguarde o contato.'),
+                                      'Vendedor notificado, aguarde o contato. $error'),
                                 ),
                               );
                             }

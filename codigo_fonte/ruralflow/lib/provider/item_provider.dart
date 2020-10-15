@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/item.dart';
 import 'dart:async';
@@ -53,6 +53,25 @@ class ItemProvider with ChangeNotifier {
   }
 
   Future<void> loadItem() async {
+    final response = await http.get("$_baseUrl.json?auth=$_token");
+    Map<String, dynamic> data = json.decode(response.body);
+
+    _todosItens.clear();
+    if (data != null) {
+      data.forEach((itemId, itemDados) {
+        _todosItens.add(Item(
+          id: itemId,
+          descricao: itemDados['anuncio'],
+          valor: itemDados['valor'],
+          quantidade: itemDados['quantidade'],
+        ));
+      });
+      notifyListeners();
+    }
+    return Future.value();
+  }
+
+  Future<void> getItem() async {
     final response = await http.get("$_baseUrl.json?auth=$_token");
     Map<String, dynamic> data = json.decode(response.body);
 

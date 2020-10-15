@@ -10,6 +10,7 @@ import 'package:ruralflow/view/anunciados_view.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 import 'package:ruralflow/view/autenticacao_home_view.dart';
 import 'package:ruralflow/view/busca_view.dart';
+import 'package:ruralflow/view/detalhe_item.dart';
 
 import 'package:ruralflow/view/flowrural_home_view.dart';
 
@@ -20,7 +21,7 @@ import 'package:ruralflow/view/produtos_view.dart';
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_itens.dart';
 import 'package:ruralflow/widgets/form_cad_oferta.dart';
-import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
+import 'package:ruralflow/widgets/form_cad_pessoa.dart';
 import './view/cad_pessoa_View.dart';
 
 void main() => runApp(MyApp());
@@ -38,29 +39,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => new ItemProvider(),
         ),
-        ChangeNotifierProxyProvider<Auth, ItemProvider>(
-          create: (_) => new ItemProvider(),
-          update: (ctx, auth, previousItens) => new ItemProvider(
-            auth.token,
-            auth.userId,
-            previousItens.todositens,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Anuncios>(
-          create: (_) => new Anuncios(),
-          update: (ctx, auth, previousProducts) => new Anuncios(
-            auth.token,
-            auth.userId,
-            previousProducts.todosAnuncios,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Pessoas>(
+        ChangeNotifierProvider(
           create: (_) => new Pessoas(),
-          update: (ctx, auth, previousPessoas) => new Pessoas(
-            auth.token,
-            auth.userId,
-            previousPessoas.todasPessoas,
-          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Anuncios(),
         ),
       ],
       child: MaterialApp(
@@ -80,6 +63,7 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.LOJAS_VIEW: (ctx) => LojasView(),
           RotasFlowRural.PRODUTOS_VIEW: (ctx) => ProdutosView(),
           RotasFlowRural.ANUNCIADOS_VIEW: (ctx) => AnunciadosView(),
+          RotasFlowRural.DETALHE_ITEM: (ctx) => DetalheItem(),
         },
       ),
     );

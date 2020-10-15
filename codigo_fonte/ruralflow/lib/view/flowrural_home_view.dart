@@ -35,41 +35,27 @@ class _HomeFlowRuralState extends State<HomeFlowRural> {
   //controller para o texto pesquisado
   final TextEditingController _pesquisaQuery = new TextEditingController();
 
-  // lista que retorna a buscar por pessoa
-  List<String> _pessoa;
-
   //boolean está pesquisando
-  bool _IsSearching;
+
   //texto pesquisado
-  String _searchText = "";
 
   _HomeFlowRuralState() {
     _pesquisaQuery.addListener(() {
       if (_pesquisaQuery.text.isEmpty) {
-        setState(() {
-          _IsSearching = false;
-          _searchText = " ";
-        });
+        setState(() {});
       } else {
-        setState(() {
-          _IsSearching = true;
-          _searchText = _pesquisaQuery.text;
-        });
+        setState(() {});
       }
     });
   }
 
-  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
     Firebase.initializeApp();
 
     Provider.of<Pessoas>(context, listen: false).loadPessoas().then((_) {
-      setState(() {
-        _isLoading = false;
-        _IsSearching = false;
-      });
+      setState(() {});
     });
   }
 
@@ -82,31 +68,6 @@ class _HomeFlowRuralState extends State<HomeFlowRural> {
       drawer: AppDrawer(),
       body: HomeBody(),
     );
-  }
-
-  _appBar() {
-    return AppBar(
-      title: Text('Flow-Rural'),
-    );
-  }
-
-  List<Pessoas> _buildList() {
-    return _pessoa.map((contact) => new Pessoas(contact)).toList();
-  }
-
-  List<Pessoas> _buildSearchList() {
-    if (_searchText.isEmpty) {
-      return _pessoa.map((contact) => new Pessoas(contact)).toList();
-    } else {
-      List<String> _searchList = List();
-      for (int i = 0; i < _pessoa.length; i++) {
-        String name = _pessoa.elementAt(i);
-        if (name.toLowerCase().contains(_searchText.toLowerCase())) {
-          _searchList.add(name);
-        }
-      }
-      return _searchList.map((contact) => new Pessoas(contact)).toList();
-    }
   }
 
   Widget buildBar(BuildContext context) {
@@ -145,9 +106,7 @@ class _HomeFlowRuralState extends State<HomeFlowRural> {
   }
 
   void _handleSearchStart() {
-    setState(() {
-      _IsSearching = true;
-    });
+    setState(() {});
   }
 
   void _handleSearchEnd() {
@@ -162,7 +121,7 @@ class _HomeFlowRuralState extends State<HomeFlowRural> {
           "FLOW RURAL",
           style: new TextStyle(color: Colors.white),
         );
-        _IsSearching = false;
+
         _pesquisaQuery.clear();
       },
     );

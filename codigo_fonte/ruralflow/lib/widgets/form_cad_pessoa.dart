@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/pessoa_provider.dart';
-import 'package:ruralflow/utils/app_routes.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -36,13 +34,15 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
       nome: _formularioDados['nome'],
       endereco: _formularioDados['endereco'],
       telefone: _formularioDados['telefone'],
+      email: _formularioDados['email'],
+      senha: _formularioDados['senha'],
     );
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Pessoas>(context, listen: false)
-        .adicionarPessoaLista(novaPessoa);
+        .adicionarPessoaBancoLista(novaPessoa);
   }
 
   //evitar limite de uso de memoria
@@ -119,6 +119,38 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
               //comando que permite salvar os formularios
               onSaved: (valor) => _formularioDados['telefone'] = valor,
             ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'Email',
+              ),
+              //define o foco da linha
+
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+              //adiciona o teclado numerico
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              onFieldSubmitted: (_) {},
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['email'] = valor,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'Senha',
+              ),
+              //define o foco da linha
+
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+              //adiciona o teclado numerico
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              onFieldSubmitted: (_) {},
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['senha'] = valor,
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -128,14 +160,6 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
                 child: RaisedButton(
                   onPressed: () {
                     _salvarFormulario();
-                    FirebaseFirestore.instance
-                        .collection('pessoa')
-                        .snapshots()
-                        .listen((querySnapshot) {
-                      querySnapshot.docs.forEach((element) {
-                        print(element);
-                      });
-                    });
                   },
                   child: Text(
                     'Cadastrar',

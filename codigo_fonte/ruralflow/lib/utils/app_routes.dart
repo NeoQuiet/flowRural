@@ -14,4 +14,5 @@ class RotasFlowRural {
   static const ANUNCIADOS_VIEW = '/anunciados-view';
   static const PRODUTOS_VIEW = '/produtos-view';
   static const LOJAS_VIEW = '/lojas-view';
+  static const DETALHE_ITEM = '/detalhe-item';
 }

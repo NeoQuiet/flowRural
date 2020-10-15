@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/widgets/list_cad_lojas.dart';
 import '../provider/pessoa_provider.dart';
-import '../widgets/drawer.dart';
-import '../widgets/list_cad_anuncio.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
