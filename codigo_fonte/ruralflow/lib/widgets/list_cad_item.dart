@@ -32,10 +32,10 @@ class ListCadItem extends StatelessWidget {
             },
             leading: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Text(itens.valor),
+              child: Text('itens.valor'),
             ),
-            title: Text(itens.descricao),
-            subtitle: Text(itens.ativo),
+            title: Text('itens.descricao'),
+            subtitle: Text('itens.ativo'),
             trailing: Container(
               width: 100,
               height: 300,
@@ -46,11 +46,7 @@ class ListCadItem extends StatelessWidget {
                       Icons.call,
                       color: Theme.of(context).primaryColor,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                          RotasFlowRural.FORM_CAD_ANUNCIO,
-                          arguments: itens);
-                    },
+                    onPressed: () {},
                   ),
                   IconButton(
                     icon: Icon(

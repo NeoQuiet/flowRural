@@ -1,5 +1,6 @@
 class Item {
   String id;
+  String idPessoa;
   String descricao;
   String quantidade;
   String valor;
@@ -10,6 +11,7 @@ class Item {
   Item({
     this.id,
     this.descricao,
+    this.idPessoa,
     this.quantidade,
     this.valor,
     this.imagem,

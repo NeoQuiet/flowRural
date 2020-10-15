@@ -6,8 +6,7 @@ import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/provider/pessoa_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
-import 'package:ruralflow/view/anunciados_view.dart';
-import 'package:ruralflow/view/anuncios_view.dart';
+import 'package:ruralflow/view/itens_view.dart';
 import 'package:ruralflow/view/autenticacao_home_view.dart';
 import 'package:ruralflow/view/busca_view.dart';
 import 'package:ruralflow/view/detalhe_item.dart';
@@ -16,7 +15,7 @@ import 'package:ruralflow/view/flowrural_home_view.dart';
 
 import 'package:ruralflow/view/lojas_view.dart';
 import 'package:ruralflow/view/notificacao_vieww.dart';
-import 'package:ruralflow/view/produtos_view.dart';
+import 'package:ruralflow/view/itens_busca_view.dart';
 
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_itens.dart';
@@ -54,15 +53,14 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.BUSCAR: (ctx) => BuscaView(),
           RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
           RotasFlowRural.NOTIFICACOES: (ctx) => NotificacaoView(),
-          RotasFlowRural.ANUNCIO_GERENCIA: (ctx) => AnuncioView(),
+          RotasFlowRural.ITENS_GERENCIA: (ctx) => ItensCadView(),
           RotasFlowRural.FORM_CAD_ANUNCIO: (ctx) => CadAnuncioForm(),
           RotasFlowRural.FORM_CAD_PESSOA: (ctx) => CadPessoaForm(),
           RotasFlowRural.FORM_CAD_OFERTA: (ctx) => CadOfertaForm(),
           RotasFlowRural.FORM_CAD_ITEM: (ctx) => CadItemForm(),
           RotasFlowRural.PESSO_CAD_VIEW: (ctx) => CadPessoaView(),
           RotasFlowRural.LOJAS_VIEW: (ctx) => LojasView(),
-          RotasFlowRural.PRODUTOS_VIEW: (ctx) => ProdutosView(),
-          RotasFlowRural.ANUNCIADOS_VIEW: (ctx) => AnunciadosView(),
+          RotasFlowRural.ITENS_VIEW: (ctx) => ItensView(),
           RotasFlowRural.DETALHE_ITEM: (ctx) => DetalheItem(),
         },
       ),

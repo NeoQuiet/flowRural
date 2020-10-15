@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/item.dart';
@@ -12,7 +13,7 @@ class ItemProvider with ChangeNotifier {
   String _token;
   String _userId;
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.API_URL}/produto';
+  final String _baseUrl = '${Constants.API_URL}/itens';
   //cria lista contendo todos os anuncios sem provedor
   List<Item> _todosItens = [];
 
@@ -28,9 +29,9 @@ class ItemProvider with ChangeNotifier {
 
   Future<void> adicionarItemBanco(Item pNovoItem) async {
     final response = await http.post(
-      "$_baseUrl.json?auth=$_token",
+      "$_baseUrl.json",
       body: json.encode({
-        'id': _userId,
+        'id': Random().nextInt(9999),
         'descricao': pNovoItem.descricao,
         'quantidade': pNovoItem.quantidade,
         'valor': pNovoItem.valor,
@@ -52,37 +53,20 @@ class ItemProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadItem() async {
-    final response = await http.get("$_baseUrl.json?auth=$_token");
+  Future<void> carregarTodosItens() async {
+    final response = await http.get("$_baseUrl.json");
     Map<String, dynamic> data = json.decode(response.body);
 
-    _todosItens.clear();
-    if (data != null) {
+    if (data != null || data == null) {
       data.forEach((itemId, itemDados) {
         _todosItens.add(Item(
           id: itemId,
           descricao: itemDados['anuncio'],
           valor: itemDados['valor'],
           quantidade: itemDados['quantidade'],
-        ));
-      });
-      notifyListeners();
-    }
-    return Future.value();
-  }
-
-  Future<void> getItem() async {
-    final response = await http.get("$_baseUrl.json?auth=$_token");
-    Map<String, dynamic> data = json.decode(response.body);
-
-    _todosItens.clear();
-    if (data != null) {
-      data.forEach((itemId, itemDados) {
-        _todosItens.add(Item(
-          id: itemId,
-          descricao: itemDados['anuncio'],
-          valor: itemDados['valor'],
-          quantidade: itemDados['quantidade'],
+          ativo: itemDados['ativo'],
+          dtCadastro: itemDados['dtCadastro'],
+          imagem: itemDados['imagem'],
         ));
       });
       notifyListeners();
@@ -97,8 +81,7 @@ class ItemProvider with ChangeNotifier {
       _todosItens.remove(anuncio);
       notifyListeners();
 
-      final response =
-          await http.delete("$_baseUrl/${anuncio.id}.json?auth=$_token");
+      final response = await http.delete("$_baseUrl/${anuncio.id}.json");
 
       if (response.statusCode >= 400) {
         _todosItens.insert(index, anuncio);
@@ -116,7 +99,7 @@ class ItemProvider with ChangeNotifier {
     final index = _todosItens.indexWhere((anuncio) => anuncio.id == anuncio.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${pItens.id}.json?auth=$_token",
+        "$_baseUrl/${pItens.id}.json",
         body: json.encode({
           'descricao': pItens.descricao,
           'quantidade': pItens.quantidade,
