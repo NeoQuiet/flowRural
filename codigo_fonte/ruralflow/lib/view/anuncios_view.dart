@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
+import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
+import 'package:ruralflow/widgets/list_cad_item.dart';
 import '../widgets/drawer.dart';
 import '../widgets/list_cad_anuncio.dart';
 
@@ -38,51 +40,27 @@ class AnuncioView extends StatelessWidget {
           drawer: AppDrawer(),
           body: _body(context),
         ),
-        Container(
-          height: 100,
-          margin: EdgeInsetsDirectional.only(
-            start: 250,
-            top: 475,
-          ),
-          width: 75,
-          child: FloatingActionButton(
-            backgroundColor: Colors.green[300],
-            elevation: 10,
-            child: Icon(
-              Icons.add,
-              color: Colors.yellow[300],
-              size: 40,
-            ),
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                RotasFlowRural.FORM_CAD_ITEM,
-              );
-              // CadAnuncioForm();
-            },
-          ),
-        ),
       ],
     );
   }
 }
 
 _body(context) {
-  final anunciosDados = Provider.of<Anuncios>(context);
-  final anuncios = anunciosDados.todosAnuncios;
+  final itensDados = Provider.of<ItemProvider>(context);
+  final itens = itensDados.todositens;
   return Container(
     child: Padding(
       padding: EdgeInsets.all(10),
       child: ListView.builder(
         //captura o total de anuncios
-        itemCount: anunciosDados.totalAnuncios,
+        itemCount: itensDados.totalItens,
         //inicia a construção da lista de items
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadAnuncio(anuncios[i]),
-
+            ListCadItem(itens[i]),
             //divisor responsavel por desenha uma linha de divisaos
-            Divider(),
+            Divider(color: Colors.red),
           ],
         ),
       ),

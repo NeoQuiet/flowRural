@@ -55,16 +55,6 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('Chegadas e Saidas '),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.BUSCAR,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
             onTap: () {

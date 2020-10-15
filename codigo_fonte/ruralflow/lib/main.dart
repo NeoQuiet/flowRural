@@ -10,6 +10,7 @@ import 'package:ruralflow/view/anunciados_view.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 import 'package:ruralflow/view/autenticacao_home_view.dart';
 import 'package:ruralflow/view/busca_view.dart';
+import 'package:ruralflow/view/detalhe_item.dart';
 
 import 'package:ruralflow/view/flowrural_home_view.dart';
 
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.LOJAS_VIEW: (ctx) => LojasView(),
           RotasFlowRural.PRODUTOS_VIEW: (ctx) => ProdutosView(),
           RotasFlowRural.ANUNCIADOS_VIEW: (ctx) => AnunciadosView(),
+          RotasFlowRural.VISUALIZAR: (ctx) => DetalheItem(),
         },
       ),
     );

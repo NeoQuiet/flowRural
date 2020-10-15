@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/models/pessoa.dart';
+
 import 'package:ruralflow/provider/item_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
@@ -30,6 +30,10 @@ class ListCadItem extends StatelessWidget {
             ),
             title: Text(itens.descricao),
             subtitle: Text(itens.ativo),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamed(RotasFlowRural.VISUALIZAR, arguments: itens);
+            },
             trailing: Container(
               width: 100,
               height: 300,

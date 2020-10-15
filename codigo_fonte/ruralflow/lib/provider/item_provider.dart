@@ -28,7 +28,7 @@ class ItemProvider with ChangeNotifier {
 
   Future<void> adicionarItemBanco(Item pNovoItem) async {
     final response = await http.post(
-      "$_baseUrl.json?auth=$_token",
+      "$_baseUrl.json",
       body: json.encode({
         'id': _userId,
         'descricao': pNovoItem.descricao,
