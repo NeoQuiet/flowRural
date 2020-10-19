@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/provider/item_provider.dart';
 
 import 'package:ruralflow/widgets/visualizar_item.dart';
 
@@ -12,18 +10,25 @@ class DetalheItem extends StatefulWidget {
 }
 
 class _DetalheItemState extends State<DetalheItem> {
-  Item item;
-
   @override
   Widget build(BuildContext context) {
-    final itensDados = Provider.of<ItemProvider>(context);
-    final itens = itensDados.todositens;
+    final Item item = ModalRoute.of(context).settings.arguments as Item;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualização'),
+        title: Text(item.descricao),
       ),
-      body: VisualizaItem(item),
+      body: Container(
+          child: Column(
+        children: [
+          Container(
+            child: VisualizaItem(item),
+          ),
+          Divider(
+            color: Colors.red,
+          ),
+        ],
+      )),
     );
   }
 }

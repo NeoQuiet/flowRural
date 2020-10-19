@@ -17,9 +17,15 @@ class _BuscaViewState extends State<BuscaView> {
         Scaffold(
           appBar: AppBar(
             actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.insert_comment,
+              FlatButton(
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'NOTIFICAÇÕES',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(

@@ -36,10 +36,10 @@ class Pessoas with ChangeNotifier {
     final response = await http.post(
       "$_baseUrl.json?",
       body: json.encode({
+        'id': _userId,
         'nome': pNovoPessoa.nome,
         'endereco': pNovoPessoa.endereco,
         'telefone': pNovoPessoa.telefone,
-        'email': pNovoPessoa.email,
       }),
     );
 
@@ -49,7 +49,6 @@ class Pessoas with ChangeNotifier {
         nome: pNovoPessoa.nome,
         endereco: pNovoPessoa.endereco,
         telefone: pNovoPessoa.telefone,
-        email: pNovoPessoa.email,
       ),
     );
 
@@ -57,7 +56,7 @@ class Pessoas with ChangeNotifier {
   }
 
   Future<void> loadPessoas() async {
-    final response = await http.get("$_baseUrl.json?auth=$_token");
+    final response = await http.get("$_baseUrl.json");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todasPessoas.clear();

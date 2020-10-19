@@ -1,33 +1,108 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/provider/item_provider.dart';
+import 'package:ruralflow/models/pessoa.dart';
+import 'package:ruralflow/provider/item.dart';
 
 class VisualizaItem extends StatelessWidget {
   final Item item;
-  VisualizaItem(this.item);
+
+  VisualizaItem(
+    this.item,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(20),
-          width: 300,
-          height: 100,
-          child: Image.asset('assets/images/icone-produtos.png'),
-        ),
-        Divider(
-          color: Colors.red,
-        ),
-        _txtDescricao(context),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Colors.deepOrange,
+            height: 200,
+            width: double.infinity,
+            child: Image.asset(
+              'assets/images/queijocaipira.jpg',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          Text(
+            ' ${item.descricao}',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          Text(
+            'Complemento: LOREM IPSUM,LOREM IPSUM, LOREM IPSUM, LOREM IPSUM,LOREM IPSUM',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
+          Divider(
+            color: Colors.black,
+          ),
+          Container(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Valor total:  R\$ ${item.valor}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Quantidade: ${item.quantidade}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                _listTile(context),
+              ],
+            ),
+          ),
+          Divider(
+            color: Colors.black,
+          ),
+        ],
+      ),
     );
   }
 
-  _txtDescricao(context) {
-    final itensDados = Provider.of<ItemProvider>(context);
-    final itens = itensDados.todositens;
-    return Text(item.descricao);
+  _listTile(context) {
+    return FlatButton(
+      onPressed: () {
+        _return(context);
+      },
+      child: Text('${item.ativo}'),
+    );
   }
+}
+
+_return(context) {
+  return SnackBar(content: Text('Comprador '));
 }

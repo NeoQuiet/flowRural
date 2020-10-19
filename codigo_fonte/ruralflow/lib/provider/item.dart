@@ -5,14 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:ruralflow/models/item.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:ruralflow/models/pessoa.dart';
+import 'package:ruralflow/provider/pessoa.dart';
+
 import 'package:ruralflow/utils/constante.dart';
 
 /* esta classe contem todos os metodos de Anuncio */
 class ItemProvider with ChangeNotifier {
   String _token;
   String _userId;
+
+  Map<String, Pessoa> _pessoas = {};
+
+  Map<String, Pessoa> get pessoas {
+    return {..._pessoas};
+  }
+
+  Map<String, Pessoa> get pessoaiD {
+    return {..._pessoas};
+  }
+
+  int get pessoasCount {
+    return _pessoas.length;
+  }
+
   //instancia que aponta para a coleção no banco
   final String _baseUrl = '${Constants.API_URL}/produto';
+
   //cria lista contendo todos os anuncios sem provedor
   List<Item> _todosItens = [];
 
@@ -27,6 +46,32 @@ class ItemProvider with ChangeNotifier {
   //metodo responsavel por adicionar um novo anuncio na lista de anuncios
 
   Future<void> adicionarItemBanco(Item pNovoItem) async {
+    final response = await http.post(
+      "$_baseUrl.json",
+      body: json.encode({
+        'id': Random().nextInt(999),
+        'descricao': pNovoItem.descricao,
+        'quantidade': pNovoItem.quantidade,
+        'valor': pNovoItem.valor,
+        'imagem': pNovoItem.imagem,
+        'ativo': pNovoItem.ativo,
+        'dtCadastro': pNovoItem.dtCadastro,
+      }),
+    );
+    _todosItens.add(Item(
+      id: json.decode(response.body),
+      descricao: pNovoItem.descricao,
+      quantidade: pNovoItem.quantidade,
+      valor: pNovoItem.valor,
+      imagem: pNovoItem.imagem,
+      ativo: pNovoItem.ativo,
+      dtCadastro: pNovoItem.dtCadastro,
+    ));
+
+    notifyListeners();
+  }
+
+  Future<void> adicionarTipoItemBanco(Item pNovoItem) async {
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
@@ -52,8 +97,8 @@ class ItemProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadItem() async {
-    final response = await http.get("$_baseUrl.json?auth=$_token");
+  Future<void> carregarItem() async {
+    final response = await http.get("$_baseUrl.json");
     Map<String, dynamic> data = json.decode(response.body);
 
     _todosItens.clear();
@@ -61,9 +106,12 @@ class ItemProvider with ChangeNotifier {
       data.forEach((itemId, itemDados) {
         _todosItens.add(Item(
           id: itemId,
-          descricao: itemDados['anuncio'],
+          descricao: itemDados['descricao'],
           valor: itemDados['valor'],
           quantidade: itemDados['quantidade'],
+          imagem: itemDados['quantidade'],
+          ativo: itemDados['ativo'],
+          dtCadastro: itemDados['dtCadastro'],
         ));
       });
       notifyListeners();
@@ -97,7 +145,7 @@ class ItemProvider with ChangeNotifier {
     final index = _todosItens.indexWhere((anuncio) => anuncio.id == anuncio.id);
     if (index >= 0) {
       await http.patch(
-        "$_baseUrl/${pItens.id}.json?auth=$_token",
+        "$_baseUrl/${pItens.id}.json",
         body: json.encode({
           'descricao': pItens.descricao,
           'quantidade': pItens.quantidade,

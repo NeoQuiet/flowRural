@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/pessoa.dart';
-import 'package:ruralflow/provider/pessoa_provider.dart';
+import 'package:ruralflow/provider/pessoa.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
 /*
@@ -42,7 +42,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Pessoas>(context, listen: false)
-        .adicionarPessoaLista(novaPessoa);
+        .adicionarPessoaBancoLista(novaPessoa);
   }
 
   //evitar limite de uso de memoria

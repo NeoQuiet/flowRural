@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/item_provider.dart';
+import 'package:ruralflow/provider/item.dart';
 
 import 'package:ruralflow/widgets/list_cad_item.dart';
 

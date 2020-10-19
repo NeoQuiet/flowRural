@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
-import 'package:ruralflow/provider/item_provider.dart';
+import 'package:ruralflow/provider/item.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/widgets/list_cad_item.dart';
+import 'package:ruralflow/widgets/list_meucadastro_item.dart';
 import '../widgets/drawer.dart';
 import '../widgets/list_cad_anuncio.dart';
 
@@ -21,24 +22,27 @@ class AnuncioView extends StatelessWidget {
         Scaffold(
           appBar: AppBar(
             actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.insert_comment,
-                ),
+              FlatButton(
+                color: Theme.of(context).primaryColor,
                 onPressed: () {
                   Navigator.of(context).pushNamed(
                     RotasFlowRural.FORM_CAD_ITEM,
                   );
-                  // CadAnuncioForm();
                 },
+                child: Text(
+                  'ANUNCIAR',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
             title: Text(
-              'Produtos e Serviços',
+              'ANUNCIOS',
             ),
           ),
           drawer: AppDrawer(),
-          body: _body(context),
+          body: _futureBuilder(context),
         ),
       ],
     );
@@ -58,12 +62,46 @@ _body(context) {
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadItem(itens[i]),
+            ListMeuCadItem(itens[i]),
             //divisor responsavel por desenha uma linha de divisaos
             Divider(color: Colors.red),
           ],
         ),
       ),
     ),
+  );
+}
+
+_futureBuilder(context) {
+  return FutureBuilder(
+    future: Provider.of<ItemProvider>(context, listen: false).carregarItem(),
+    builder: (ctx, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      } else if (snapshot.error != null) {
+        return Center(child: Text('Ocorreu um erro!'));
+      } else {
+        return Consumer<ItemProvider>(
+          builder: (ctx, itens, child) {
+            return ListView.builder(
+              itemCount: itens.totalItens,
+              itemBuilder: (ctx, i) => Column(
+                children: [
+                  ListMeuCadItem(
+                    itens.todositens[i],
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.all(
+                10,
+              ),
+            );
+          },
+        );
+      }
+    },
   );
 }

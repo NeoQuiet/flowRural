@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/pessoa.dart';
-import 'package:ruralflow/provider/pessoa_provider.dart';
+import 'package:ruralflow/provider/pessoa.dart';
 
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/utils/store.dart';

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
-import 'package:ruralflow/utils/app_routes.dart';
-import 'package:ruralflow/widgets/list_cad_lojas.dart';
-import '../provider/pessoa.dart';
-import '../widgets/drawer.dart';
-import '../widgets/list_cad_anuncio.dart';
+import 'package:ruralflow/provider/item.dart';
+
+import 'package:ruralflow/widgets/list_cad_item.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -13,7 +10,7 @@ DATA: 30/08/2020
 FUNÇÃO: ESTE ESTÁ INTERFACE TEM COMO FINALIDADE, LISTAR OS ANUNCIOS JÁ CRIADOS E 
 PERMITIR QUE O USUÁRIO POSSA CRIAR, EDITAR OU INATIVAR ANUNCIOS. 
  */
-class LojasView extends StatelessWidget {
+class ProdutosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -26,9 +23,6 @@ class LojasView extends StatelessWidget {
                   Icons.search,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RotasFlowRural.NOTIFICACOES,
-                  );
                   // CadAnuncioForm();
                 },
               ),
@@ -45,23 +39,21 @@ class LojasView extends StatelessWidget {
 }
 
 _body(context) {
-  final pessoasDados = Provider.of<Pessoas>(context);
-  final pessoas = pessoasDados.todasPessoas;
+  final itensDados = Provider.of<ItemProvider>(context);
+  final itens = itensDados.todositens;
   return Container(
     child: Padding(
       padding: EdgeInsets.all(10),
       child: ListView.builder(
         //captura o total de anuncios
-        itemCount: pessoasDados.totalPessoa,
-
+        itemCount: itensDados.totalItens,
         //inicia a construção da lista de items
         itemBuilder: (ctx, i) => Column(
           children: [
             //Objeto que captura os anuncios cadastados e os lista
-            ListCadLoja(pessoas[i]),
-
+            ListCadItem(itens[i]),
             //divisor responsavel por desenha uma linha de divisaos
-            Divider(),
+            Divider(color: Colors.red),
           ],
         ),
       ),
@@ -71,21 +63,21 @@ _body(context) {
 
 _futureBuilder(context) {
   return FutureBuilder(
-    future: Provider.of<Pessoas>(context, listen: false).loadPessoas(),
+    future: Provider.of<ItemProvider>(context, listen: false).carregarItem(),
     builder: (ctx, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return Center(child: CircularProgressIndicator());
       } else if (snapshot.error != null) {
         return Center(child: Text('Ocorreu um erro!'));
       } else {
-        return Consumer<Pessoas>(
-          builder: (ctx, pessoas, child) {
+        return Consumer<ItemProvider>(
+          builder: (ctx, itens, child) {
             return ListView.builder(
-              itemCount: pessoas.totalPessoa,
+              itemCount: itens.totalItens,
               itemBuilder: (ctx, i) => Column(
                 children: [
-                  ListCadLoja(
-                    pessoas.todasPessoas[i],
+                  ListCadItem(
+                    itens.todositens[i],
                   ),
                   Divider(
                     color: Colors.black,

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/anuncio.dart';
 import 'package:ruralflow/models/item.dart';
+import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:ruralflow/provider/item_provider.dart';
+import 'package:ruralflow/provider/item.dart';
+import 'package:ruralflow/widgets/homeBody.dart';
 
 /*
 AUTOR: CAIO RODRIGO C PEIXOTO
@@ -31,7 +33,7 @@ class _CadItemFormState extends State<CadItemForm> {
 
   ///Controladores textField tipoAnuncio
   final _tipoAnuncioControlador = TextEditingController();
-
+  Pessoa idPessoa;
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();
   //fomrulardariotdata
@@ -70,14 +72,7 @@ class _CadItemFormState extends State<CadItemForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                _salvarFormulario();
-              })
-        ],
-        title: Text('Cadastrar Item'),
+        title: Text('NOVO ANUNCIO'),
       ),
       body: Form(
         key: _formulario,
@@ -147,11 +142,12 @@ class _CadItemFormState extends State<CadItemForm> {
       mode: Mode.MENU,
       showSelectedItem: true,
       items: [
-        'Ativo',
-        'Anativo',
-        'Concluido',
+        'Compra',
+        'Venda',
+        'Serviço',
+        'Aluguel',
       ],
-      hint: 'Ativo',
+      hint: 'Tipo',
       onSaved: (valor) => _formularioDados['ativo'] = valor,
       autoFocusSearchBox: true,
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:ruralflow/provider/pessoa_provider.dart';
+import 'package:ruralflow/provider/pessoa.dart';
 import 'package:ruralflow/widgets/anuncio_grid_anuncio.dart';
 
 /* Classe responsavel por exibir os anuncios em forma de grid  */

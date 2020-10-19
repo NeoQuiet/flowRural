@@ -7,10 +7,10 @@ import 'package:ruralflow/models/item.dart';
 import 'package:ruralflow/provider/item.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 
-class ListCadItem extends StatelessWidget {
+class ListMeuCadItem extends StatelessWidget {
   final Item itens;
 
-  ListCadItem(
+  ListMeuCadItem(
     this.itens,
   );
 
@@ -44,8 +44,8 @@ class ListCadItem extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(
-                      Icons.call,
-                      color: Colors.green,
+                      Icons.edit,
+                      color: Colors.blue,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -55,8 +55,8 @@ class ListCadItem extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Icon(
-                      Icons.star,
-                      color: Colors.orange,
+                      Icons.delete,
+                      color: Colors.red,
                     ),
                     onPressed: () {
                       showDialog(

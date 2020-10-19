@@ -20,9 +20,14 @@ class ListCadLoja extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.white,
-        child: Text('imagem'),
+        child: Image.asset('assets/images/lojaicone.png'),
       ),
       title: Text(pessoa.nome),
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          RotasFlowRural.VISUALIZAR_PESSOA,
+        );
+      },
       trailing: Container(
         width: 100,
         height: 300,
@@ -40,8 +45,8 @@ class ListCadLoja extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.input,
-                color: Colors.green,
+                Icons.star,
+                color: Colors.orange,
               ),
               onPressed: () {
                 showDialog(

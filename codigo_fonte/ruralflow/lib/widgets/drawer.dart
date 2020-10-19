@@ -28,8 +28,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Meu Perfil'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.HOME,
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.PERFIL_PESSOA,
               );
             },
           ),
@@ -48,8 +48,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.stairs),
             title: Text('Minhas Compras e Vendas'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.BUSCAR,
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.PEDIDOS,
               );
             },
           ),
