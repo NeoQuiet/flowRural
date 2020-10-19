@@ -24,6 +24,12 @@ class ListCadItem extends StatelessWidget {
         Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.DETALHE_ITEM,
+                arguments: itens,
+              );
+            },
             leading: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
@@ -47,11 +53,7 @@ class ListCadItem extends StatelessWidget {
                       Icons.call,
                       color: Colors.green,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                          RotasFlowRural.FORM_CAD_ANUNCIO,
-                          arguments: itens);
-                    },
+                    onPressed: () {},
                   ),
                   IconButton(
                     icon: Icon(
@@ -86,7 +88,7 @@ class ListCadItem extends StatelessWidget {
                               scaffold.showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Vendedor notificado, aguarde o contato.'),
+                                      'Vendedor notificado, aguarde o contato. $error'),
                                 ),
                               );
                             }

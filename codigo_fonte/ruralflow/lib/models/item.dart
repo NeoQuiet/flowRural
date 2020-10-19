@@ -1,6 +1,5 @@
 class Item {
   String id;
-
   String descricao;
   String quantidade;
   String valor;

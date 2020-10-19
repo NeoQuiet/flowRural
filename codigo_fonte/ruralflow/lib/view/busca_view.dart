@@ -87,7 +87,7 @@ _body(context) {
             FlatButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(
-                  RotasFlowRural.PRODUTOS_VIEW,
+                  RotasFlowRural.ITENS_VIEW,
                 );
               },
               child: Column(

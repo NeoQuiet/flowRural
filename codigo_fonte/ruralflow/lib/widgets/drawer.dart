@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
             title: Text('Meus Produtos e Serviços'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                RotasFlowRural.ANUNCIO_GERENCIA,
+                RotasFlowRural.ITENS_GERENCIA,
               );
             },
           ),
