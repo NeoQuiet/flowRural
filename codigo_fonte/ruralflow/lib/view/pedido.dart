@@ -113,7 +113,7 @@ _card() {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Compras - Saidas',
+                'Compras',
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
@@ -134,7 +134,7 @@ _card() {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Vendas - Entradas',
+                'Vendas ',
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(width: 10),

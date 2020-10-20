@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruralflow/widgets/list_notificacao.dart';
 
 class NotificacaoView extends StatefulWidget {
   @override
@@ -11,6 +12,16 @@ class _NotificacaoViewState extends State<NotificacaoView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notificações'),
+        actions: [
+          FlatButton.icon(
+            onPressed: () {},
+            icon: Icon(
+              Icons.format_align_left_rounded,
+              color: Colors.white,
+            ),
+            label: Text(''),
+          )
+        ],
       ),
       body: _body(context),
     );
@@ -18,5 +29,5 @@ class _NotificacaoViewState extends State<NotificacaoView> {
 }
 
 _body(context) {
-  return Column();
+  return ListNotificacao();
 }

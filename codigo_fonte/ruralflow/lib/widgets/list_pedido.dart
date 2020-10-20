@@ -12,24 +12,49 @@ class ListPedidos extends StatelessWidget {
     // scaffold
     final scaffold = Scaffold.of(context);
     // lista em forma tijolo
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Image.asset('assets/images/lojaicone.png'),
-      ),
-      title: Text('Boi para reprodução'),
-      subtitle: Text('Compra'),
-      onTap: () {},
-      trailing: Container(
-        margin: EdgeInsets.all(5),
-        width: 150,
-        height: 350,
-        child: Row(
-          children: [
-            Text('Valor R\$5,000,00'),
-          ],
+    return Column(
+      children: [
+        ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Image.asset('assets/images/lojaicone.png'),
+          ),
+          title: Text('Boi para reprodução'),
+          subtitle: Text('Compra'),
+          onTap: () {},
+          trailing: Container(
+            margin: EdgeInsets.all(5),
+            width: 150,
+            height: 350,
+            child: Row(
+              children: [
+                Text('Valor R\$5,000,00'),
+              ],
+            ),
+          ),
         ),
-      ),
+        Divider(color: Colors.black),
+        ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Image.asset('assets/images/lojaicone.png'),
+          ),
+          title: Text('Boi para abate'),
+          subtitle: Text('Venda'),
+          onTap: () {},
+          trailing: Container(
+            margin: EdgeInsets.all(5),
+            width: 150,
+            height: 350,
+            child: Row(
+              children: [
+                Text('Valor R\$5,000,00'),
+              ],
+            ),
+          ),
+        ),
+        Divider(color: Colors.black),
+      ],
     );
   }
 }

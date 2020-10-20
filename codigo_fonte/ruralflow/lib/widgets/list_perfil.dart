@@ -10,40 +10,143 @@ class VisualizaPerfilPessoa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Column(
         children: <Widget>[
+          Divider(
+            color: Colors.black,
+          ),
           Container(
-            color: Colors.deepOrange,
+            color: Colors.white,
             height: 300,
             width: double.infinity,
-            child: Image.asset(
-              'assets/images/lojaicone.jpg',
-              fit: BoxFit.cover,
+            child: CircleAvatar(
+              radius: 350,
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/pessoaicone.jpg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
-          SizedBox(height: 10),
+          Divider(
+            color: Colors.black,
+          ),
           Text(
-            ' Nome',
+            ' Caio Rodrigo Cardoso Peixoto',
             style: TextStyle(
-              color: Colors.grey,
+              color: Colors.black,
               fontSize: 20,
             ),
           ),
-          Text(
-            ' Nome',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 20,
-            ),
+          Divider(
+            color: Colors.black,
           ),
-          SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            width: double.infinity,
-            child: Text(
-              'pessoa.email',
-              textAlign: TextAlign.center,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                ' Pessoa interessadas',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              FlatButton.icon(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.star,
+                  color: Colors.orange,
+                ),
+                label: Text('30'),
+              )
+            ],
+          ),
+          Divider(
+            color: Colors.black,
+          ),
+          Row(
+            children: [
+              Text(
+                ' Endereço:',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' Fazenda do Gado ,',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' S/N',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+          Divider(),
+          Row(
+            children: [
+              Text(
+                ' Local:',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' Ibaiti ,',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' Paraná',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.black,
+          ),
+          Row(
+            children: [
+              Text(
+                ' Telefone:',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' 43 96502289',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                ' - 43 96502289',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [],
           ),
         ],
       ),

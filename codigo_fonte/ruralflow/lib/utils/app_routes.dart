@@ -19,4 +19,5 @@ class RotasFlowRural {
   static const DETALHE_PESSOA = '/detalhe-pessoa';
   static const PERFIL_PESSOA = '/perfil-pessoa';
   static const PEDIDOS = '/pedidos';
+  static const VISUALIZAR_MEU_ITEM = '/visualizar-meu-item';
 }

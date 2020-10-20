@@ -34,8 +34,9 @@ class ListMeuCadItem extends StatelessWidget {
             title: Text(itens.descricao),
             subtitle: Text(itens.ativo),
             onTap: () {
-              Navigator.of(context)
-                  .pushNamed(RotasFlowRural.VISUALIZAR, arguments: itens);
+              Navigator.of(context).pushNamed(
+                  RotasFlowRural.VISUALIZAR_MEU_ITEM,
+                  arguments: itens);
             },
             trailing: Container(
               width: 100,

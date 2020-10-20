@@ -16,6 +16,7 @@ class _BuscaViewState extends State<BuscaView> {
       children: [
         Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.green,
             actions: [
               FlatButton(
                 shape: new RoundedRectangleBorder(

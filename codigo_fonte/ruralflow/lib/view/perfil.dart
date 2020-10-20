@@ -16,7 +16,18 @@ class _PerfilPessoaState extends State<PerfilPessoa> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('pessoa.nome'),
+        title: Text('Caio Rodrigo Cardoso Peixoto'),
+        actions: [
+          FlatButton(
+            child: Text(
+              'EDITAR',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: VisualizaPerfilPessoa(pessoa),
     );

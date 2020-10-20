@@ -19,6 +19,7 @@ import 'package:ruralflow/view/notificacao_vieww.dart';
 import 'package:ruralflow/view/item_view.dart';
 import 'package:ruralflow/view/pedido.dart';
 import 'package:ruralflow/view/perfil.dart';
+import 'package:ruralflow/view/visualizar_meuitem.dart';
 
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_itens.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.VISUALIZAR_PESSOA: (ctx) => DetalhePessoa(),
           RotasFlowRural.PERFIL_PESSOA: (ctx) => PerfilPessoa(),
           RotasFlowRural.PEDIDOS: (ctx) => PedidosView(),
+          RotasFlowRural.VISUALIZAR_MEU_ITEM: (ctx) => DetalheMeuItem(),
         },
       ),
     );
