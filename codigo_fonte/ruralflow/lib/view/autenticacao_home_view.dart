@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 import 'package:ruralflow/view/autenticacao_view.dart';
-import 'package:ruralflow/view/cad_pessoa_View.dart';
+
 import 'package:ruralflow/view/flowrural_home_view.dart';
 
 class AuthOrHomeScreen extends StatelessWidget {

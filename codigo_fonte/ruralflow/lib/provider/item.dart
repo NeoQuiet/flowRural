@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ruralflow/models/item.dart';
 import 'dart:async';
@@ -75,7 +76,7 @@ class ItemProvider with ChangeNotifier {
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
-        'id': _userId,
+        'id': Random().nextInt(9999),
         'descricao': pNovoItem.descricao,
         'quantidade': pNovoItem.quantidade,
         'valor': pNovoItem.valor,
@@ -101,8 +102,7 @@ class ItemProvider with ChangeNotifier {
     final response = await http.get("$_baseUrl.json");
     Map<String, dynamic> data = json.decode(response.body);
 
-    _todosItens.clear();
-    if (data != null) {
+    if (data != null || data == null) {
       data.forEach((itemId, itemDados) {
         _todosItens.add(Item(
           id: itemId,
@@ -126,8 +126,7 @@ class ItemProvider with ChangeNotifier {
       _todosItens.remove(anuncio);
       notifyListeners();
 
-      final response =
-          await http.delete("$_baseUrl/${anuncio.id}.json?auth=$_token");
+      final response = await http.delete("$_baseUrl/${anuncio.id}.json");
 
       if (response.statusCode >= 400) {
         _todosItens.insert(index, anuncio);

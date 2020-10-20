@@ -18,18 +18,11 @@ class CadAnuncioForm extends StatefulWidget {
 
 class _CadAnuncioFormState extends State<CadAnuncioForm> {
   //Definir o foco de um formulario
-  final _descricaoFocusNode = FocusNode();
+
   final _quantidadeFocusNode = FocusNode();
   final _valorFocusNode = FocusNode();
 
-  List<String> _listaTipoAnuncio = [
-    "Compra",
-    'Venda',
-    'Serviço',
-  ];
-
   ///Controladores textField tipoAnuncio
-  final _tipoAnuncioControlador = TextEditingController();
 
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();
