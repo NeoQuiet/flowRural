@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ruralflow/models/Pessoa.dart';
+import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/widgets/list_perfil.dart';
 
 class PerfilPessoa extends StatefulWidget {
@@ -25,7 +26,11 @@ class _PerfilPessoaState extends State<PerfilPessoa> {
                 color: Colors.white,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.FORM_CAD_PESSOA,
+              );
+            },
           ),
         ],
       ),

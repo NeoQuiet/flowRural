@@ -31,7 +31,7 @@ class PedidosView extends StatelessWidget {
               ),
             ],
             title: Text(
-              'Pedidos',
+              'Compras e Vendas',
             ),
           ),
           body: Column(

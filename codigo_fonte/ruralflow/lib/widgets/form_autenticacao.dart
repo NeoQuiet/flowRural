@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/exceptions/autenticacao_exceptions.dart';
+import 'package:ruralflow/models/autenticacao.dart';
 import 'package:ruralflow/provider/auth.dart';
+import 'package:ruralflow/utils/app_routes.dart';
 
 enum AutenticacaoModo { Signup, Login }
 
@@ -22,6 +24,7 @@ class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
 
   bool _isLoading = false;
 
+  final _formularioDadosUser = Map<String, Object>();
   AutenticacaoModo _autenticacaoModo = AutenticacaoModo.Login;
 
   final _passwordController = TextEditingController();
@@ -66,11 +69,16 @@ class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
           _authData["email"],
           _authData["password"],
         );
+        Navigator.of(context).pushNamed(
+          RotasFlowRural.BUSCAR,
+        );
       } else {
         await auth.signup(
           _authData["email"],
           _authData["password"],
         );
+        _showErrorDialog('Cadastrado');
+        _salvarUsuario();
       }
     } on AutenticacaoException catch (error) {
       _showErrorDialog(error.toString());
@@ -94,88 +102,104 @@ class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
     }
   }
 
+  void _salvarUsuario() {
+    //instância de um novo anuncio com os dados do formulario
+
+    final novoUsuario = Autenticacao(
+      id: _formularioDadosUser['id'],
+      email: _authData['email'],
+      senha: _authData['password'],
+    );
+    //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
+    //que valida os campos antes de salvar
+
+    //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
+    Provider.of<Auth>(context, listen: false).adicionarUsuarioAuth(
+      novoUsuario,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
 
-    return Card(
-      elevation: 8.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Container(
-        height: _autenticacaoModo == AutenticacaoModo.Login ? 290 : 371,
-        width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formulario,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'E-mail'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
-                    return "Informe um e-mail válido!";
-                  }
-                  return null;
-                },
-                onSaved: (value) => _authData['email'] = value,
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Senha'),
-                controller: _passwordController,
-                obscureText: true,
-                validator: (value) {
-                  if (value.isEmpty || value.length < 5) {
-                    return "Informe uma senha válida!";
-                  }
-                  return null;
-                },
-                onSaved: (value) => _authData['password'] = value,
-              ),
-              if (_autenticacaoModo == AutenticacaoModo.Signup)
+    return Opacity(
+      opacity: 0.8,
+      child: Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          height: _autenticacaoModo == AutenticacaoModo.Login ? 290 : 371,
+          width: deviceSize.width * 0.75,
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: _formulario,
+            child: Column(
+              children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                  decoration: InputDecoration(labelText: 'E-MAIL'),
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(color: Colors.black),
+                  validator: (value) {
+                    if (value.isEmpty || !value.contains('@')) {
+                      return "Informe um e-mail válido!";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _authData['email'] = value,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'SENHA'),
+                  controller: _passwordController,
                   obscureText: true,
-                  validator: _autenticacaoModo == AutenticacaoModo.Signup
-                      ? (value) {
-                          if (value != _passwordController.text) {
-                            return "Senha são diferentes!";
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 5) {
+                      return "Informe uma senha válida!";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _authData['password'] = value,
+                ),
+                if (_autenticacaoModo == AutenticacaoModo.Signup)
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Confirmar Senha'),
+                    obscureText: true,
+                    validator: _autenticacaoModo == AutenticacaoModo.Signup
+                        ? (value) {
+                            if (value != _passwordController.text) {
+                              return "Senha são diferentes!";
+                            }
+                            return null;
                           }
-                          return null;
-                        }
-                      : null,
-                ),
-              Spacer(),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                        : null,
                   ),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Theme.of(context).primaryTextTheme.button.color,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30.0,
-                    vertical: 8.0,
+                Spacer(),
+                if (_isLoading)
+                  CircularProgressIndicator()
+                else
+                  FlatButton(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 8.0,
+                    ),
+                    child: Text(
+                      _autenticacaoModo == AutenticacaoModo.Login
+                          ? 'ENTRAR'
+                          : 'REGISTRAR',
+                    ),
+                    onPressed: _submeter,
                   ),
+                FlatButton(
+                  onPressed: _trocarModoLogin,
                   child: Text(
-                    _autenticacaoModo == AutenticacaoModo.Login
-                        ? 'ENTRAR'
-                        : 'REGISTRAR',
+                    " ${_autenticacaoModo == AutenticacaoModo.Login ? 'REGISTRAR' : 'ENTRAR'}",
                   ),
-                  onPressed: _submeter,
-                ),
-              FlatButton(
-                onPressed: _trocarModoLogin,
-                child: Text(
-                  " ${_autenticacaoModo == AutenticacaoModo.Login ? 'REGISTRAR' : 'ENTRAR'}",
-                ),
-                textColor: Colors.green,
-              )
-            ],
+                  textColor: Colors.blue,
+                )
+              ],
+            ),
           ),
         ),
       ),

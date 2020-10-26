@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/widgets/list_cad_lojas.dart';
+import 'package:ruralflow/widgets/list_perfil_video.dart';
+import 'package:ruralflow/widgets/list_usuario.dart';
 import '../provider/pessoa.dart';
 import '../widgets/drawer.dart';
 import '../widgets/list_cad_anuncio.dart';
@@ -34,7 +36,7 @@ class LojasView extends StatelessWidget {
               ),
             ],
             title: Text(
-              'Buscar',
+              'Buscar ',
             ),
           ),
           body: _futureBuilder(context),
@@ -84,9 +86,7 @@ _futureBuilder(context) {
               itemCount: pessoas.totalPessoa,
               itemBuilder: (ctx, i) => Column(
                 children: [
-                  ListCadLoja(
-                    pessoas.todasPessoas[i],
-                  ),
+                  ListaUsuarioVideo(),
                   Divider(
                     color: Colors.black,
                   ),

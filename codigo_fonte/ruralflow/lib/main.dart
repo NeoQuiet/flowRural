@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ruralflow/models/autenticacao.dart';
+import 'package:ruralflow/models/endereco.dart';
 import 'package:ruralflow/provider/anuncio_provider.dart';
 import 'package:ruralflow/provider/auth.dart';
 import 'package:ruralflow/provider/item.dart';
@@ -8,11 +10,14 @@ import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/view/anuncios_view.dart';
 
 import 'package:ruralflow/view/autenticacao_home_view.dart';
+import 'package:ruralflow/view/autenticacao_view.dart';
 import 'package:ruralflow/view/busca_view.dart';
+import 'package:ruralflow/view/cartao_pessoa.dart';
 import 'package:ruralflow/view/detalhe_item.dart';
 import 'package:ruralflow/view/detalhe_pessoa.dart';
 
 import 'package:ruralflow/view/flowrural_home_view.dart';
+import 'package:ruralflow/widgets/list_usuario.dart';
 
 import 'package:ruralflow/view/lojas_view.dart';
 import 'package:ruralflow/view/notificacao_vieww.dart';
@@ -23,8 +28,9 @@ import 'package:ruralflow/view/visualizar_meuitem.dart';
 
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_itens.dart';
-import 'package:ruralflow/widgets/form_cad_oferta.dart';
+
 import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
+
 import './view/cad_pessoa_View.dart';
 
 void main() => runApp(MyApp());
@@ -38,6 +44,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => new Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Autenticacao(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Endereco(),
         ),
         ChangeNotifierProvider(
           create: (_) => new ItemProvider(),
@@ -71,12 +83,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           RotasFlowRural.BUSCAR: (ctx) => BuscaView(),
-          RotasFlowRural.AUTENTICACAO_HOME: (ctx) => AuthOrHomeScreen(),
+          RotasFlowRural.AUTENTICACAO_HOME: (ctx) => AutenticacaoView(),
           RotasFlowRural.HOME: (ctx) => HomeFlowRural(),
           RotasFlowRural.NOTIFICACOES: (ctx) => NotificacaoView(),
           RotasFlowRural.FORM_CAD_ANUNCIO: (ctx) => CadAnuncioForm(),
           RotasFlowRural.FORM_CAD_PESSOA: (ctx) => CadPessoaForm(),
-          RotasFlowRural.FORM_CAD_OFERTA: (ctx) => CadOfertaForm(),
           RotasFlowRural.FORM_CAD_ITEM: (ctx) => CadItemForm(),
           RotasFlowRural.PESSO_CAD_VIEW: (ctx) => CadPessoaView(),
           RotasFlowRural.LOJAS_VIEW: (ctx) => LojasView(),
@@ -87,6 +98,7 @@ class MyApp extends StatelessWidget {
           RotasFlowRural.PERFIL_PESSOA: (ctx) => PerfilPessoa(),
           RotasFlowRural.PEDIDOS: (ctx) => PedidosView(),
           RotasFlowRural.VISUALIZAR_MEU_ITEM: (ctx) => DetalheMeuItem(),
+          RotasFlowRural.VISUALIZAR_VIDEO: (ctx) => CartaoPessoa(),
           //comentario
         },
       ),

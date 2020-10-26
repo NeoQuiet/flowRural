@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ruralflow/models/endereco.dart';
 import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/pessoa.dart';
 import 'package:ruralflow/utils/app_routes.dart';
@@ -18,40 +19,70 @@ class CadPessoaForm extends StatefulWidget {
 
 class _CadPessoaFormState extends State<CadPessoaForm> {
   //Definir o foco de um formulario
-  final _nomeFocusNode = FocusNode();
-  final _enderecoFocusNode = FocusNode();
-  final _telefoneFocusNode = FocusNode();
 
   //instancia para ter acesso aos valores dos formularios
   final _formulario = GlobalKey<FormState>();
+  final _formularioEnd = GlobalKey<FormState>();
+  final _formularioUser = GlobalKey<FormState>();
   //fomrulardariotdata
   final _formularioDados = Map<String, Object>();
-
+  final _formularioDadosEnd = Map<String, Object>();
+  final _formularioDadosUser = GlobalKey<FormState>();
   //metodo que permite salvar os dados de um formulario
-  void _salvarFormulario() {
+  void _salvarFormularioPessoa() {
     _formulario.currentState.save();
 
     //instância de um novo anuncio com os dados do formulario
     final novaPessoa = Pessoa(
+      imagem: _formularioDados['imagem'],
       nome: _formularioDados['nome'],
-      endereco: _formularioDados['endereco'],
+      sobrenome: _formularioDados['sobrenome'],
+      idEndereco: _formularioDadosEnd['idEndereco'],
+      telefone2: _formularioDados['telefone2'],
+      cpfcpnj: _formularioDados['cpfcnpj'],
       telefone: _formularioDados['telefone'],
+    );
+
+    //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
+    //que valida os campos antes de salvar
+
+    //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
+    Provider.of<Pessoas>(context, listen: false)
+        .adicionarPessoaEndereco(novaPessoa);
+  }
+
+  void _salvarFormularioEndereco() {
+    //instância de um novo anuncio com os dados do formulario
+
+    final novoEndereco = Endereco(
+      logradouro: _formularioDadosEnd['logradouro'],
+      cidade: _formularioDadosEnd['cidade'],
+      estado: _formularioDadosEnd['estado'],
     );
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
 
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<Pessoas>(context, listen: false)
-        .adicionarPessoaBancoLista(novaPessoa);
+        .adicionarEndereco(novoEndereco);
+  }
+
+  void _salvarUsuarioPessoa() {
+    //instância de um novo anuncio com os dados do formulario
+
+    final usuarioPessoa = UsuarioPessoa();
+    //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
+    //que valida os campos antes de salvar
+
+    //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
+    Provider.of<Pessoas>(context, listen: false)
+        .adicionarUsuarioPessoa(usuarioPessoa);
   }
 
   //evitar limite de uso de memoria
   @override
   void dispose() {
     super.dispose();
-    _nomeFocusNode.dispose();
-    _enderecoFocusNode.dispose();
-    _telefoneFocusNode.dispose();
   }
 
   @override
@@ -62,7 +93,8 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
           IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                _salvarFormulario();
+                _salvarFormularioPessoa();
+                _salvarFormularioEndereco();
               })
         ],
         title: Text('Cadastro Próprio'),
@@ -73,13 +105,26 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Nome do estabelecimento',
+                hintText: 'IMAGEM (OPCIONAL)',
               ),
               //maximo de linhas
               maxLines: 1,
               onFieldSubmitted: (_) {
                 //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
-                FocusScope.of(context).requestFocus(_enderecoFocusNode);
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['imagem'] = valor,
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'NOME',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
               },
               //comando que permite salvar os formularios
               onSaved: (valor) => _formularioDados['nome'] = valor,
@@ -88,27 +133,86 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Endereco',
+                hintText: 'SOBRENOME',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['sobrenome'] = valor,
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'CPF/CNPJ',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['cpfcnpj'] = valor,
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'LOGRADOURO',
               ),
               //maximo de linhas
               maxLines: 1,
               //define o foco da linha
-              focusNode: _enderecoFocusNode,
+
               keyboardType: TextInputType.multiline,
 
               onFieldSubmitted: (_) {
                 //Esta associado ao foco da proxima linha 'quantidade', permite mudar para a proxima linha
-                FocusScope.of(context).requestFocus(_telefoneFocusNode);
               },
               //comando que permite salvar os formularios
-              onSaved: (valor) => _formularioDados['endereco'] = valor,
+              onSaved: (valor) => _formularioDadosEnd['logradouro'] = valor,
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'Telefone',
+                hintText: 'CIDADE',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              //define o foco da linha
+
+              keyboardType: TextInputType.multiline,
+
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'quantidade', permite mudar para a proxima linha
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDadosEnd['cidade'] = valor,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'ESTADO',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              //define o foco da linha
+
+              keyboardType: TextInputType.multiline,
+
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'quantidade', permite mudar para a proxima linha
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDadosEnd['estado'] = valor,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'TELEFONE PRINCIPAL',
               ),
               //define o foco da linha
-              focusNode: _telefoneFocusNode,
+
               //adiciona o botão para pular de linha
               textInputAction: TextInputAction.next,
               //adiciona o teclado numerico
@@ -119,6 +223,20 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
               //comando que permite salvar os formularios
               onSaved: (valor) => _formularioDados['telefone'] = valor,
             ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'TELEFONE (OPCIONAL)',
+              ),
+              //maximo de linhas
+              maxLines: 1,
+              onFieldSubmitted: (_) {
+                //Esta associado ao foco da proxima linha 'descricao', permite mudar para a proxima linha
+              },
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['telefone2'] = valor,
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -127,15 +245,9 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
                 ),
                 child: RaisedButton(
                   onPressed: () {
-                    _salvarFormulario();
-                    FirebaseFirestore.instance
-                        .collection('pessoa')
-                        .snapshots()
-                        .listen((querySnapshot) {
-                      querySnapshot.docs.forEach((element) {
-                        print(element);
-                      });
-                    });
+                    _salvarFormularioPessoa();
+                    _salvarFormularioEndereco();
+                    _salvarUsuarioPessoa();
                   },
                   child: Text(
                     'Cadastrar',

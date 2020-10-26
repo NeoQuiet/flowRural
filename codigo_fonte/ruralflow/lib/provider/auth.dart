@@ -3,31 +3,36 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ruralflow/exceptions/autenticacao_exceptions.dart';
+import 'package:ruralflow/models/autenticacao.dart';
+import 'package:ruralflow/utils/app_routes.dart';
+import 'package:ruralflow/utils/constante.dart';
 
 import 'package:ruralflow/utils/store.dart';
 
 class Auth with ChangeNotifier {
   String _userId;
   String _token;
-  DateTime _expiryDate;
-  Timer _logoutTimer;
+
+  List<Autenticacao> _todosAuth = [];
+//função que retorna os dados da lista de anuncios
+  List<Autenticacao> get todasAuths => [..._todosAuth];
+  final String _baseUrlAuth = '${Constants.API_URL}/usuario';
+
+//metodo reponsavel por pegar tamanho dos anuncios
+  int get totalAuth {
+    return _todosAuth.length;
+  }
 
   bool get isAuth {
     return token != null;
   }
 
   String get userId {
-    return isAuth ? _userId : null;
+    return _userId;
   }
 
   String get token {
-    if (_token != null &&
-        _expiryDate != null &&
-        _expiryDate.isAfter(DateTime.now())) {
-      return _token;
-    } else {
-      return null;
-    }
+    return _token;
   }
 
   Future<void> _authenticate(
@@ -50,19 +55,12 @@ class Auth with ChangeNotifier {
     } else {
       _token = responseBody["idToken"];
       _userId = responseBody["localId"];
-      _expiryDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(responseBody["expiresIn"]),
-        ),
-      );
 
       Store.saveMap('userData', {
         "token": _token,
         "userId": _userId,
-        "expiryDate": _expiryDate.toIso8601String(),
       });
 
-      _autoLogout();
       notifyListeners();
     }
 
@@ -77,48 +75,28 @@ class Auth with ChangeNotifier {
     return _authenticate(email, password, "signInWithPassword");
   }
 
-  Future<void> tryAutoLogin() async {
-    if (isAuth) {
-      return Future.value();
-    }
-
-    final userData = await Store.getMap('userData');
-    if (userData == null) {
-      return Future.value();
-    }
-
-    final expiryDate = DateTime.parse(userData["expiryDate"]);
-
-    if (expiryDate.isBefore(DateTime.now())) {
-      return Future.value();
-    }
-
-    _userId = userData["userId"];
-    _token = userData["token"];
-    _expiryDate = expiryDate;
-
-    _autoLogout();
-    notifyListeners();
-    return Future.value();
-  }
-
-  void logout() {
+  void logout(context) {
     _token = null;
     _userId = null;
-    _expiryDate = null;
-    if (_logoutTimer != null) {
-      _logoutTimer.cancel();
-      _logoutTimer = null;
-    }
+
     Store.remove('userData');
     notifyListeners();
+    Navigator.of(context).pushNamed(
+      RotasFlowRural.AUTENTICACAO_HOME,
+    );
   }
 
-  void _autoLogout() {
-    if (_logoutTimer != null) {
-      _logoutTimer.cancel();
-    }
-    final timeToLogout = _expiryDate.difference(DateTime.now()).inSeconds;
-    _logoutTimer = Timer(Duration(seconds: timeToLogout), logout);
+  Future<void> adicionarUsuarioAuth(
+    Autenticacao authe,
+  ) async {
+    final response = await http.post(
+      "$_baseUrlAuth.json?",
+      body: json.encode({
+        'id': _userId,
+        'token': authe.token,
+        'email': authe.email,
+        'senha': authe.senha,
+      }),
+    );
   }
 }

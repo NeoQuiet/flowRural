@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ruralflow/models/autenticacao.dart';
 import 'package:ruralflow/provider/auth.dart';
 import '../utils/app_routes.dart';
 
@@ -56,7 +57,7 @@ class AppDrawer extends StatelessWidget {
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Sair'),
                 onTap: () {
-                  Provider.of<Auth>(context, listen: false).logout();
+                  Provider.of<Auth>(context, listen: false).logout(context);
                 },
               ),
             ],
@@ -65,20 +66,22 @@ class AppDrawer extends StatelessWidget {
       ),
     );
   }
-}
 
-_drawer() {
-  return UserAccountsDrawerHeader(
-    accountName: Text('Caio Rodrigo '),
-    accountEmail: Text('caio@flowrural.com.br'),
-    decoration: BoxDecoration(
-      color: Colors.green,
-    ),
-    otherAccountsPictures: [
-      Image.asset(
-        'assets/images/pessoaicone.jpg',
-        scale: 15,
-      )
-    ],
-  );
+  _drawer() {
+    Autenticacao usuario;
+
+    return UserAccountsDrawerHeader(
+      accountName: Text('emailpessoa'),
+      accountEmail: Text('caio@flowrural.com.br'),
+      decoration: BoxDecoration(
+        color: Colors.green,
+      ),
+      otherAccountsPictures: [
+        Image.asset(
+          'assets/images/pessoaicone.jpg',
+          scale: 15,
+        )
+      ],
+    );
+  }
 }

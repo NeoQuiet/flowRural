@@ -1,6 +1,6 @@
 class RotasFlowRural {
-  static const BUSCAR = '/';
-  static const AUTENTICACAO_HOME = '/home2';
+  static const AUTENTICACAO_HOME = '/';
+  static const BUSCAR = '/home';
   static const HOME = '/home1';
   static const ANUNCIO_GERENCIA = '/anuncio-gerencia';
   static const ANUNCIO_DETALHE = '/anuncio-detalhe';
@@ -20,4 +20,5 @@ class RotasFlowRural {
   static const PERFIL_PESSOA = '/perfil-pessoa';
   static const PEDIDOS = '/pedidos';
   static const VISUALIZAR_MEU_ITEM = '/visualizar-meu-item';
+  static const VISUALIZAR_VIDEO = '/visualizar-video';
 }

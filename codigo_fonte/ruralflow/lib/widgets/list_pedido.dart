@@ -19,8 +19,12 @@ class ListPedidos extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Image.asset('assets/images/lojaicone.png'),
           ),
-          title: Text('Boi para reprodução'),
-          subtitle: Text('Compra'),
+          title: Text(
+            'Boi para reprodução',
+            maxLines: 3,
+          ),
+          isThreeLine: true,
+          subtitle: Text('Compra\nCaio Rodrigo\n07-02-2020'),
           onTap: () {},
           trailing: Container(
             margin: EdgeInsets.all(5),
@@ -40,7 +44,7 @@ class ListPedidos extends StatelessWidget {
             child: Image.asset('assets/images/lojaicone.png'),
           ),
           title: Text('Boi para abate'),
-          subtitle: Text('Venda'),
+          subtitle: Text('Venda\nCaio Rodrigo\n08-02-2020'),
           onTap: () {},
           trailing: Container(
             margin: EdgeInsets.all(5),

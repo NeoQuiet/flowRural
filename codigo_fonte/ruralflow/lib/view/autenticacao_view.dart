@@ -16,10 +16,11 @@ class AutenticacaoView extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Colors.green,
+              image: DecorationImage(
+                image: AssetImage('assets/images/auth2.jpg'),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Container(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -30,12 +31,15 @@ class AutenticacaoView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 50),
                   transform: Matrix4.rotationZ(0 * pi / 180),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(2),
                   ),
                   child: Text(
-                    'Flow Rural',
-                    style:
-                        TextStyle(fontSize: 45, fontFamily: 'Times New Roman'),
+                    'FLOW RURAL',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      backgroundColor: Colors.black,
+                    ),
                   ),
                 ),
                 AutenticacaoCartao(),
