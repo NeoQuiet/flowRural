@@ -43,10 +43,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => new Auth(),
+          create: (_) => new Autenticacao(),
         ),
         ChangeNotifierProvider(
-          create: (_) => new Autenticacao(),
+          create: (_) => new Auth(),
         ),
         ChangeNotifierProvider(
           create: (_) => new Endereco(),

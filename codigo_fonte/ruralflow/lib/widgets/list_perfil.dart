@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ruralflow/models/Pessoa.dart';
 
 class VisualizaPerfilPessoa extends StatelessWidget {
-  final Pessoa pessoa;
-
-  VisualizaPerfilPessoa(this.pessoa);
-
   @override
   Widget build(BuildContext context) {
+    final Pessoa pessoa = ModalRoute.of(context).settings.arguments as Pessoa;
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -33,7 +31,7 @@ class VisualizaPerfilPessoa extends StatelessWidget {
             color: Colors.black,
           ),
           Text(
-            ' Caio Rodrigo Cardoso Peixoto',
+            'pessoa.nome',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,

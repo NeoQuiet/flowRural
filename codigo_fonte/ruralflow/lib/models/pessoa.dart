@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruralflow/utils/constante.dart';
 
 class Pessoa with ChangeNotifier {
   final String id;
@@ -20,6 +21,4 @@ class Pessoa with ChangeNotifier {
     this.telefone,
     this.idEndereco,
   });
-
-  get endereco {}
 }

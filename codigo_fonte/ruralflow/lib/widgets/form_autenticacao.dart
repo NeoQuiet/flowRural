@@ -77,7 +77,7 @@ class _AutenticacaoCartaoState extends State<AutenticacaoCartao> {
           _authData["email"],
           _authData["password"],
         );
-        _showErrorDialog('Cadastrado');
+
         _salvarUsuario();
       }
     } on AutenticacaoException catch (error) {

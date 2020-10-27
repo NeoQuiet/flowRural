@@ -30,7 +30,8 @@ class ItemProvider with ChangeNotifier {
   }
 
   //instancia que aponta para a coleção no banco
-  final String _baseUrl = '${Constants.API_URL}/produto';
+  final String _baseUrl = '${Constants.API_URL}/itens';
+  final String _baseUrlItemPessoa = '${Constants.API_URL}/itempessoa';
 
   //cria lista contendo todos os anuncios sem provedor
   List<Item> _todosItens = [];
@@ -49,17 +50,18 @@ class ItemProvider with ChangeNotifier {
     final response = await http.post(
       "$_baseUrl.json",
       body: json.encode({
-        'id': Random().nextInt(999),
+        'item': pNovoItem.item,
         'descricao': pNovoItem.descricao,
         'quantidade': pNovoItem.quantidade,
         'valor': pNovoItem.valor,
         'imagem': pNovoItem.imagem,
         'ativo': pNovoItem.ativo,
-        'dtCadastro': pNovoItem.dtCadastro,
+        'dtCadastro': DateTime.now().toString(),
       }),
     );
     _todosItens.add(Item(
       id: json.decode(response.body),
+      item: pNovoItem.item,
       descricao: pNovoItem.descricao,
       quantidade: pNovoItem.quantidade,
       valor: pNovoItem.valor,
@@ -106,6 +108,7 @@ class ItemProvider with ChangeNotifier {
       data.forEach((itemId, itemDados) {
         _todosItens.add(Item(
           id: itemId,
+          item: itemDados['item'],
           descricao: itemDados['descricao'],
           valor: itemDados['valor'],
           quantidade: itemDados['quantidade'],
@@ -156,4 +159,25 @@ class ItemProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> adicionarItemPessoa(
+    ItemPessoa itemPessoa,
+  ) async {
+    final response = await http.post(
+      "$_baseUrlItemPessoa.json?",
+      body: json.encode({
+        'id': Random().nextDouble(),
+        'idItem': itemPessoa.idItem,
+        'idPessoa': _userId,
+        'dtAlteracao': DateTime.now().toString(),
+      }),
+    );
+  }
+}
+
+class ItemPessoa {
+  String id;
+  String idItem;
+  String idPessoa;
+  String dtAlteracao;
 }

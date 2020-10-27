@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/models/pessoa.dart';
-import 'package:ruralflow/provider/item.dart';
 
 class VisualizaItem extends StatelessWidget {
   final Item item;

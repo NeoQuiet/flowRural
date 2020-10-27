@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:ruralflow/models/item.dart';
-import 'package:ruralflow/models/pessoa.dart';
-import 'package:ruralflow/provider/item.dart';
 
 class VisualizaMeuItem extends StatelessWidget {
   final Item item;
@@ -19,11 +15,11 @@ class VisualizaMeuItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            color: Colors.deepOrange,
+            color: Colors.black,
             height: 200,
             width: double.infinity,
             child: Image.asset(
-              'assets/images/queijocaipira.jpg',
+              'assets/images/imagemnaodisponivel.jpg',
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -31,17 +27,7 @@ class VisualizaMeuItem extends StatelessWidget {
             color: Colors.grey,
           ),
           Text(
-            ' ${item.descricao}',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-          Divider(
-            color: Colors.grey,
-          ),
-          Text(
-            'Complemento: Meu produto',
+            ' ${item.item}',
             style: TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -53,6 +39,21 @@ class VisualizaMeuItem extends StatelessWidget {
           Container(
             child: Column(
               children: [
+                Row(
+                  children: [
+                    Text(
+                      '${item.descricao}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                      maxLines: 3,
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
                 Row(
                   children: [
                     Text(
@@ -84,7 +85,7 @@ class VisualizaMeuItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Ativo:  Sim',
+                      '${item.ativo}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -132,7 +133,7 @@ _btn1(context) {
   return FlatButton(
     onPressed: () {},
     child: Text(
-      'Inativar',
+      'Excluir',
       style: TextStyle(color: Colors.white),
     ),
     color: Colors.red,

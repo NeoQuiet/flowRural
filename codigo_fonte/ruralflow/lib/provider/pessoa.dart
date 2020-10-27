@@ -26,17 +26,15 @@ class Pessoas with ChangeNotifier {
   ]);
   //cria lista contendo todos os anuncios sem provedor
   List<Pessoa> _todasPessoas = [];
+  List<UsuarioPessoa> _usuarioPessoa = [];
   List<Endereco> _todosEnderecos = [];
 //função que retorna os dados da lista de anuncios
   List<Pessoa> get todasPessoas => [..._todasPessoas];
+  List<UsuarioPessoa> get usuarioPessoa => [..._usuarioPessoa];
   List<Endereco> get todosEnderecos => [..._todosEnderecos];
 //metodo reponsavel por pegar tamanho dos anuncios
   int get totalPessoa {
     return _todasPessoas.length;
-  }
-
-  String pessoaId(Pessoa pessoa) {
-    return pessoa.id;
   }
 
   int get totalEndereco {

@@ -45,13 +45,14 @@ class _CadItemFormState extends State<CadItemForm> {
 
     //instância de um novo anuncio com os dados do formulario
     final novoItem = Item(
-        id: _formularioDados['id'],
-        descricao: _formularioDados['descricao'],
-        valor: _formularioDados['valor'],
-        quantidade: _formularioDados['quantidade'],
-        imagem: _formularioDados['imagem'],
-        ativo: _formularioDados['ativo'],
-        dtCadastro: _formularioDados['dtCadastro']);
+      id: _formularioDados['id'],
+      item: _formularioDados['item'],
+      descricao: _formularioDados['descricao'],
+      valor: _formularioDados['valor'],
+      quantidade: _formularioDados['quantidade'],
+      imagem: _formularioDados['imagem'],
+      ativo: _formularioDados['ativo'],
+    );
 
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
     //que valida os campos antes de salvar
@@ -59,7 +60,24 @@ class _CadItemFormState extends State<CadItemForm> {
     //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
     Provider.of<ItemProvider>(context, listen: false)
         .adicionarItemBanco(novoItem);
+    Provider.of<ItemProvider>(context, listen: false).updateProduct(
+      novoItem,
+    );
     Navigator.of(context).pop();
+    dispose();
+  }
+
+  void _salvarPessoaItem() {
+    //instância de um novo anuncio com os dados do formulario
+    final itemPessoa = ItemPessoa();
+
+    //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
+    //que valida os campos antes de salvar
+
+    //só é possivel uasar o provider fora da arvore de widget se o listener estiver desativado:false
+    Provider.of<ItemProvider>(context, listen: false)
+        .adicionarItemPessoa(itemPessoa);
+    dispose();
   }
 
   //evitar limite de uso de memoria
@@ -78,13 +96,17 @@ class _CadItemFormState extends State<CadItemForm> {
         key: _formulario,
         child: ListView(
           children: [
+            _campoItem(),
+            Divider(
+              color: Colors.black,
+            ),
             _campoDescricao(),
+            Divider(color: Colors.black),
             _textFormFieldQuantidade(),
             _textFormFieldValor(),
             Divider(),
             _campoImagem(),
             _campoAnuncioAtivo(),
-            _campoDtCadastro(),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -94,6 +116,7 @@ class _CadItemFormState extends State<CadItemForm> {
                 child: RaisedButton(
                   onPressed: () {
                     _salvarFormulario();
+                    _salvarPessoaItem();
                   },
                   child: Text(
                     'Cadastrar',
@@ -117,6 +140,21 @@ class _CadItemFormState extends State<CadItemForm> {
 
       //comand que permite salvar os formularios
       onSaved: (valor) => _formularioDados['imagem'] = valor,
+      //adiciona o botão para pular de linha
+      textInputAction: TextInputAction.next,
+    );
+  }
+
+  _campoItem() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        hintText: 'Descreva seu anuncio...  ',
+      ),
+      //maximo de linhas
+      maxLines: 1,
+
+      //comand que permite salvar os formularios
+      onSaved: (valor) => _formularioDados['item'] = valor,
       //adiciona o botão para pular de linha
       textInputAction: TextInputAction.next,
     );
@@ -177,30 +215,15 @@ class _CadItemFormState extends State<CadItemForm> {
   _campoDescricao() {
     return TextFormField(
       decoration: const InputDecoration(
-        hintText: 'Descrição ',
+        hintText: 'Informações adicionais ',
       ),
       //maximo de linhas
-      maxLines: 1,
+      maxLines: 5,
       //comand que permite salvar os formularios
 
       //adiciona o botão para pular de linha
       textInputAction: TextInputAction.next,
       onSaved: (valor) => _formularioDados['descricao'] = valor,
-    );
-  }
-
-  _campoDtCadastro() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        hintText: 'Data Cadastro ',
-      ),
-      //maximo de linhas
-      maxLines: 1,
-      //comand que permite salvar os formularios
-
-      //adiciona o botão para pular de linha
-      textInputAction: TextInputAction.next,
-      onSaved: (valor) => _formularioDados['dtCadastro'] = valor,
     );
   }
 }

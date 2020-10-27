@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/autenticacao.dart';
+import 'package:ruralflow/models/pessoa.dart';
 import 'package:ruralflow/provider/auth.dart';
+import 'package:ruralflow/provider/pessoa.dart';
 import '../utils/app_routes.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -57,7 +59,9 @@ class AppDrawer extends StatelessWidget {
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Sair'),
                 onTap: () {
-                  Provider.of<Auth>(context, listen: false).logout(context);
+                  Navigator.of(context).pushNamed(
+                    RotasFlowRural.AUTENTICACAO_HOME,
+                  );
                 },
               ),
             ],
@@ -84,4 +88,10 @@ class AppDrawer extends StatelessWidget {
       ],
     );
   }
+}
+
+_body2(context) {
+  final pessoas = Provider.of<Pessoas>(context);
+  final pessoa = pessoas;
+  return Container();
 }

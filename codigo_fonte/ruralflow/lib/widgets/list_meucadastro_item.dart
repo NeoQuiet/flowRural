@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/models/item.dart';
 
+import 'package:ruralflow/models/item.dart';
 import 'package:ruralflow/provider/item.dart';
+
 import 'package:ruralflow/utils/app_routes.dart';
 
 class ListMeuCadItem extends StatelessWidget {
@@ -21,18 +22,32 @@ class ListMeuCadItem extends StatelessWidget {
     // lista em forma tijolo
     return Column(
       children: <Widget>[
+        Divider(
+          color: Colors.black,
+        ),
         Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
-                'assets/images/queijocaipira.jpg',
+                'assets/images/imagemnaodisponivel.jpg',
                 fit: BoxFit.cover,
               ),
             ),
-            title: Text(itens.descricao),
-            subtitle: Text(itens.ativo),
+            title: Text(
+              '${itens.item}',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            subtitle: Text(
+              '${itens.descricao}\n${itens.ativo}\nR\$${itens.valor}',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            isThreeLine: true,
             onTap: () {
               Navigator.of(context).pushNamed(
                   RotasFlowRural.VISUALIZAR_MEU_ITEM,
@@ -50,7 +65,7 @@ class ListMeuCadItem extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(
-                          RotasFlowRural.FORM_CAD_ANUNCIO,
+                          RotasFlowRural.FORM_CAD_ITEM,
                           arguments: itens);
                     },
                   ),
@@ -96,6 +111,7 @@ class ListMeuCadItem extends StatelessWidget {
                       );
                     },
                   ),
+                  Divider(),
                 ],
               ),
             ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/item.dart';
 import 'package:ruralflow/provider/item.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 class ListaPerfil extends StatelessWidget {
   Item itens;
@@ -47,7 +49,7 @@ class ListaPerfil extends StatelessWidget {
             tileColor: Colors.green,
             title: Text('Queijo Caipira'),
             subtitle: Text(
-              'Valor: R\$3,50\nQtde: Sob encomenda\nDisponível',
+              'Valor: R\$3,50\nSob encomenda\nDisponível',
               maxLines: 3,
             ),
             isThreeLine: true,
@@ -63,33 +65,7 @@ class ListaPerfil extends StatelessWidget {
                       color: Colors.red,
                     ),
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: Text('Notificar compra'),
-                          content: Text('Tem certeza?'),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Não'),
-                              onPressed: () => Navigator.of(context).pop(false),
-                            ),
-                            FlatButton(
-                              child: Text('Sim'),
-                              onPressed: () => Navigator.of(context).pop(true),
-                            ),
-                          ],
-                        ),
-                      ).then(
-                        (value) async {
-                          if (value) {
-                            try {
-                              await Provider.of<ItemProvider>(context,
-                                      listen: false)
-                                  .delete(itens.id);
-                            } on HttpException catch (error) {}
-                          }
-                        },
-                      );
+                      launchWhatsApp();
                     },
                   ),
                   IconButton(
@@ -97,35 +73,7 @@ class ListaPerfil extends StatelessWidget {
                       Icons.shopping_cart_outlined,
                       color: Colors.red,
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: Text('Notificar compra'),
-                          content: Text('Tem certeza?'),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Não'),
-                              onPressed: () => Navigator.of(context).pop(false),
-                            ),
-                            FlatButton(
-                              child: Text('Sim'),
-                              onPressed: () => Navigator.of(context).pop(true),
-                            ),
-                          ],
-                        ),
-                      ).then(
-                        (value) async {
-                          if (value) {
-                            try {
-                              await Provider.of<ItemProvider>(context,
-                                      listen: false)
-                                  .delete(itens.id);
-                            } on HttpException catch (error) {}
-                          }
-                        },
-                      );
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -138,6 +86,17 @@ class ListaPerfil extends StatelessWidget {
       ),
     );
   }
+}
+
+launchWhatsApp() async {
+  final link = WhatsAppUnilink(
+    phoneNumber: '+0554384995003',
+    text: "Do flow Rural direto pra ca teste",
+  );
+  // Convert the WhatsAppUnilink instance to a string.
+  // Use either Dart's string interpolation or the toString() method.
+  // The "launch" method is part of "url_launcher".
+  await launch(link.toString());
 }
 
 _perfil() {

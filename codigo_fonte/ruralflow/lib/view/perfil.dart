@@ -34,7 +34,7 @@ class _PerfilPessoaState extends State<PerfilPessoa> {
           ),
         ],
       ),
-      body: VisualizaPerfilPessoa(pessoa),
+      body: VisualizaPerfilPessoa(),
     );
   }
 }
