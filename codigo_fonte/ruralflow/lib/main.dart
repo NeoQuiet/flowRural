@@ -28,9 +28,14 @@ import 'package:ruralflow/view/visualizar_meuitem.dart';
 
 import 'package:ruralflow/widgets/form_cad_anuncio.dart';
 import 'package:ruralflow/widgets/form_cad_itens.dart';
+<<<<<<< HEAD
 
 import 'package:ruralflow/widgets/form_cad_pessoa_widget.dart';
 
+=======
+import 'package:ruralflow/widgets/form_cad_oferta.dart';
+import 'package:ruralflow/widgets/form_cad_pessoa.dart';
+>>>>>>> 711993742512a8b42400c1f3ae6b8a8e37080ecb
 import './view/cad_pessoa_View.dart';
 
 void main() => runApp(MyApp());
@@ -54,29 +59,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => new ItemProvider(),
         ),
-        ChangeNotifierProxyProvider<Auth, ItemProvider>(
-          create: (_) => new ItemProvider(),
-          update: (ctx, auth, previousItens) => new ItemProvider(
-            auth.token,
-            auth.userId,
-            previousItens.todositens,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Anuncios>(
-          create: (_) => new Anuncios(),
-          update: (ctx, auth, previousProducts) => new Anuncios(
-            auth.token,
-            auth.userId,
-            previousProducts.todosAnuncios,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, Pessoas>(
+        ChangeNotifierProvider(
           create: (_) => new Pessoas(),
-          update: (ctx, auth, previousPessoas) => new Pessoas(
-            auth.token,
-            auth.userId,
-            previousPessoas.todasPessoas,
-          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Anuncios(),
         ),
       ],
       child: MaterialApp(

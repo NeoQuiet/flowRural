@@ -175,7 +175,7 @@ _btnAnuncios(context) {
         Icons.access_time,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, RotasFlowRural.ANUNCIO_GERENCIA);
+        Navigator.pushNamed(context, RotasFlowRural.ITENS_GERENCIA);
       });
 }
 

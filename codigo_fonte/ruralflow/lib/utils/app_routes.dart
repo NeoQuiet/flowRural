@@ -2,7 +2,7 @@ class RotasFlowRural {
   static const AUTENTICACAO_HOME = '/';
   static const BUSCAR = '/home';
   static const HOME = '/home1';
-  static const ANUNCIO_GERENCIA = '/anuncio-gerencia';
+  static const ITENS_GERENCIA = '/itens-gerencia';
   static const ANUNCIO_DETALHE = '/anuncio-detalhe';
   static const FORM_CAD_ANUNCIO = '/form-cad-anuncio';
   static const FORM_CAD_PESSOA = '/form-cad-pessoa';
@@ -12,7 +12,7 @@ class RotasFlowRural {
   static const NOTIFICACOES = '/notificacoes';
   static const FORM_CAD_PRODUTO = '/form-cad-prod';
   static const ANUNCIADOS_VIEW = '/anunciados-view';
-  static const PRODUTOS_VIEW = '/produtos-view';
+  static const ITENS_VIEW = '/itens-view';
   static const LOJAS_VIEW = '/lojas-view';
   static const VISUALIZAR = '/visualizar';
   static const VISUALIZAR_PESSOA = '/visualizar-pessoa';

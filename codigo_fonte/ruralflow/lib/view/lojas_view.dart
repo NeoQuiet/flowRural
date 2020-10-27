@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ruralflow/provider/anuncio_provider.dart';
+
 import 'package:ruralflow/utils/app_routes.dart';
 import 'package:ruralflow/widgets/list_cad_lojas.dart';
 import 'package:ruralflow/widgets/list_perfil_video.dart';

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ruralflow/models/endereco.dart';
@@ -41,6 +40,8 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
       telefone2: _formularioDados['telefone2'],
       cpfcpnj: _formularioDados['cpfcnpj'],
       telefone: _formularioDados['telefone'],
+      email: _formularioDados['email'],
+      senha: _formularioDados['senha'],
     );
 
     //antes de salvar os dados dos formularios em um novo anuncio é executada uma função
@@ -225,6 +226,7 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
+<<<<<<< HEAD:codigo_fonte/ruralflow/lib/widgets/form_cad_pessoa_widget.dart
                 hintText: 'TELEFONE (OPCIONAL)',
               ),
               //maximo de linhas
@@ -236,6 +238,37 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
               onSaved: (valor) => _formularioDados['telefone2'] = valor,
               //adiciona o botão para pular de linha
               textInputAction: TextInputAction.next,
+=======
+                hintText: 'Email',
+              ),
+              //define o foco da linha
+
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+              //adiciona o teclado numerico
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              onFieldSubmitted: (_) {},
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['email'] = valor,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'Senha',
+              ),
+              //define o foco da linha
+
+              //adiciona o botão para pular de linha
+              textInputAction: TextInputAction.next,
+              //adiciona o teclado numerico
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              onFieldSubmitted: (_) {},
+              //comando que permite salvar os formularios
+              onSaved: (valor) => _formularioDados['senha'] = valor,
+>>>>>>> 711993742512a8b42400c1f3ae6b8a8e37080ecb:codigo_fonte/ruralflow/lib/widgets/form_cad_pessoa.dart
             ),
             Center(
               child: Padding(
@@ -245,9 +278,13 @@ class _CadPessoaFormState extends State<CadPessoaForm> {
                 ),
                 child: RaisedButton(
                   onPressed: () {
+<<<<<<< HEAD:codigo_fonte/ruralflow/lib/widgets/form_cad_pessoa_widget.dart
                     _salvarFormularioPessoa();
                     _salvarFormularioEndereco();
                     _salvarUsuarioPessoa();
+=======
+                    _salvarFormulario();
+>>>>>>> 711993742512a8b42400c1f3ae6b8a8e37080ecb:codigo_fonte/ruralflow/lib/widgets/form_cad_pessoa.dart
                   },
                   child: Text(
                     'Cadastrar',

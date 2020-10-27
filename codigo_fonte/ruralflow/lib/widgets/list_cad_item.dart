@@ -27,6 +27,12 @@ class ListCadItem extends StatelessWidget {
         Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RotasFlowRural.DETALHE_ITEM,
+                arguments: itens,
+              );
+            },
             leading: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
@@ -61,16 +67,59 @@ class ListCadItem extends StatelessWidget {
                       Icons.call,
                       color: Colors.green,
                     ),
+<<<<<<< HEAD
                     onPressed: () {
                       launchWhatsApp();
                     },
+=======
+                    onPressed: () {},
+>>>>>>> 711993742512a8b42400c1f3ae6b8a8e37080ecb
                   ),
                   IconButton(
                     icon: Icon(
                       Icons.star,
                       color: Colors.orange,
                     ),
+<<<<<<< HEAD
                     onPressed: () {},
+=======
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Notificar compra'),
+                          content: Text('Tem certeza?'),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Não'),
+                              onPressed: () => Navigator.of(context).pop(false),
+                            ),
+                            FlatButton(
+                              child: Text('Sim'),
+                              onPressed: () => Navigator.of(context).pop(true),
+                            ),
+                          ],
+                        ),
+                      ).then(
+                        (value) async {
+                          if (value) {
+                            try {
+                              await Provider.of<ItemProvider>(context,
+                                      listen: false)
+                                  .delete(itens.id);
+                            } on HttpException catch (error) {
+                              scaffold.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Vendedor notificado, aguarde o contato. $error'),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      );
+                    },
+>>>>>>> 711993742512a8b42400c1f3ae6b8a8e37080ecb
                   ),
                 ],
               ),
